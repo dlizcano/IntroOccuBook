@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Simulación y analisis de ocupación</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This is an R example to get occupancy data and analize it.">
+  <meta name="generator" content="bookdown 0.1 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Simulación y analisis de ocupación" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Simulación y analisis de ocupación" />
+  
+  <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
+  
+
+<meta name="author" content="Diego J. Lizcano">
+
+<meta name="date" content="2016-07-24">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="analisis-de-ocupacion-metodo-ml.html">
+<link rel="next" href="informacion-de-la-session-de-r-y-los-paquetes-usados.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulando datos de ocupación</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="porque-simular.html"><a href="porque-simular.html"><i class="fa fa-check"></i><b>3</b> Porque simular?</a><ul>
+<li class="chapter" data-level="3.1" data-path="porque-simular.html"><a href="porque-simular.html#por-que-son-utiles-las-simulaciones"><i class="fa fa-check"></i><b>3.1</b> Por que son útiles las simulaciones:</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="la-ocupacion-de-habitat.html"><a href="la-ocupacion-de-habitat.html"><i class="fa fa-check"></i><b>4</b> La ocupación de hábitat</a></li>
+<li class="chapter" data-level="5" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html"><i class="fa fa-check"></i><b>5</b> Nuestro ejemplo:</a><ul>
+<li class="chapter" data-level="5.0.1" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#modelo-ecologico"><i class="fa fa-check"></i><b>5.0.1</b> Modelo Ecológico:</a></li>
+<li class="chapter" data-level="5.0.2" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#modelo-de-observacion"><i class="fa fa-check"></i><b>5.0.2</b> Modelo de Observación:</a></li>
+<li class="chapter" data-level="5.1" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#pasos-iniciales-tamano-de-la-muestra-y-valores-de-las-co-variables"><i class="fa fa-check"></i><b>5.1</b> Pasos iniciales: tamaño de la muestra y valores de las co-variables</a></li>
+<li class="chapter" data-level="5.2" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#simulando-el-proceso-ecologico-y-su-resultado-la-ocurrencia-del-venado"><i class="fa fa-check"></i><b>5.2</b> Simulando el proceso ecológico y su resultado: la ocurrencia del venado</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#por-que-bernoulli"><i class="fa fa-check"></i><b>5.2.1</b> Por que Bernoulli?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#simulando-el-proceso-de-observacion-y-su-resultado-la-deteccion"><i class="fa fa-check"></i><b>5.3</b> Simulando el proceso de observación y su resultado: la detección</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#uniendo-los-dos-procesos-el-ecologico-y-el-de-observacion"><i class="fa fa-check"></i><b>5.3.1</b> Uniendo los dos procesos el ecologico y el de observación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="empacando-todo-en-una-funcion-.html"><a href="empacando-todo-en-una-funcion-.html"><i class="fa fa-check"></i><b>6</b> Empacando todo en una función.</a></li>
+<li class="chapter" data-level="7" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html"><i class="fa fa-check"></i><b>7</b> Analisis de ocupación, metodo ML</a><ul>
+<li class="chapter" data-level="7.1" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#generando-los-datos"><i class="fa fa-check"></i><b>7.1</b> Generando los datos</a></li>
+<li class="chapter" data-level="7.2" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#poniendo-los-datos-en-unmarked"><i class="fa fa-check"></i><b>7.2</b> Poniendo los datos en unmarked</a></li>
+<li class="chapter" data-level="7.3" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#ajustando-los-modelos"><i class="fa fa-check"></i><b>7.3</b> Ajustando los modelos</a></li>
+<li class="chapter" data-level="7.4" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#model-selection"><i class="fa fa-check"></i><b>7.4</b> Model selection</a></li>
+<li class="chapter" data-level="7.5" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#prediccion-en-graficas-y-mapas"><i class="fa fa-check"></i><b>7.5</b> Predicción en graficas y mapas</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="analisis-bayesiano.html"><a href="analisis-bayesiano.html"><i class="fa fa-check"></i><b>8</b> Análisis Bayesiano</a><ul>
+<li class="chapter" data-level="8.1" data-path="analisis-bayesiano.html"><a href="analisis-bayesiano.html#generando-los-datos-1"><i class="fa fa-check"></i><b>8.1</b> Generando los datos</a></li>
+<li class="chapter" data-level="8.2" data-path="analisis-bayesiano.html"><a href="analisis-bayesiano.html#comparando-los-valores-reales-y-los-estimados-de-ml-y-bayesiano"><i class="fa fa-check"></i><b>8.2</b> Comparando los valores reales y los estimados de ML y Bayesiano</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="informacion-de-la-session-de-r-y-los-paquetes-usados.html"><a href="informacion-de-la-session-de-r-y-los-paquetes-usados.html"><i class="fa fa-check"></i><b>9</b> Información de la sessión de R y los paquetes usados</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulación y analisis de ocupación</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="analisis-bayesiano" class="section level1">
+<h1><span class="header-section-number">Capitulo 8</span> Análisis Bayesiano</h1>
+<p>En esta parte vamos a estimar los mismos parámetros de un modelo igual al “mejor modelo” el cual fue seleccionado en el procedimiento de selección de modelos de unmarked en el capitulo anterior. Recordemos que este modelo tiene beta1 y alpha1, alpha2, alpha3. Los parámetros que estimaremos con el método Bayesiano los vamos a comparar con los parámetros que ya estimamos con ML en unmarked y también los compararemos con los parámetros reales que definimos al establecer los datos (datos2) con la función data.fn, para ver cual de los dos métodos de estimación (ML o Bayesiano) se acerca mas a los parámetros reales.</p>
+<div id="generando-los-datos-1" class="section level2">
+<h2><span class="header-section-number">8.1</span> Generando los datos</h2>
+<p>De nuevo usaremos un diseño tipo TEAM (<a href="http://www.teamnetwork.org" class="uri">http://www.teamnetwork.org</a>) con 60 sitios de muestreo y 30 visitas repetidas, que equivalen a los 30 días en que las camaras permenecen activas en campo. Nuestra especie sigue siendo la misma, el venado de cola blanca. Para este ejemplo asumiremos que la detección es 0.6, la ocupacion 0.8 y las interacciones son sencillas con la altitud como la unica covariable que explica la ocupación. Pero para la deteccion hay una relación mas compleja, asumiendo que hay una leve interacción entre las covariables de la observación. Para la observación la altitud y temperatura interactuan entre si. Tambien observe como la altitud influye en direcciones opuestas con un signo positivo en la altitud para la detección y negativo para la ocupación.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ### Generate a new data set or use the same</span>
+<span class="co"># # ****************************************</span>
+<span class="co"># set.seed(148)</span>
+<span class="co"># data &lt;- data.fn(show.plot = T)    # Default arguments</span>
+<span class="co"># str(data)                         # Look at the object</span>
+<span class="co"># we are oing to use the data from datos2 object</span>
+
+### Fit same model with JAGS, using library jagsUI
+<span class="co"># ************************************************</span>
+<span class="co"># Bundle data</span>
+win.data &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">y =</span> datos2$y, 
+                 <span class="dt">M =</span> <span class="kw">nrow</span>(datos2$y), 
+                 <span class="dt">J =</span> <span class="kw">ncol</span>(datos2$y), 
+                 <span class="dt">elev =</span> datos2$elev, 
+                 <span class="dt">forest =</span> datos2$forest, 
+                 <span class="dt">temp =</span> datos2$temp)
+<span class="co"># str(win.data)</span>
+
+
+<span class="co"># # Specify model in BUGS language</span>
+<span class="co"># sink(&quot;model22.txt&quot;)</span>
+<span class="co"># cat(&quot;</span>
+<span class="co"># model {</span>
+<span class="co"># </span>
+<span class="co"># # Priors</span>
+<span class="co"># mean.p ~ dunif(0, 1)        # Detection intercept on prob. scale</span>
+<span class="co"># alpha0 &lt;- logit(mean.p)     # same on logit scale</span>
+<span class="co"># mean.psi ~ dunif(0, 1)      # Occupancy intercept on prob. scale</span>
+<span class="co"># beta0 &lt;- logit(mean.psi)    # same on logit scale</span>
+<span class="co"># for(k in 1:3){              # 2 detection covariates + 1 interact</span>
+<span class="co">#     alpha[k] ~ dnorm(0, 0.01) # Covariates on logit(detection)</span>
+<span class="co"># #   alpha[k] ~ dnorm(0, 0.05) # Covariates on logit(detection)</span>
+<span class="co"># #   alpha[k] ~ dunif(-10, 10) # Covariates on logit(detection)</span>
+<span class="co"># }</span>
+<span class="co"># </span>
+<span class="co"># for(k in 1:1){                # 2 occupancy covariates + 1 interact</span>
+<span class="co">#     beta[k] ~ dnorm(0, 0.01)  # Covariates on logit(occupancy)</span>
+<span class="co"># #   beta[k] ~ dnorm(0, 0.05)  # Covariates on logit(occupancy)</span>
+<span class="co"># #   beta[k] ~ dunif(-10, 10)  # Covariates on logit(occupancy)</span>
+<span class="co"># }</span>
+<span class="co"># </span>
+<span class="co"># # Translation of the occupancy parameters in unmarked into those for BUGS:</span>
+<span class="co"># # (Intercept)         (beta0 in BUGS)</span>
+<span class="co"># # elev                (beta[1])</span>
+<span class="co"># # forest              (beta[2])</span>
+<span class="co"># # temp                (beta[3])</span>
+<span class="co"># # elev:forest         (beta[4])</span>
+<span class="co"># # elev:temp           (beta[5])</span>
+<span class="co"># # forest:temp         (beta[6])</span>
+<span class="co"># # elev:forest:temp    (beta[7])</span>
+<span class="co"># </span>
+<span class="co"># </span>
+<span class="co"># # Likelihood</span>
+<span class="co"># for (i in 1:M) {</span>
+<span class="co">#   # True state model for the partially observed true state</span>
+<span class="co">#   z[i] ~ dbern(psi[i])                      # True occupancy z at site i</span>
+<span class="co">#   logit(psi[i]) &lt;- beta0 +                  # occupancy (psi) intercept</span>
+<span class="co">#     beta[1] * elev[i] #+                     # elev</span>
+<span class="co">#     #beta[2] * forest[i] #+                  # forest</span>
+<span class="co">#     #beta[3] * elev[i] * forest[i]          # elev:forest</span>
+<span class="co">#     #beta[4] * elev[i] * temp[i] +          # elev:temp</span>
+<span class="co">#     #beta[5] * temp[i] +                    # temp</span>
+<span class="co">#     #beta[6] * forest[i] * temp[i] +        # forest:temp</span>
+<span class="co">#     #beta[7] * elev[i] * forest[i] * temp[i]   # elev:forest:temp</span>
+<span class="co"># </span>
+<span class="co">#    for (j in 1:J) {</span>
+<span class="co">#       # Observation model for the actual observations</span>
+<span class="co">#       y[i,j] ~ dbern(p.eff[i,j])      # Detection-nondetection at i and j</span>
+<span class="co">#       p.eff[i,j] &lt;- z[i] * p[i,j]</span>
+<span class="co">#       logit(p[i,j]) &lt;- alpha0 +             # detection (p) intercept</span>
+<span class="co">#          alpha[1] * elev[i] +               # effect of elevation on p</span>
+<span class="co">#          alpha[2] * temp[i,j] +             # effect of temp on p</span>
+<span class="co">#          alpha[3] * elev[i] * temp[i,j]     # effect of elev:temp on p</span>
+<span class="co">#    }</span>
+<span class="co"># }</span>
+<span class="co"># </span>
+<span class="co"># # Derived quantities</span>
+<span class="co"># sumZ &lt;- sum(z[])      # Number of occupied sites among those studied</span>
+<span class="co"># occ.fs &lt;- sum(z[])/M  # proportion of occupied sites among those studied</span>
+<span class="co"># logit.psi &lt;- beta0    # For comparison with unmarked</span>
+<span class="co"># logit.p &lt;- alpha0     # For comparison with unmarked</span>
+<span class="co"># }</span>
+<span class="co"># &quot;,fill = TRUE)</span>
+<span class="co"># sink()</span>
+
+
+<span class="kw">library</span>(jagsUI)
+<span class="co"># library(R2jags)</span>
+<span class="co"># Initial values</span>
+zst &lt;-<span class="st"> </span><span class="kw">apply</span>(datos2$y, <span class="dv">1</span>, max)
+inits &lt;-<span class="st"> </span>function(){<span class="kw">list</span>(<span class="dt">z =</span> zst, 
+                         <span class="dt">mean.psi =</span> <span class="kw">runif</span>(<span class="dv">1</span>), 
+                         <span class="dt">mean.p =</span> <span class="kw">runif</span>(<span class="dv">1</span>), 
+                         <span class="dt">alpha =</span> <span class="kw">rnorm</span>(<span class="dv">3</span>), <span class="co"># adjust here</span>
+                         <span class="dt">beta =</span> <span class="kw">rnorm</span>(<span class="dv">1</span>))} <span class="co"># adjust here</span>
+
+<span class="co"># Parameters monitored</span>
+params &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sumZ&quot;</span>, <span class="st">&quot;occ.fs&quot;</span>, <span class="st">&quot;logit.psi&quot;</span>, <span class="st">&quot;logit.p&quot;</span>, <span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>)
+
+<span class="co"># MCMC settings</span>
+<span class="co"># ni &lt;- 50000   ;   nt &lt;- 10   ;   nb &lt;- 1000   ;   nc &lt;- 3</span>
+ ni &lt;-<span class="st"> </span><span class="dv">600</span>   ;   nt &lt;-<span class="st"> </span><span class="dv">1</span>   ;   nb &lt;-<span class="st"> </span><span class="dv">100</span>   ;   nc &lt;-<span class="st"> </span><span class="dv">3</span>
+
+<span class="co"># Call JAGS from R (ART 260 sec with norm(), 480 with unif(-10,10)) </span>
+<span class="co"># and summarize posteriors</span>
+<span class="kw">system.time</span>(out22 &lt;-<span class="st"> </span><span class="kw">jags</span>(win.data, inits, <span class="dt">parameters.to.save =</span> params,
+                      <span class="dt">model.file =</span> <span class="st">&quot;C:/Users/Diego/Documents/CodigoR/IntroOccupancy/model22.txt&quot;</span>, 
+                          <span class="dt">n.chains =</span> nc, 
+                          <span class="dt">n.thin =</span> nt, 
+                          <span class="dt">n.iter =</span> ni, 
+                          <span class="dt">n.burnin =</span> nb, 
+                          <span class="dt">parallel =</span> T))</code></pre></div>
+<pre><code>## 
+## Processing function input....... 
+## 
+## Done. 
+##  
+## Beginning parallel processing using 2 cores. Console output will be suppressed.
+## 
+## Parallel processing completed.
+## 
+## Calculating statistics....... 
+## 
+## Done.</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.10    0.03   33.73</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># See model diagnistics and convergence </span>
+<span class="kw">library</span>(mcmcplots)
+<span class="kw">library</span>(ggmcmc)
+fit22.mcmc &lt;-<span class="st"> </span><span class="kw">as.mcmc.list</span>(out22$samples)
+bayes.mod.fit.gg &lt;-<span class="st"> </span><span class="kw">ggs</span>(fit22.mcmc) <span class="co">#convert to ggmcmc</span>
+<span class="kw">ggs_running</span>(bayes.mod.fit.gg)<span class="co"># check if chains approach target distrib. </span></code></pre></div>
+<p><img src="Simul-Machalilla-book_files/figure-html/Bayesian-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># denplot(fit22.mcmc, parms = c(&quot;beta&quot;, </span>
+<span class="co">#                               &quot;alpha[1]&quot;, &quot;alpha[2]&quot;, &quot;alpha[3]&quot;, </span>
+<span class="co">#                               &quot;logit.psi&quot;, &quot;logit.p&quot; ))</span>
+<span class="co"># traplot(fit22.mcmc)</span>
+<span class="co"># ggs_density(bayes.mod.fit.gg)</span>
+
+<span class="kw">xyplot</span>(out22)        <span class="co"># assess within-chain convergence</span></code></pre></div>
+<p><img src="Simul-Machalilla-book_files/figure-html/Bayesian-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">densityplot</span>(out22)  <span class="co"># shape of the posterior distribution</span></code></pre></div>
+<p><img src="Simul-Machalilla-book_files/figure-html/Bayesian-3.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># see model result and estimates  </span>
+<span class="kw">print</span>(out22, <span class="dv">3</span>)</code></pre></div>
+<pre><code>## JAGS output for model &#39;C:/Users/Diego/Documents/CodigoR/IntroOccupancy/model22.txt&#39;, generated by jagsUI.
+## Estimates based on 3 chains of 600 iterations,
+## burn-in = 100 iterations and thin rate = 1,
+## yielding 1500 total samples from the joint posterior. 
+## MCMC ran in parallel for 0.559 minutes at time 2016-07-24 10:41:28.
+## 
+##               mean    sd     2.5%      50%    97.5% overlap0     f  Rhat
+## sumZ        46.029 0.167   46.000   46.000   47.000    FALSE 1.000 1.014
+## occ.fs       0.767 0.003    0.767    0.767    0.783    FALSE 1.000 1.014
+## logit.psi    1.170 0.310    0.561    1.170    1.788    FALSE 1.000 1.001
+## logit.p      0.411 0.072    0.273    0.411    0.556    FALSE 1.000 1.000
+## alpha[1]     2.155 0.150    1.872    2.151    2.487    FALSE 1.000 1.004
+## alpha[2]     0.905 0.124    0.659    0.907    1.148    FALSE 1.000 1.001
+## alpha[3]     1.686 0.248    1.211    1.685    2.174    FALSE 1.000 1.003
+## beta        -1.459 0.656   -2.820   -1.433   -0.215    FALSE 0.989 1.001
+## deviance  1589.324 3.461 1585.557 1588.375 1599.365    FALSE 1.000 1.006
+##           n.eff
+## sumZ       1206
+## occ.fs     1206
+## logit.psi  1500
+## logit.p    1500
+## alpha[1]    490
+## alpha[2]   1500
+## alpha[3]    600
+## beta       1482
+## deviance    618
+## 
+## Successful convergence based on Rhat values (all &lt; 1.1). 
+## Rhat is the potential scale reduction factor (at convergence, Rhat=1). 
+## For each parameter, n.eff is a crude measure of effective sample size. 
+## 
+## overlap0 checks if 0 falls in the parameter&#39;s 95% credible interval.
+## f is the proportion of the posterior with the same sign as the mean;
+## i.e., our confidence that the parameter is positive or negative.
+## 
+## DIC info: (pD = var(deviance)/2) 
+## pD = 6 and DIC = 1595.301 
+## DIC is an estimate of expected predictive error (lower is better).</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># store in tmp coefficients from best ML model</span>
+tmp &lt;-<span class="st"> </span><span class="kw">summary</span>(fm7)</code></pre></div>
+<pre><code>## 
+## Call:
+## occu(formula = ~elev + temp + elev:temp ~ elev, data = umf)
+## 
+## Occupancy (logit-scale):
+##             Estimate    SE     z  P(&gt;|z|)
+## (Intercept)     1.18 0.326  3.62 0.000291
+## elev           -1.41 0.624 -2.26 0.023548
+## 
+## Detection (logit-scale):
+##             Estimate     SE     z  P(&gt;|z|)
+## (Intercept)    0.407 0.0735  5.54 3.03e-08
+## elev           2.140 0.1494 14.32 1.66e-46
+## temp           0.900 0.1262  7.14 9.68e-13
+## elev:temp      1.680 0.2514  6.68 2.34e-11
+## 
+## AIC: 1656.533 
+## Number of sites: 60
+## optim convergence code: 0
+## optim iterations: 37 
+## Bootstrap iterations: 0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">modestimates &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">rbind</span>(tmp$state[<span class="dv">1</span>:<span class="dv">2</span>], tmp$det[<span class="dv">1</span>:<span class="dv">2</span>]), 
+                <span class="dt">Post.mean =</span> out22$summary[<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">4</span>:<span class="dv">7</span>), <span class="dv">1</span>],
+                <span class="dt">Post.sd   =</span> out22$summary[<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">4</span>:<span class="dv">7</span>), <span class="dv">2</span>] )
+
+<span class="co"># fix the(logit-scale) in unmarked </span>
+modestimates[<span class="dv">1</span>,<span class="dv">1</span>]&lt;-<span class="st"> </span><span class="kw">plogis</span>(modestimates[<span class="dv">1</span>,<span class="dv">1</span>])
+modestimates[<span class="dv">3</span>,<span class="dv">1</span>]&lt;-<span class="st"> </span><span class="kw">plogis</span>(modestimates[<span class="dv">3</span>,<span class="dv">1</span>])
+
+<span class="co"># fix the(logit-scale) in Bayes in logit.psi  logit.p</span>
+modestimates[<span class="dv">1</span>,<span class="dv">3</span>]&lt;-<span class="st"> </span><span class="kw">plogis</span>(modestimates[<span class="dv">1</span>,<span class="dv">3</span>])
+modestimates[<span class="dv">3</span>,<span class="dv">3</span>]&lt;-<span class="st"> </span><span class="kw">plogis</span>(modestimates[<span class="dv">3</span>,<span class="dv">3</span>])
+
+<span class="co"># get real values from datos2 object</span>
+real&lt;-<span class="st"> </span><span class="kw">rbind</span>(datos2$mean.occupancy, datos2$beta1, datos2$mean.detection,
+             datos2$alpha1, datos2$alpha2, datos2$alpha3)</code></pre></div>
+</div>
+<div id="comparando-los-valores-reales-y-los-estimados-de-ml-y-bayesiano" class="section level2">
+<h2><span class="header-section-number">8.2</span> Comparando los valores reales y los estimados de ML y Bayesiano</h2>
+<p>Veamos que tan cerca están los estimados de los valores reales, comparando el valor real con el estimado de Máxima Verosimilitud (columnas 2 y 3) y el estimado Bayesiano (columnas 4 y 5).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### see if the values are close to real values
+compare &lt;-<span class="st"> </span><span class="kw">cbind</span>(real, modestimates) <span class="co"># put both in same table</span>
+<span class="co"># put names to rows</span>
+<span class="kw">rownames</span>(compare) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;psi&quot;</span>,<span class="st">&quot;beta&quot;</span>,<span class="st">&quot;p&quot;</span>,<span class="st">&quot;alpha1&quot;</span>,<span class="st">&quot;alpha2&quot;</span>, <span class="st">&quot;alpha3&quot;</span>)
+
+<span class="co"># print comparing table</span>
+<span class="kw">library</span>(knitr)
+<span class="kw">kable</span>(compare)</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">real</th>
+<th align="right">Estimate</th>
+<th align="right">SE</th>
+<th align="right">Post.mean</th>
+<th align="right">Post.sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>psi</td>
+<td align="right">0.8</td>
+<td align="right">0.7653197</td>
+<td align="right">0.3262574</td>
+<td align="right">0.7632032</td>
+<td align="right">0.3096535</td>
+</tr>
+<tr class="even">
+<td>beta</td>
+<td align="right">-1.5</td>
+<td align="right">-1.4129006</td>
+<td align="right">0.6239572</td>
+<td align="right">-1.4585663</td>
+<td align="right">0.6555417</td>
+</tr>
+<tr class="odd">
+<td>p</td>
+<td align="right">0.6</td>
+<td align="right">0.6004304</td>
+<td align="right">0.0735178</td>
+<td align="right">0.6012664</td>
+<td align="right">0.0718739</td>
+</tr>
+<tr class="even">
+<td>alpha1</td>
+<td align="right">2.0</td>
+<td align="right">2.1395071</td>
+<td align="right">0.1494144</td>
+<td align="right">2.1550888</td>
+<td align="right">0.1498387</td>
+</tr>
+<tr class="odd">
+<td>alpha2</td>
+<td align="right">1.0</td>
+<td align="right">0.9003900</td>
+<td align="right">0.1261927</td>
+<td align="right">0.9050570</td>
+<td align="right">0.1238975</td>
+</tr>
+<tr class="even">
+<td>alpha3</td>
+<td align="right">1.5</td>
+<td align="right">1.6801587</td>
+<td align="right">0.2513946</td>
+<td align="right">1.6863126</td>
+<td align="right">0.2479156</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="analisis-de-ocupacion-metodo-ml.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="informacion-de-la-session-de-r-y-los-paquetes-usados.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dlizcano/occu_book/edit/master/07-bayesian.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

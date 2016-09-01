@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Simulación y analisis de ocupación</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This is an R example to get occupancy data and analize it.">
+  <meta name="generator" content="bookdown 0.1 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Simulación y analisis de ocupación" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Simulación y analisis de ocupación" />
+  
+  <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
+  
+
+<meta name="author" content="Diego J. Lizcano">
+
+<meta name="date" content="2016-07-24">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="porque-simular.html">
+<link rel="next" href="nuestro-ejemplo.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulando datos de ocupación</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="porque-simular.html"><a href="porque-simular.html"><i class="fa fa-check"></i><b>3</b> Porque simular?</a><ul>
+<li class="chapter" data-level="3.1" data-path="porque-simular.html"><a href="porque-simular.html#por-que-son-utiles-las-simulaciones"><i class="fa fa-check"></i><b>3.1</b> Por que son útiles las simulaciones:</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="la-ocupacion-de-habitat.html"><a href="la-ocupacion-de-habitat.html"><i class="fa fa-check"></i><b>4</b> La ocupación de hábitat</a></li>
+<li class="chapter" data-level="5" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html"><i class="fa fa-check"></i><b>5</b> Nuestro ejemplo:</a><ul>
+<li class="chapter" data-level="5.0.1" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#modelo-ecologico"><i class="fa fa-check"></i><b>5.0.1</b> Modelo Ecológico:</a></li>
+<li class="chapter" data-level="5.0.2" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#modelo-de-observacion"><i class="fa fa-check"></i><b>5.0.2</b> Modelo de Observación:</a></li>
+<li class="chapter" data-level="5.1" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#pasos-iniciales-tamano-de-la-muestra-y-valores-de-las-co-variables"><i class="fa fa-check"></i><b>5.1</b> Pasos iniciales: tamaño de la muestra y valores de las co-variables</a></li>
+<li class="chapter" data-level="5.2" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#simulando-el-proceso-ecologico-y-su-resultado-la-ocurrencia-del-venado"><i class="fa fa-check"></i><b>5.2</b> Simulando el proceso ecológico y su resultado: la ocurrencia del venado</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#por-que-bernoulli"><i class="fa fa-check"></i><b>5.2.1</b> Por que Bernoulli?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#simulando-el-proceso-de-observacion-y-su-resultado-la-deteccion"><i class="fa fa-check"></i><b>5.3</b> Simulando el proceso de observación y su resultado: la detección</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#uniendo-los-dos-procesos-el-ecologico-y-el-de-observacion"><i class="fa fa-check"></i><b>5.3.1</b> Uniendo los dos procesos el ecologico y el de observación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="empacando-todo-en-una-funcion-.html"><a href="empacando-todo-en-una-funcion-.html"><i class="fa fa-check"></i><b>6</b> Empacando todo en una función.</a></li>
+<li class="chapter" data-level="7" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html"><i class="fa fa-check"></i><b>7</b> Analisis de ocupación, metodo ML</a><ul>
+<li class="chapter" data-level="7.1" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#generando-los-datos"><i class="fa fa-check"></i><b>7.1</b> Generando los datos</a></li>
+<li class="chapter" data-level="7.2" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#poniendo-los-datos-en-unmarked"><i class="fa fa-check"></i><b>7.2</b> Poniendo los datos en unmarked</a></li>
+<li class="chapter" data-level="7.3" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#ajustando-los-modelos"><i class="fa fa-check"></i><b>7.3</b> Ajustando los modelos</a></li>
+<li class="chapter" data-level="7.4" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#model-selection"><i class="fa fa-check"></i><b>7.4</b> Model selection</a></li>
+<li class="chapter" data-level="7.5" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#prediccion-en-graficas-y-mapas"><i class="fa fa-check"></i><b>7.5</b> Predicción en graficas y mapas</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="analisis-bayesiano.html"><a href="analisis-bayesiano.html"><i class="fa fa-check"></i><b>8</b> Análisis Bayesiano</a><ul>
+<li class="chapter" data-level="8.1" data-path="analisis-bayesiano.html"><a href="analisis-bayesiano.html#generando-los-datos-1"><i class="fa fa-check"></i><b>8.1</b> Generando los datos</a></li>
+<li class="chapter" data-level="8.2" data-path="analisis-bayesiano.html"><a href="analisis-bayesiano.html#comparando-los-valores-reales-y-los-estimados-de-ml-y-bayesiano"><i class="fa fa-check"></i><b>8.2</b> Comparando los valores reales y los estimados de ML y Bayesiano</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="informacion-de-la-session-de-r-y-los-paquetes-usados.html"><a href="informacion-de-la-session-de-r-y-los-paquetes-usados.html"><i class="fa fa-check"></i><b>9</b> Información de la sessión de R y los paquetes usados</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulación y analisis de ocupación</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="la-ocupacion-de-habitat" class="section level1">
+<h1><span class="header-section-number">Capitulo 4</span> La ocupación de hábitat</h1>
+<p>Obtener datos para estudios de poblaciones animales, es costoso y dispendioso, y no siempre se puede medir la densidad poblacional o parámetros demográficos como natalidad o mortalidad. Es por eso que la estimación de ocupación de hábitat (<span class="math inline">\(\psi\)</span>) es una buena herramienta de estudio, ya que es un reflejo de otros parámetros poblacionales importantes como la abundancia y densidad, que requieren de un elevado número de registros, con los costos económicos y logísticos que conlleva. Adicionalmente y debido a que la detectabilidad (<em>p</em>) en animales silvestres no es completa, el uso de los datos crudos genera subestimaciones de la ocupación de hábitat. Con el empleo de muestreos repetidos, es posible generar estimaciones de detectabilidad y, con esta estimación, obtener valores no sesgados de la ocupación del hábitat. Los métodos de análisis de la ocupación fueron inicialmente desarollados por <span class="citation">Darryl I MacKenzie et al. (<a href="#ref-MacKenzie2002">2002</a>)</span> y posteriormente expandidos por otros autores <span class="citation">(Darryl I. MacKenzie and Royle <a href="#ref-MACKENZIE2005">2005</a>; Darryl I. MacKenzie et al. <a href="#ref-MacKenzie2006">2006</a>; M. Kéry and Royle <a href="#ref-Kery2008">2008</a>; J. Andrew Royle and Kéry <a href="#ref-Royle2007a">2007</a>; J Andrew Royle et al. <a href="#ref-Royle2005">2005</a>; J. Andrew Royle <a href="#ref-Royle2006">2006</a>)</span>. Este tipo de modelos permiten realizar inferencias acerca de los efectos de variables continuas y categóricas sobre la ocupación de hábitat. Además, si los muestreos se realizan a través de períodos largos de tiempo, también es posible estimar tasas de extinción y recolonización, que son útiles en estudios de metapoblaciones <span class="citation">(Darryl I. MacKenzie et al. <a href="#ref-MacKenzie2003">2003</a>)</span>. Este es un campo de gran desarrollo en bioestadística que ha producido una gran explosión de estudios que usan la ocupación teniendo en cuenta la detectabilidad <span class="citation">(Guillera-Arroita, Ridout, and Morgan <a href="#ref-Guillera-Arroita2010a">2010</a>; Guillera-Arroita et al. <a href="#ref-Guillera-Arroita2015">2015</a>; Guillera-Arroita <a href="#ref-Guillera-Arroita2011">2011</a>; Guillera-Arroita and Lahoz-Monfort <a href="#ref-Guillera-Arroita2012">2012</a>; Guillera-Arroita, Ridout, and Morgan <a href="#ref-Guillera-Arroita2014a">2014</a>; Kéry, Guillera-Arroita, and Lahoz-Monfort <a href="#ref-Kery2013">2013</a>)</span>.</p>
+
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-MacKenzie2002">
+<p>MacKenzie, Darryl I, James D Nichols, Gideon B Lachman, Sam Droege, J Andrew Royle, and Catherine A Langtimm. 2002. “Estimating site occupancy rates when detection probabilities are less than one.” <em>Ecology</em> 83 (8). Ecological Society of America: 2248–55. doi:<a href="https://doi.org/10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2">10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2</a>.</p>
+</div>
+<div id="ref-MACKENZIE2005">
+<p>MacKenzie, Darryl I., and J. A. Royle. 2005. “Designing occupancy studies: general advice and allocating survey effort.” <em>Journal of Applied Ecology</em> 42 (6): 1105–14. doi:<a href="https://doi.org/10.1111/j.1365-2664.2005.01098.x">10.1111/j.1365-2664.2005.01098.x</a>.</p>
+</div>
+<div id="ref-MacKenzie2006">
+<p>MacKenzie, Darryl I., James Nichols, J. A. Royle, Kenneth Pollock, Larissa Bailey, and James Hines. 2006. <em>Occupancy estimation and modeling: inferring patterns and dynamics of species occurrence</em>. Burlington, MA: Academic Press.</p>
+</div>
+<div id="ref-Kery2008">
+<p>Kéry, M., and J. A. Royle. 2008. “Hierarchical Bayes estimation of species richness and occupancy in spatially replicated surveys.” <em>Journal of Applied Ecology</em> 45 (2): 589–98. doi:<a href="https://doi.org/10.1111/j.1365-2664.2007.01441.x">10.1111/j.1365-2664.2007.01441.x</a>.</p>
+</div>
+<div id="ref-Royle2007a">
+<p>Royle, J. Andrew, and Marc Kéry. 2007. “A Bayesian state-space formulation of dynamic occupancy models.” <em>Ecology</em> 88 (7). Ecological Society of America: 1813–23. doi:<a href="https://doi.org/10.1890/06-0669.1">10.1890/06-0669.1</a>.</p>
+</div>
+<div id="ref-Royle2005">
+<p>Royle, J Andrew, James D Nichols, K&amp;eacute, and Marc Ry. 2005. “Modelling occurrence and abundance of species when detection is imperfect.” <em>Oikos</em> 110: 353–59. doi:<a href="https://doi.org/10.1111/j.0030-1299.2005.13534.x">10.1111/j.0030-1299.2005.13534.x</a>.</p>
+</div>
+<div id="ref-Royle2006">
+<p>Royle, J. Andrew. 2006. “Site occupancy models with heterogeneous detection probabilities.” <em>Biometrics</em> 62 (1): 97–102. doi:<a href="https://doi.org/10.1111/j.1541-0420.2005.00439.x">10.1111/j.1541-0420.2005.00439.x</a>.</p>
+</div>
+<div id="ref-MacKenzie2003">
+<p>MacKenzie, Darryl I., James D. Nichols, James E. Hines, Melinda G. Knutson, and Alan B. Franklin. 2003. “Estimating site occupancy, colonization, and local extinction when a species is detected imperfectly.” <em>Ecology</em> 84 (8): 2200–2207. doi:<a href="https://doi.org/10.1890/02-3090">10.1890/02-3090</a>.</p>
+</div>
+<div id="ref-Guillera-Arroita2010a">
+<p>Guillera-Arroita, Gurutzeta, Martin S. Ridout, and Byron J. T. Morgan. 2010. “Design of occupancy studies with imperfect detection.” <em>Methods in Ecology and Evolution</em> 1 (2): 131–39. doi:<a href="https://doi.org/10.1111/j.2041-210X.2010.00017.x">10.1111/j.2041-210X.2010.00017.x</a>.</p>
+</div>
+<div id="ref-Guillera-Arroita2015">
+<p>Guillera-Arroita, Gurutzeta, José J. Lahoz-Monfort, Jane Elith, Ascelin Gordon, Heini Kujala, Pia E. Lentini, Michael A. McCarthy, Reid Tingley, and Brendan A. Wintle. 2015. “Is my species distribution model fit for purpose? Matching data and models to applications.” <em>Global Ecology and Biogeography</em> 24 (3): 276–92. doi:<a href="https://doi.org/10.1111/geb.12268">10.1111/geb.12268</a>.</p>
+</div>
+<div id="ref-Guillera-Arroita2011">
+<p>Guillera-Arroita, Gurutzeta. 2011. “Impact of sampling with replacement in occupancy studies with spatial replication.” <em>Methods in Ecology and Evolution</em> 2 (4): 401–6. doi:<a href="https://doi.org/10.1111/j.2041-210X.2011.00089.x">10.1111/j.2041-210X.2011.00089.x</a>.</p>
+</div>
+<div id="ref-Guillera-Arroita2012">
+<p>Guillera-Arroita, Gurutzeta, and José J. Lahoz-Monfort. 2012. “Designing studies to detect differences in species occupancy: power analysis under imperfect detection.” <em>Methods in Ecology and Evolution</em> 3 (5): 860–69. doi:<a href="https://doi.org/10.1111/j.2041-210X.2012.00225.x">10.1111/j.2041-210X.2012.00225.x</a>.</p>
+</div>
+<div id="ref-Guillera-Arroita2014a">
+<p>Guillera-Arroita, Gurutzeta, MartinS. Ridout, and ByronJ.T. Morgan. 2014. “Two-Stage Bayesian Study Design for Species Occupancy Estimation.” <em>Journal of Agricultural, Biological, and Environmental Statistics</em>. Springer US, 1–14. doi:<a href="https://doi.org/10.1007/s13253-014-0171-4">10.1007/s13253-014-0171-4</a>.</p>
+</div>
+<div id="ref-Kery2013">
+<p>Kéry, Marc, Gurutzeta Guillera-Arroita, and José J. Lahoz-Monfort. 2013. “Analysing and mapping species range dynamics using occupancy models.” Edited by Michael Patten. <em>Journal of Biogeography</em> 40 (8): 1463–74. doi:<a href="https://doi.org/10.1111/jbi.12087">10.1111/jbi.12087</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="porque-simular.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="nuestro-ejemplo.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dlizcano/occu_book/edit/master/03-occupancy.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

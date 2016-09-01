@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Simulación y analisis de ocupación</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This is an R example to get occupancy data and analize it.">
+  <meta name="generator" content="bookdown 0.1 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Simulación y analisis de ocupación" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Simulación y analisis de ocupación" />
+  
+  <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
+  
+
+<meta name="author" content="Diego J. Lizcano">
+
+<meta name="date" content="2016-07-24">
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="nuestro-ejemplo.html">
+<link rel="next" href="analisis-de-ocupacion-metodo-ml.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulando datos de ocupación</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="porque-simular.html"><a href="porque-simular.html"><i class="fa fa-check"></i><b>3</b> Porque simular?</a><ul>
+<li class="chapter" data-level="3.1" data-path="porque-simular.html"><a href="porque-simular.html#por-que-son-utiles-las-simulaciones"><i class="fa fa-check"></i><b>3.1</b> Por que son útiles las simulaciones:</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="la-ocupacion-de-habitat.html"><a href="la-ocupacion-de-habitat.html"><i class="fa fa-check"></i><b>4</b> La ocupación de hábitat</a></li>
+<li class="chapter" data-level="5" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html"><i class="fa fa-check"></i><b>5</b> Nuestro ejemplo:</a><ul>
+<li class="chapter" data-level="5.0.1" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#modelo-ecologico"><i class="fa fa-check"></i><b>5.0.1</b> Modelo Ecológico:</a></li>
+<li class="chapter" data-level="5.0.2" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#modelo-de-observacion"><i class="fa fa-check"></i><b>5.0.2</b> Modelo de Observación:</a></li>
+<li class="chapter" data-level="5.1" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#pasos-iniciales-tamano-de-la-muestra-y-valores-de-las-co-variables"><i class="fa fa-check"></i><b>5.1</b> Pasos iniciales: tamaño de la muestra y valores de las co-variables</a></li>
+<li class="chapter" data-level="5.2" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#simulando-el-proceso-ecologico-y-su-resultado-la-ocurrencia-del-venado"><i class="fa fa-check"></i><b>5.2</b> Simulando el proceso ecológico y su resultado: la ocurrencia del venado</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#por-que-bernoulli"><i class="fa fa-check"></i><b>5.2.1</b> Por que Bernoulli?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#simulando-el-proceso-de-observacion-y-su-resultado-la-deteccion"><i class="fa fa-check"></i><b>5.3</b> Simulando el proceso de observación y su resultado: la detección</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="nuestro-ejemplo.html"><a href="nuestro-ejemplo.html#uniendo-los-dos-procesos-el-ecologico-y-el-de-observacion"><i class="fa fa-check"></i><b>5.3.1</b> Uniendo los dos procesos el ecologico y el de observación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="empacando-todo-en-una-funcion-.html"><a href="empacando-todo-en-una-funcion-.html"><i class="fa fa-check"></i><b>6</b> Empacando todo en una función.</a></li>
+<li class="chapter" data-level="7" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html"><i class="fa fa-check"></i><b>7</b> Analisis de ocupación, metodo ML</a><ul>
+<li class="chapter" data-level="7.1" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#generando-los-datos"><i class="fa fa-check"></i><b>7.1</b> Generando los datos</a></li>
+<li class="chapter" data-level="7.2" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#poniendo-los-datos-en-unmarked"><i class="fa fa-check"></i><b>7.2</b> Poniendo los datos en unmarked</a></li>
+<li class="chapter" data-level="7.3" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#ajustando-los-modelos"><i class="fa fa-check"></i><b>7.3</b> Ajustando los modelos</a></li>
+<li class="chapter" data-level="7.4" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#model-selection"><i class="fa fa-check"></i><b>7.4</b> Model selection</a></li>
+<li class="chapter" data-level="7.5" data-path="analisis-de-ocupacion-metodo-ml.html"><a href="analisis-de-ocupacion-metodo-ml.html#prediccion-en-graficas-y-mapas"><i class="fa fa-check"></i><b>7.5</b> Predicción en graficas y mapas</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="analisis-bayesiano.html"><a href="analisis-bayesiano.html"><i class="fa fa-check"></i><b>8</b> Análisis Bayesiano</a><ul>
+<li class="chapter" data-level="8.1" data-path="analisis-bayesiano.html"><a href="analisis-bayesiano.html#generando-los-datos-1"><i class="fa fa-check"></i><b>8.1</b> Generando los datos</a></li>
+<li class="chapter" data-level="8.2" data-path="analisis-bayesiano.html"><a href="analisis-bayesiano.html#comparando-los-valores-reales-y-los-estimados-de-ml-y-bayesiano"><i class="fa fa-check"></i><b>8.2</b> Comparando los valores reales y los estimados de ML y Bayesiano</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="informacion-de-la-session-de-r-y-los-paquetes-usados.html"><a href="informacion-de-la-session-de-r-y-los-paquetes-usados.html"><i class="fa fa-check"></i><b>9</b> Información de la sessión de R y los paquetes usados</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulación y analisis de ocupación</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="empacando-todo-en-una-funcion." class="section level1">
+<h1><span class="header-section-number">Capitulo 6</span> Empacando todo en una función.</h1>
+<p>Podría ser de mucha utilidad empacar todo lo que hemos hecho en una sola función que nos permita hacer lo mismo muchas veces repetidamente. Esto hará que podamos diseñar simulaciones de una forma más concisa y flexible y hace mas transparente la generación de parámetros usados para generar datos. Asi que vamos a definir una función (que llamaremos data.fn) para generar el mismo tipo de datos que acabamos de crear, asignando argumentos a la función, tales como tamaño de la muestra, efectos de las covariables y direcciones y magnitudes de la interacción de los términos del error de detección y ocupación. Esto hará que nuestro código sea más flexible y eficiente.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">###############################
+## The function starts here ###
+###############################
+
+<span class="co"># Function definition with set of default values</span>
+data.fn &lt;-<span class="st"> </span>function(<span class="dt">M =</span> <span class="dv">60</span>, <span class="dt">J =</span> <span class="dv">30</span>, <span class="dt">mean.occupancy =</span> <span class="fl">0.6</span>, 
+                    <span class="dt">beta1 =</span> -<span class="dv">2</span>, <span class="dt">beta2 =</span> <span class="dv">2</span>, <span class="dt">beta3 =</span> <span class="dv">1</span>, <span class="dt">mean.detection =</span> <span class="fl">0.3</span>, 
+                    <span class="dt">alpha1 =</span> -<span class="dv">1</span>, <span class="dt">alpha2 =</span> -<span class="dv">3</span>, <span class="dt">alpha3 =</span> <span class="dv">0</span>, <span class="dt">show.plot =</span> <span class="ot">TRUE</span>){
+<span class="co"># Function to simulate occupancy measurements replicated at M sites during J occasions.</span>
+<span class="co"># Population closure is assumed for each site.</span>
+<span class="co"># Expected occurrence may be affected by elevation (elev), </span>
+<span class="co"># forest cover (forest) and their interaction.</span>
+<span class="co"># Expected detection probability may be affected by elevation, </span>
+<span class="co"># temperature (temp) and their interaction.</span>
+<span class="co"># Function arguments:</span>
+<span class="co">#     M: Number of spatial replicates (sites)</span>
+<span class="co">#     J: Number of temporal replicates (occasions)</span>
+<span class="co">#     mean.occupancy: Mean occurrence at value 0 of occurrence covariates</span>
+<span class="co">#     beta1: Main effect of elevation on occurrence</span>
+<span class="co">#     beta2: Main effect of forest cover on occurrence</span>
+<span class="co">#     beta3: Interaction effect on occurrence of elevation and forest cover</span>
+<span class="co">#     mean.detection: Mean detection prob. at value 0 of detection covariates</span>
+<span class="co">#     alpha1: Main effect of elevation on detection probability</span>
+<span class="co">#     alpha2: Main effect of temperature on detection probability</span>
+<span class="co">#     alpha3: Interaction effect on detection of elevation and temperature</span>
+<span class="co">#     show.plot: if TRUE, plots of the data will be displayed; </span>
+<span class="co">#               set to FALSE if you are running simulations.</span>
+
+<span class="co"># Create covariates</span>
+elev &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> M, -<span class="dv">1</span>, <span class="dv">1</span>)                         <span class="co"># Scaled elevation</span>
+forest &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> M, -<span class="dv">1</span>, <span class="dv">1</span>)                       <span class="co"># Scaled forest cover</span>
+temp &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="kw">runif</span>(<span class="dt">n =</span> M*J, -<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">dim =</span> <span class="kw">c</span>(M, J)) <span class="co"># Scaled temperature</span>
+
+<span class="co"># Model for occurrence</span>
+beta0 &lt;-<span class="st"> </span><span class="kw">qlogis</span>(mean.occupancy)               <span class="co"># Mean occurrence on link scale</span>
+psi &lt;-<span class="st"> </span><span class="kw">plogis</span>(beta0 +<span class="st"> </span>beta1*elev +<span class="st"> </span>beta2*forest +<span class="st"> </span>beta3*elev*forest)
+z &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> M, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> psi)      <span class="co"># Realised occurrence</span>
+
+<span class="co"># Plots</span>
+if(show.plot){
+  <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">cex.main =</span> <span class="dv">1</span>)
+  <span class="kw">devAskNewPage</span>(<span class="dt">ask =</span> <span class="ot">TRUE</span>)
+  <span class="kw">curve</span>(<span class="kw">plogis</span>(beta0 +<span class="st"> </span>beta1*x), -<span class="dv">1</span>, <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">frame.plot =</span> <span class="ot">FALSE</span>, 
+      <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">&quot;Elevation&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;psi&quot;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)
+  <span class="kw">plot</span>(elev, psi, <span class="dt">frame.plot =</span> <span class="ot">FALSE</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">&quot;Elevation&quot;</span>, 
+     <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>)
+  <span class="kw">curve</span>(<span class="kw">plogis</span>(beta0 +<span class="st"> </span>beta2*x), -<span class="dv">1</span>, <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">frame.plot =</span> <span class="ot">FALSE</span>, 
+      <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">&quot;Forest cover&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;psi&quot;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)
+  <span class="kw">plot</span>(forest, psi, <span class="dt">frame.plot =</span> <span class="ot">FALSE</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">&quot;Forest cover&quot;</span>, 
+     <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>)
+}
+
+<span class="co"># Model for observations</span>
+y &lt;-<span class="st"> </span>p &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA</span>, <span class="dt">nrow =</span> M, <span class="dt">ncol =</span> J)<span class="co"># Prepare matrix for y and p</span>
+alpha0 &lt;-<span class="st"> </span><span class="kw">qlogis</span>(mean.detection)        <span class="co"># mean detection on link scale</span>
+for (j in <span class="dv">1</span>:J){                         <span class="co"># Generate counts by survey</span>
+   p[,j] &lt;-<span class="st"> </span><span class="kw">plogis</span>(alpha0 +<span class="st"> </span>alpha1*elev +<span class="st"> </span>alpha2*temp[,j] +<span class="st"> </span>alpha3*elev*temp[,j])
+   y[,j] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> M, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> z *<span class="st"> </span>p[,j])
+}
+
+<span class="co"># True and observed measures of &#39;distribution&#39;</span>
+sumZ &lt;-<span class="st"> </span><span class="kw">sum</span>(z)                     <span class="co"># Total occurrence (all sites)</span>
+sumZ.obs &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">apply</span>(y,<span class="dv">1</span>,max))    <span class="co"># Observed number of occ sites</span>
+psi.fs.true &lt;-<span class="st"> </span><span class="kw">sum</span>(z) /<span class="st"> </span>M          <span class="co"># True proportion of occ. sites in sample</span>
+psi.fs.obs &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">apply</span>(y,<span class="dv">1</span>,max)) <span class="co"># Observed proportion of occ. sites in sample</span>
+
+<span class="co"># More plots</span>
+if(show.plot){
+  <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))
+  <span class="kw">curve</span>(<span class="kw">plogis</span>(alpha0 +<span class="st"> </span>alpha1*x), -<span class="dv">1</span>, <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, 
+      <span class="dt">main =</span> <span class="st">&quot;Relationship p-elevation </span><span class="ch">\n</span><span class="st">at average temperature&quot;</span>, 
+      <span class="dt">xlab =</span> <span class="st">&quot;Scaled elevation&quot;</span>, <span class="dt">frame.plot =</span> F)
+  <span class="kw">matplot</span>(elev, p, <span class="dt">xlab =</span> <span class="st">&quot;Scaled elevation&quot;</span>, 
+        <span class="dt">main =</span> <span class="st">&quot;Relationship p-elevation</span><span class="ch">\n</span><span class="st"> at observed temperature&quot;</span>, 
+        <span class="dt">pch =</span> <span class="st">&quot;*&quot;</span>, <span class="dt">frame.plot =</span> F)
+  <span class="kw">curve</span>(<span class="kw">plogis</span>(alpha0 +<span class="st"> </span>alpha2*x), -<span class="dv">1</span>, <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, 
+      <span class="dt">main =</span> <span class="st">&quot;Relationship p-temperature </span><span class="ch">\n</span><span class="st"> at average elevation&quot;</span>, 
+      <span class="dt">xlab =</span> <span class="st">&quot;Scaled temperature&quot;</span>, <span class="dt">frame.plot =</span> F)
+  <span class="kw">matplot</span>(temp, p, <span class="dt">xlab =</span> <span class="st">&quot;Scaled temperature&quot;</span>, 
+        <span class="dt">main =</span> <span class="st">&quot;Relationship p-temperature </span><span class="ch">\n</span><span class="st">at observed elevation&quot;</span>, 
+        <span class="dt">pch =</span> <span class="st">&quot;*&quot;</span>, <span class="dt">frame.plot =</span> F)
+}
+
+<span class="co"># Output</span>
+<span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">M =</span> M, <span class="dt">J =</span> J, <span class="dt">mean.occupancy =</span> mean.occupancy, 
+            <span class="dt">beta0 =</span> beta0, <span class="dt">beta1 =</span> beta1, <span class="dt">beta2 =</span> beta2, <span class="dt">beta3 =</span> beta3, 
+            <span class="dt">mean.detection =</span> mean.detection, 
+            <span class="dt">alpha0 =</span> alpha0, <span class="dt">alpha1 =</span> alpha1, <span class="dt">alpha2 =</span> alpha2, <span class="dt">alpha3 =</span> alpha3, 
+            <span class="dt">elev =</span> elev, <span class="dt">forest =</span> forest, <span class="dt">temp =</span> temp, 
+            <span class="dt">psi =</span> psi, <span class="dt">z =</span> z, <span class="dt">p =</span> p, <span class="dt">y =</span> y, <span class="dt">sumZ =</span> sumZ, <span class="dt">sumZ.obs =</span> sumZ.obs, 
+            <span class="dt">psi.fs.true =</span> psi.fs.true, <span class="dt">psi.fs.obs =</span> psi.fs.obs))
+}
+
+###############################
+## The function ends  here  ###
+###############################</code></pre></div>
+<p>Una vez que hayamos definido la función y ejecutado su código, podremos llamarla repetidamente y enviar los resultados a la pantalla o asignarlos a un objeto en R. De forma tal que podamos usar el set de datos almacenado en el objeto para un análisis detallado.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data.fn</span>()                  <span class="co"># Execute function with default arguments</span>
+<span class="kw">data.fn</span>(<span class="dt">show.plot =</span> <span class="ot">FALSE</span>) <span class="co"># same, without plots</span>
+objeto1 &lt;-<span class="st"> </span><span class="kw">data.fn</span>(<span class="dt">M =</span> <span class="dv">30</span>, <span class="dt">J =</span> <span class="dv">10</span>, <span class="dt">mean.occupancy =</span> <span class="fl">0.5</span>, 
+                   <span class="dt">beta1 =</span> -<span class="dv">2</span>, <span class="dt">beta2 =</span> <span class="dv">2</span>, <span class="dt">beta3 =</span> <span class="dv">1</span>, 
+                   <span class="dt">mean.detection =</span> <span class="fl">0.25</span>, <span class="dt">alpha1 =</span> -<span class="dv">1</span>,
+                   <span class="dt">alpha2 =</span> -<span class="dv">3</span>, <span class="dt">alpha3 =</span> <span class="dv">0</span>, <span class="dt">show.plot =</span> <span class="ot">TRUE</span>) <span class="co"># Explicit defaults</span></code></pre></div>
+<p><img src="Simul-Machalilla-book_files/figure-html/funcall1b-1.png" width="672" /><img src="Simul-Machalilla-book_files/figure-html/funcall1b-2.png" width="672" /></p>
+<p>Tal vez el uso más sencillo posible para esta función es experimentar de primera mano el error de muestreo: el cuál es la variabilidad natural de realizaciones repetidas (varios sets de datos) de nuestro proceso estocástico por el cual calculamos los set de datos. Vamos a simular 10.000 sets de datos del venado para ver como varían en términos del verdadero número de sitios ocupados (sumZ en el codigo) y el número de sitios en los que los venados fueron observados al menos una vez.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">simrep &lt;-<span class="st"> </span><span class="dv">10000</span>
+trueSumZ &lt;-<span class="st"> </span>obsSumZ &lt;-<span class="st"> </span><span class="kw">numeric</span>(simrep)
+for(i in <span class="dv">1</span>:simrep){
+   if(i %%<span class="st"> </span><span class="dv">1000</span> ==<span class="dv">0</span> )                        <span class="co"># report progress</span>
+   <span class="kw">cat</span>(<span class="st">&quot;iter&quot;</span>, i, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+   data &lt;-<span class="st"> </span><span class="kw">data.fn</span>(<span class="dt">M =</span> <span class="dv">60</span>,<span class="dt">J =</span> <span class="dv">3</span>,<span class="dt">show.plot =</span> <span class="ot">FALSE</span>) <span class="co"># 60 sitios, 3 muestreos</span>
+   trueSumZ[i] &lt;-<span class="st"> </span>data$sumZ
+   obsSumZ[i] &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">apply</span>(data$y, <span class="dv">1</span>, max))
+}</code></pre></div>
+<pre><code>## iter 1000 
+## iter 2000 
+## iter 3000 
+## iter 4000 
+## iter 5000 
+## iter 6000 
+## iter 7000 
+## iter 8000 
+## iter 9000 
+## iter 10000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">sort</span>(trueSumZ), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="kw">min</span>(obsSumZ), <span class="kw">max</span>(trueSumZ)), <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Simulation&quot;</span>,
+     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;True (red) and observed (blue) number of occupied sites&quot;</span>)
+<span class="kw">points</span>(obsSumZ[<span class="kw">order</span>(trueSumZ)], <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
+<div class="figure"><span id="fig:funcall2"></span>
+<img src="Simul-Machalilla-book_files/figure-html/funcall2-1.png" alt="Variabilidad natural (error de muestreo) del verdadero número de sitios ocupados (ordenados por tamaño) en color rojo y el número observado de sitios ocupados (en azul), para un muestreo simulado de venados. El número de sitios observados también se conoce como la ocupación ingenua o detección “naïve” (observable) de la ocurrencia de los venados en 60 sitios en la simulación. El ancho del área azul representa el error inducido por la detección imperfecta. Note la importancia de tener en cuenta este error para tener una mejor idea de la ocupación." width="672" />
+<p class="caption">
+Figure 6.1: Variabilidad natural (error de muestreo) del verdadero número de sitios ocupados (ordenados por tamaño) en color rojo y el número observado de sitios ocupados (en azul), para un muestreo simulado de venados. El número de sitios observados también se conoce como la ocupación ingenua o detección “naïve” (observable) de la ocurrencia de los venados en 60 sitios en la simulación. El ancho del área azul representa el error inducido por la detección imperfecta. Note la importancia de tener en cuenta este error para tener una mejor idea de la ocupación.
+</p>
+</div>
+<p>Ahora podemos usar esta función para generar datos bajo diferentes esquemas de muestreo, variando el número de sitios y el número de muestreos repetidos. Así como también bajo diferentes características ecológicas y de detección, y considerando tambien posibles interacciones entre covariables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Run this part line by line, taking note of the meaning of the </span>
+<span class="co"># model in the comment and hitting Enter after each graph</span>
+<span class="co"># Take in to account that if you do not override all the parameters</span>
+<span class="co"># with another value, the function will use the default values.</span>
+
+<span class="kw">data.fn</span>(<span class="dt">J =</span> <span class="dv">1</span>, <span class="dt">show.plot =</span> T)  <span class="co"># Only 1 survey (no temporal replicate)</span>
+<span class="kw">data.fn</span>(<span class="dt">J =</span> <span class="dv">2</span>, <span class="dt">show.plot =</span> T)  <span class="co"># Only 2 surveys (sites)</span>
+<span class="kw">data.fn</span>(<span class="dt">M =</span> <span class="dv">5</span>, <span class="dt">J =</span> <span class="dv">3</span>)          <span class="co"># Only 5 sites, 3 counts (repeted visits)</span>
+<span class="kw">data.fn</span>(<span class="dt">M =</span> <span class="dv">1</span>, <span class="dt">J =</span> <span class="dv">100</span>)        <span class="co"># No spatial replicates, but 100 counts</span>
+<span class="kw">data.fn</span>(<span class="dt">M =</span> <span class="dv">1000</span>, <span class="dt">J =</span> <span class="dv">100</span>)     <span class="co"># Very intensive sampling. 1000 sites, 100 visits</span>
+
+<span class="kw">data.fn</span>(<span class="dt">mean.occupancy =</span> <span class="fl">0.6</span>,   <span class="co"># psi = 0.6 and</span>
+        <span class="dt">mean.detection =</span> <span class="dv">1</span>,     <span class="co"># p = 1 (perfect detection!!!)</span>
+        <span class="dt">show.plot =</span> T)
+
+<span class="kw">data.fn</span>(<span class="dt">mean.occupancy =</span> <span class="fl">0.95</span>,  <span class="co"># psi = 1 a really coomon sp.</span>
+        <span class="dt">mean.detection =</span> <span class="dv">1</span>,     <span class="co"># p = 1 (perfect detection!!!)</span>
+        <span class="dt">show.plot =</span> T)
+
+<span class="kw">data.fn</span>(<span class="dt">mean.occupancy =</span> <span class="fl">0.05</span>,  <span class="co"># psi = 0.05 a really rare sp.</span>
+        <span class="dt">mean.detection =</span> <span class="fl">0.05</span>,  <span class="co"># p = 0.05 and very hard to detect !!!</span>
+        <span class="dt">show.plot =</span> T)
+
+<span class="kw">data.fn</span>(<span class="dt">beta3 =</span> <span class="fl">1.5</span>, <span class="dt">show.plot =</span> <span class="ot">TRUE</span>) <span class="co"># With interaction elev-temp on p</span>
+
+<span class="kw">data.fn</span>(<span class="dt">mean.occupancy =</span> <span class="fl">0.6</span>, <span class="dt">beta1 =</span> -<span class="dv">2</span>, <span class="dt">beta2 =</span> <span class="dv">2</span>, <span class="dt">beta3 =</span> <span class="dv">1</span>, 
+        <span class="dt">mean.detection =</span> <span class="fl">0.1</span>, <span class="dt">show.plot =</span> <span class="ot">TRUE</span>)  <span class="co"># p = 1 (low detectability)</span>
+
+<span class="kw">data.fn</span>(<span class="dt">M =</span> <span class="dv">267</span>, <span class="dt">J =</span> <span class="dv">5</span>, <span class="dt">mean.occupancy =</span> <span class="fl">0.6</span>, <span class="dt">beta1 =</span> <span class="dv">0</span>, <span class="dt">beta2 =</span> <span class="dv">0</span>, <span class="dt">beta3 =</span> <span class="dv">0</span>, 
+        <span class="dt">mean.detection =</span> <span class="fl">0.4</span>, <span class="dt">alpha1 =</span> <span class="dv">0</span>, <span class="dt">alpha2 =</span> <span class="dv">0</span>, <span class="dt">alpha3 =</span> <span class="dv">0</span>, <span class="dt">show.plot =</span> <span class="ot">TRUE</span>)
+<span class="co"># Simplest case with occupancy (0.6) and detection (0.4) constant, no covariate effects</span>
+<span class="co"># observe betas = 0, and alphas = 0. This correspond to a kind of null model.</span></code></pre></div>
+<blockquote>
+<p><strong>FELICITACIONES!!!, si llego hasta acá, y si entendió la simulación de datos y su procedimiento, entonces Ud. entendió totalmente el modelo básico de ocupación, el cual es la piedra angular del muestreo y monitoreo biológico moderno.</strong></p>
+</blockquote>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="nuestro-ejemplo.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="analisis-de-ocupacion-metodo-ml.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/dlizcano/occu_book/edit/master/05-all-in-function.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
