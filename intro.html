@@ -23,15 +23,10 @@
   <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
   
 
-<meta name="author" content="Diego J. Lizcano">
+<meta name="author" content="Diego J. Lizcano, Ph.D.">
 
 <meta name="date" content="2016-09-01">
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -56,43 +51,6 @@ MathJax.Hub.Config({
 
 
 
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -111,35 +69,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisitos</a></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introdución</a></li>
-<li class="chapter" data-level="3" data-path="why.html"><a href="why.html"><i class="fa fa-check"></i><b>3</b> Porque simular?</a><ul>
-<li class="chapter" data-level="3.1" data-path="why.html"><a href="why.html#por-que-son-utiles-las-simulaciones"><i class="fa fa-check"></i><b>3.1</b> Por que son útiles las simulaciones:</a></li>
-</ul></li>
+<li class="chapter" data-level="3" data-path="why.html"><a href="why.html"><i class="fa fa-check"></i><b>3</b> Porque simular?</a></li>
 <li class="chapter" data-level="4" data-path="occu.html"><a href="occu.html"><i class="fa fa-check"></i><b>4</b> La ocupación de hábitat</a></li>
-<li class="chapter" data-level="5" data-path="example.html"><a href="example.html"><i class="fa fa-check"></i><b>5</b> Nuestro ejemplo:</a><ul>
-<li class="chapter" data-level="5.0.1" data-path="example.html"><a href="example.html#modelo-ecologico"><i class="fa fa-check"></i><b>5.0.1</b> Modelo Ecológico:</a></li>
-<li class="chapter" data-level="5.0.2" data-path="example.html"><a href="example.html#modelo-de-observacion"><i class="fa fa-check"></i><b>5.0.2</b> Modelo de Observación:</a></li>
-<li class="chapter" data-level="5.1" data-path="example.html"><a href="example.html#pasos-iniciales-tamano-de-la-muestra-y-valores-de-las-co-variables"><i class="fa fa-check"></i><b>5.1</b> Pasos iniciales: tamaño de la muestra y valores de las co-variables</a></li>
-<li class="chapter" data-level="5.2" data-path="example.html"><a href="example.html#simulando-el-proceso-ecologico-y-su-resultado-la-ocurrencia-del-venado"><i class="fa fa-check"></i><b>5.2</b> Simulando el proceso ecológico y su resultado: la ocurrencia del venado</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="example.html"><a href="example.html#por-que-bernoulli"><i class="fa fa-check"></i><b>5.2.1</b> Por que Bernoulli?</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="example.html"><a href="example.html#simulando-el-proceso-de-observacion-y-su-resultado-la-deteccion"><i class="fa fa-check"></i><b>5.3</b> Simulando el proceso de observación y su resultado: la detección</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="example.html"><a href="example.html#uniendo-los-dos-procesos-el-ecologico-y-el-de-observacion"><i class="fa fa-check"></i><b>5.3.1</b> Uniendo los dos procesos el ecologico y el de observación</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="5" data-path="example.html"><a href="example.html"><i class="fa fa-check"></i><b>5</b> Nuestro ejemplo:</a></li>
 <li class="chapter" data-level="6" data-path="function1.html"><a href="function1.html"><i class="fa fa-check"></i><b>6</b> Empacando todo en una función</a></li>
-<li class="chapter" data-level="7" data-path="unmarked.html"><a href="unmarked.html"><i class="fa fa-check"></i><b>7</b> Analisis de ocupación, metodo ML</a><ul>
-<li class="chapter" data-level="7.1" data-path="unmarked.html"><a href="unmarked.html#generando-los-datos"><i class="fa fa-check"></i><b>7.1</b> Generando los datos</a></li>
-<li class="chapter" data-level="7.2" data-path="unmarked.html"><a href="unmarked.html#poniendo-los-datos-en-unmarked"><i class="fa fa-check"></i><b>7.2</b> Poniendo los datos en unmarked</a></li>
-<li class="chapter" data-level="7.3" data-path="unmarked.html"><a href="unmarked.html#ajustando-los-modelos"><i class="fa fa-check"></i><b>7.3</b> Ajustando los modelos</a></li>
-<li class="chapter" data-level="7.4" data-path="unmarked.html"><a href="unmarked.html#model-selection"><i class="fa fa-check"></i><b>7.4</b> Model selection</a></li>
-<li class="chapter" data-level="7.5" data-path="unmarked.html"><a href="unmarked.html#prediccion-en-graficas-y-mapas"><i class="fa fa-check"></i><b>7.5</b> Predicción en graficas y mapas</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>8</b> Análisis Bayesiano</a><ul>
-<li class="chapter" data-level="8.1" data-path="bayesian.html"><a href="bayesian.html#generando-los-datos-1"><i class="fa fa-check"></i><b>8.1</b> Generando los datos</a></li>
-<li class="chapter" data-level="8.2" data-path="bayesian.html"><a href="bayesian.html#comparando-los-valores-reales-y-los-estimados-de-ml-y-bayesiano"><i class="fa fa-check"></i><b>8.2</b> Comparando los valores reales y los estimados de ML y Bayesiano</a></li>
-</ul></li>
+<li class="chapter" data-level="7" data-path="unmarked.html"><a href="unmarked.html"><i class="fa fa-check"></i><b>7</b> Analisis de ocupación, metodo ML</a></li>
+<li class="chapter" data-level="8" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>8</b> Análisis Bayesiano</a></li>
 <li class="chapter" data-level="9" data-path="informacion-de-la-session-de-r-y-los-paquetes-usados.html"><a href="informacion-de-la-session-de-r-y-los-paquetes-usados.html"><i class="fa fa-check"></i><b>9</b> Información de la sessión de R y los paquetes usados</a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="10" data-path="placeholder.html"><a href="placeholder.html"><i class="fa fa-check"></i><b>10</b> Placeholder</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -162,18 +99,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="intro" class="section level1">
 <h1><span class="header-section-number">Capitulo 2</span> Introdución</h1>
-<p>En este libro - tutorial realizaremos simulaciones de datos de modelos de ocupación, bajo el modelo estático (MacKenzie et al. 2002) para el venado de cola blanca en el Parque Nacional Machalilla.</p>
-<p>El objetivo de este documento es entender la versatilidad y el poder de las simulaciones con R en el capítulo <a href="why.html#why">3</a>, para aprender cómo funciona y el modelo básico de ocupación en el capítulo <a href="occu.html#occu">4</a> con un ejemplo sencillo en el capítulo <a href="example.html#example">5</a> del Parque Nacional Machalilla. Posteriormente empacaremos el código que genera los datos de ocupación en una sola función en el capitulo <a href="function1.html#function1">6</a>. Esta función nos permitirá simular datos bajo diferentes escenarios, que analizaremos con los estimadores de máxima verosimilitud de la función occu del paquete unmarked en el capitulo <a href="unmarked.html#unmarked">7</a>. Posteriormente analizaremos los mismos datos bajo estimadores bayesianos <a href="bayesian.html#bayesian">8</a> para comparar la precisión de ambas aproximaciones.</p>
-<p>Gran parte del concepto, el código y el texto han sido adaptados de los libros de Marc Kery <span class="citation">(Marc Kéry and Schaub <a href="#ref-Kery2012">2012</a>)</span>, <span class="citation">(Marc Kéry and Schaub <a href="#ref-Kery2011a">2011</a>)</span>, <span class="citation">(Marc Kéry <a href="#ref-Kery2010">2010</a>)</span>, <span class="citation">(Marc Kéry and Royle <a href="#ref-kery2015applied">2015</a>)</span>.</p>
+<p>En este libro-tutorial realizaremos simulaciones de datos para modelos de ocupación, bajo el modelo estático de una sola estacion, desarrollado originalmente por Daryl MacKenzie <span class="citation">(MacKenzie et al. <a href="#ref-MacKenzie2002">2002</a>)</span>. El modelo básico de ocupación, es la piedra angular del muestreo y monitoreo biológico moderno!.</p>
+<p>El objetivo de este documento es entender la versatilidad y el poder de las simulaciones con R en el capítulo <a href="why.html#why">3</a>. Aprenderemos el principio biologico y el mecanismo bajo el cual funciona el modelo básico de ocupación en el capítulo <a href="occu.html#occu">4</a>. Realizaremos un ejemplo sencillo en el capítulo <a href="example.html#example">5</a> para un venado del Parque Nacional Machalilla. Posteriormente empacaremos el código que genera los datos de ocupación, en una sola función en el capitulo <a href="function1.html#function1">6</a>. Esta función nos permitirá simular datos bajo diferentes escenarios, los cuales analizaremos con los estimadores de máxima verosimilitud de la función occu del paquete unmarked en el capitulo <a href="unmarked.html#unmarked">7</a>. Posteriormente analizaremos los mismos datos bajo estimadores bayesianos en el capitulo <a href="bayesian.html#bayesian">8</a>, para al final comparar la precisión de ambas aproximaciones, maxima verosimilitud y bayesiana.</p>
+<div id="creditos" class="section level4">
+<h4><span class="header-section-number">2.0.0.1</span> Creditos</h4>
+<p>Gran parte del concepto de este documento, el código y el texto han sido adaptados de los libros de <a href="http://store.elsevier.com/Marc-Kery/ELS_1059944/">Marc Kery</a> <span class="citation">(Kéry and Schaub <a href="#ref-Kery2012">2012</a>)</span>, <span class="citation">(Kéry <a href="#ref-Kery2010">2010</a>)</span>, <span class="citation">(Kéry and Royle <a href="#ref-kery2015applied">2015</a>)</span>.</p>
 
 </div>
-<h3>References</h3>
+</div>
+<h3> Placeholder</h3>
 <div id="refs" class="references">
+<div id="ref-MacKenzie2002">
+<p>MacKenzie, Darryl I, James D Nichols, Gideon B Lachman, Sam Droege, J Andrew Royle, and Catherine A Langtimm. 2002. “Estimating site occupancy rates when detection probabilities are less than one.” <em>Ecology</em> 83 (8). Ecological Society of America: 2248–55. doi:<a href="https://doi.org/10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2">10.1890/0012-9658(2002)083[2248:ESORWD]2.0.CO;2</a>.</p>
+</div>
 <div id="ref-Kery2012">
 <p>Kéry, Marc, and Michael Schaub. 2012. “Estimation of Occupancy and Species Distributions from Detection/Nondetection Data in Metapopulation Designs Using Site-Occupancy Models.” In <em>Bayesian Population Analysis Using Winbugs</em>, 413–61. Elsevier. doi:<a href="https://doi.org/10.1016/B978-0-12-387020-9.00013-4">10.1016/B978-0-12-387020-9.00013-4</a>.</p>
-</div>
-<div id="ref-Kery2011a">
-<p>Kéry, Marc, and Michael Schaub. 2011. <em>Bayesian population pnalysis using WinBUGS: A hierarchical perspective</em>. Academic Press. <a href="http://books.google.com/books?hl=en{\&amp;}lr={\&amp;}id=kd4JGs44ap4C{\&amp;}pgis=1" class="uri">http://books.google.com/books?hl=en{\&amp;}lr={\&amp;}id=kd4JGs44ap4C{\&amp;}pgis=1</a>.</p>
 </div>
 <div id="ref-Kery2010">
 <p>Kéry, Marc. 2010. <em>Introduction to WinBUGS for ecologists</em>. Elsevier. doi:<a href="https://doi.org/10.1016/B978-0-12-378605-0.00020-X">10.1016/B978-0-12-378605-0.00020-X</a>.</p>
@@ -226,17 +166,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
