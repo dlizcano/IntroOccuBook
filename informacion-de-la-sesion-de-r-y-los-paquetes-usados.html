@@ -38,8 +38,8 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="intro.html">
-<link rel="next" href="occu.html">
+<link rel="prev" href="bayesian.html">
+<link rel="next" href="references.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -162,31 +162,55 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="why" class="section level1">
-<h1><span class="header-section-number">Capítulo 3</span> por qué simular?</h1>
-<div id="por-que-son-utiles-las-simulaciones" class="section level2">
-<h2><span class="header-section-number">3.1</span> por qué son útiles las simulaciones:</h2>
-<ol style="list-style-type: decimal">
-<li>Al hacer simulaciones se conocen los parámetros verdaderos, así que podremos asegurarnos que el código que ejecutamos (R o BUGS) estima lo que queremos, y que los estimados son iguales o se acercan a los parámetros verdaderos, permitiendo depurar errores en el código.</li>
-<li>Podemos calibrar un modelo derivado y/o más complejo más fácilmente. Las simulaciones pueden ser vistas como un experimento controlado, o como versiones simplificadas de un sistema real, en el cual podemos probar como varían ciertos parámetros que afectan los estimados de otros parámetros. Realizar experimentos controlados en el mundo real es muchas veces impráctico o imposible en ecología, así que la simulación es la forma más coherente de estudiar el sistema ecológico.</li>
-<li>Se experimenta de primera mano el error de muestreo y se convierte en un fantástico proceso de aprendizaje.</li>
-<li>Podemos verificar la calidad (frecuentista) de los estimados, así como la precisión y el efecto del tamaño muestreal, computando la diferencia entre la media del estimado y el valor real (sesgo) y la varianza del estimado (la precisión).</li>
-<li>Es la forma más flexible y directa de realizar un análisis de poder, resolviendo el gran problema de determinar el tamaño de la muestra necesario para detectar un efecto de cierta magnitud, con una probabilidad dada.<br />
-</li>
-<li>Podemos visualizar que tan identificables son los parámetros en modelos más complejos.</li>
-<li>Podemos verificar que tan robusto es el modelo a violaciones de lo que se asume.</li>
-<li>Al ser capaces de simular datos bajo cierto modelo, se garantiza que uno entiende el modelo, sus restricciones y limitaciones.</li>
-</ol>
+<div id="informacion-de-la-sesion-de-r-y-los-paquetes-usados" class="section level1">
+<h1><span class="header-section-number">Capítulo 9</span> Información de la sesión de R y los paquetes usados</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sessionInfo</span>()</code></pre></div>
+<pre><code>## R version 3.3.0 (2016-05-03)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 7 x64 (build 7601) Service Pack 1
+## 
+## locale:
+## [1] LC_COLLATE=English_United States.1252 
+## [2] LC_CTYPE=English_United States.1252   
+## [3] LC_MONETARY=English_United States.1252
+## [4] LC_NUMERIC=C                          
+## [5] LC_TIME=English_United States.1252    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] ggmcmc_1.1      ggplot2_2.1.0   tidyr_0.5.1     dplyr_0.5.0    
+##  [5] mcmcplots_0.4.2 coda_0.18-1     jagsUI_1.4.2    spatstat_1.46-1
+##  [9] rpart_4.1-10    nlme_3.1-128    raster_2.5-8    sp_1.2-3       
+## [13] unmarked_0.11-0 Rcpp_0.12.6     lattice_0.20-33 reshape_0.8.5  
+## [17] knitr_1.13     
+## 
+## loaded via a namespace (and not attached):
+##  [1] denstrip_1.5.3     reshape2_1.4.1     colorspace_1.2-6  
+##  [4] miniUI_0.1.1       htmltools_0.3.5    yaml_2.1.13       
+##  [7] mgcv_1.8-13        DBI_0.4-1          plyr_1.8.4        
+## [10] stringr_1.0.0      munsell_0.4.3      gtable_0.2.0      
+## [13] codetools_0.2-14   evaluate_0.9       labeling_0.3      
+## [16] GGally_1.2.0       httpuv_1.3.3       parallel_3.3.0    
+## [19] highr_0.6          xtable_1.8-2       tensor_1.5        
+## [22] scales_0.4.0       formatR_1.4        abind_1.4-5       
+## [25] mime_0.5           deldir_0.1-12      rjags_4-6         
+## [28] digest_0.6.9       stringi_1.1.1      bookdown_0.1      
+## [31] shiny_0.13.2       polyclip_1.5-6     grid_3.3.0        
+## [34] tools_3.3.0        magrittr_1.5       goftest_1.0-3     
+## [37] lazyeval_0.2.0     tibble_1.1         Matrix_1.2-6      
+## [40] assertthat_0.1     rmarkdown_1.0.9001 rstudioapi_0.6    
+## [43] R6_2.1.2           sfsmisc_1.1-0</code></pre>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="occu.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+<a href="bayesian.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
@@ -213,7 +237,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dlizcano/occu_book/edit/master/02-why_simul.Rmd",
+"link": "https://github.com/dlizcano/occu_book/edit/master/08-sesion.Rmd",
 "text": null
 },
 "download": null,

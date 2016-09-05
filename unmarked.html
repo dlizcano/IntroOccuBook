@@ -5,12 +5,12 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Simulación y analisis de ocupación</title>
+  <title>Simulación y análisis de ocupación</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is an R example to get occupancy data and analize it.">
   <meta name="generator" content="bookdown 0.1 and GitBook 2.6.7">
 
-  <meta property="og:title" content="Simulación y analisis de ocupación" />
+  <meta property="og:title" content="Simulación y análisis de ocupación" />
   <meta property="og:type" content="book" />
   
   
@@ -18,14 +18,14 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Simulación y analisis de ocupación" />
+  <meta name="twitter:title" content="Simulación y análisis de ocupación" />
   
   <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
   
 
-<meta name="author" content="Diego J. Lizcano">
+<meta name="author" content="Diego J. Lizcano, Ph.D.">
 
-<meta name="date" content="2016-09-01">
+<meta name="date" content="2016-09-05">
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -110,9 +110,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisitos</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introdución</a></li>
-<li class="chapter" data-level="3" data-path="why.html"><a href="why.html"><i class="fa fa-check"></i><b>3</b> Porque simular?</a><ul>
-<li class="chapter" data-level="3.1" data-path="why.html"><a href="why.html#por-que-son-utiles-las-simulaciones"><i class="fa fa-check"></i><b>3.1</b> Por que son útiles las simulaciones:</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introducción</a></li>
+<li class="chapter" data-level="3" data-path="why.html"><a href="why.html"><i class="fa fa-check"></i><b>3</b> por qué simular?</a><ul>
+<li class="chapter" data-level="3.1" data-path="why.html"><a href="why.html#por-que-son-utiles-las-simulaciones"><i class="fa fa-check"></i><b>3.1</b> por qué son útiles las simulaciones:</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="occu.html"><a href="occu.html"><i class="fa fa-check"></i><b>4</b> La ocupación de hábitat</a></li>
 <li class="chapter" data-level="5" data-path="example.html"><a href="example.html"><i class="fa fa-check"></i><b>5</b> Nuestro ejemplo:</a><ul>
@@ -120,25 +120,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.0.2" data-path="example.html"><a href="example.html#modelo-de-observacion"><i class="fa fa-check"></i><b>5.0.2</b> Modelo de Observación:</a></li>
 <li class="chapter" data-level="5.1" data-path="example.html"><a href="example.html#pasos-iniciales-tamano-de-la-muestra-y-valores-de-las-co-variables"><i class="fa fa-check"></i><b>5.1</b> Pasos iniciales: tamaño de la muestra y valores de las co-variables</a></li>
 <li class="chapter" data-level="5.2" data-path="example.html"><a href="example.html#simulando-el-proceso-ecologico-y-su-resultado-la-ocurrencia-del-venado"><i class="fa fa-check"></i><b>5.2</b> Simulando el proceso ecológico y su resultado: la ocurrencia del venado</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="example.html"><a href="example.html#por-que-bernoulli"><i class="fa fa-check"></i><b>5.2.1</b> Por que Bernoulli?</a></li>
+<li class="chapter" data-level="5.2.1" data-path="example.html"><a href="example.html#por-que-bernoulli"><i class="fa fa-check"></i><b>5.2.1</b> Por qué Bernoulli?</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="example.html"><a href="example.html#simulando-el-proceso-de-observacion-y-su-resultado-la-deteccion"><i class="fa fa-check"></i><b>5.3</b> Simulando el proceso de observación y su resultado: la detección</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="example.html"><a href="example.html#uniendo-los-dos-procesos-el-ecologico-y-el-de-observacion"><i class="fa fa-check"></i><b>5.3.1</b> Uniendo los dos procesos el ecologico y el de observación</a></li>
+<li class="chapter" data-level="5.3.1" data-path="example.html"><a href="example.html#uniendo-los-dos-procesos-el-ecologico-y-el-de-observacion"><i class="fa fa-check"></i><b>5.3.1</b> Uniendo los dos procesos el ecológico y el de observación</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="function1.html"><a href="function1.html"><i class="fa fa-check"></i><b>6</b> Empacando todo en una función</a></li>
 <li class="chapter" data-level="7" data-path="unmarked.html"><a href="unmarked.html"><i class="fa fa-check"></i><b>7</b> Analisis de ocupación, metodo ML</a><ul>
+<li class="chapter" data-level="7.0.1" data-path="unmarked.html"><a href="unmarked.html#limpiando-la-memoria-de-r"><i class="fa fa-check"></i><b>7.0.1</b> Limpiando la memoria de R</a></li>
 <li class="chapter" data-level="7.1" data-path="unmarked.html"><a href="unmarked.html#generando-los-datos"><i class="fa fa-check"></i><b>7.1</b> Generando los datos</a></li>
 <li class="chapter" data-level="7.2" data-path="unmarked.html"><a href="unmarked.html#poniendo-los-datos-en-unmarked"><i class="fa fa-check"></i><b>7.2</b> Poniendo los datos en unmarked</a></li>
 <li class="chapter" data-level="7.3" data-path="unmarked.html"><a href="unmarked.html#ajustando-los-modelos"><i class="fa fa-check"></i><b>7.3</b> Ajustando los modelos</a></li>
-<li class="chapter" data-level="7.4" data-path="unmarked.html"><a href="unmarked.html#model-selection"><i class="fa fa-check"></i><b>7.4</b> Model selection</a></li>
-<li class="chapter" data-level="7.5" data-path="unmarked.html"><a href="unmarked.html#prediccion-en-graficas-y-mapas"><i class="fa fa-check"></i><b>7.5</b> Predicción en graficas y mapas</a></li>
+<li class="chapter" data-level="7.4" data-path="unmarked.html"><a href="unmarked.html#seleccion-de-modelos"><i class="fa fa-check"></i><b>7.4</b> Selección de modelos</a></li>
+<li class="chapter" data-level="7.5" data-path="unmarked.html"><a href="unmarked.html#prediccion-en-graficas"><i class="fa fa-check"></i><b>7.5</b> Predicción en graficas</a></li>
+<li class="chapter" data-level="7.6" data-path="unmarked.html"><a href="unmarked.html#prediccion-espacialmente-explicita"><i class="fa fa-check"></i><b>7.6</b> Predicción espacialmente explicita</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>8</b> Análisis Bayesiano</a><ul>
 <li class="chapter" data-level="8.1" data-path="bayesian.html"><a href="bayesian.html#generando-los-datos-1"><i class="fa fa-check"></i><b>8.1</b> Generando los datos</a></li>
 <li class="chapter" data-level="8.2" data-path="bayesian.html"><a href="bayesian.html#comparando-los-valores-reales-y-los-estimados-de-ml-y-bayesiano"><i class="fa fa-check"></i><b>8.2</b> Comparando los valores reales y los estimados de ML y Bayesiano</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="informacion-de-la-session-de-r-y-los-paquetes-usados.html"><a href="informacion-de-la-session-de-r-y-los-paquetes-usados.html"><i class="fa fa-check"></i><b>9</b> Información de la sessión de R y los paquetes usados</a></li>
+<li class="chapter" data-level="9" data-path="informacion-de-la-sesion-de-r-y-los-paquetes-usados.html"><a href="informacion-de-la-sesion-de-r-y-los-paquetes-usados.html"><i class="fa fa-check"></i><b>9</b> Información de la sesión de R y los paquetes usados</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -152,7 +154,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulación y analisis de ocupación</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulación y análisis de ocupación</a>
           </h1>
         </div>
 
@@ -161,11 +163,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="unmarked" class="section level1">
-<h1><span class="header-section-number">Capitulo 7</span> Analisis de ocupación, metodo ML</h1>
-<p>Ya que hemos entendido como funcionan e interactúan los dos procesos; el ecológico y el observacional para producir los datos de ocupación. Luego de generar varios sets de datos, ahora solo nos resta analizarlos. La forma más directa e intuitiva es usar la función occu del paquete unmarked <span class="citation">(Fiske and Chandler <a href="#ref-Fiske2011">2011</a>)</span>. Posteriormente podremos usar un modelo de tipo bayesiano en el lenguaje BUGS para analizar los mismos datos y al final comparar cual de los dos estimadores, Maxima Verosimilitud o Bayesiano, se acerca mas a los parametros verdaderos.</p>
+<h1><span class="header-section-number">Capítulo 7</span> Analisis de ocupación, metodo ML</h1>
+<p>Ya que hemos entendido como funcionan e interactúan los dos procesos; el ecológico y el observacional para producir los datos de ocupación. Luego de generar varios sets de datos, ahora solo nos resta analizarlos. La forma más directa e intuitiva es usar la función occu del paquete unmarked <span class="citation">(Fiske and Chandler <a href="#ref-Fiske2011">2011</a>)</span>. Posteriormente podremos usar un modelo de tipo bayesiano en el lenguaje BUGS para analizar los mismos datos y al final comparar cual de los dos estimadores, Máxima Verosimilitud o Bayesiano, se acerca más a los parametros verdaderos.</p>
+<div id="limpiando-la-memoria-de-r" class="section level3">
+<h3><span class="header-section-number">7.0.1</span> Limpiando la memoria de R</h3>
+<p>Antes de continuar, y como ya hemos generado una gran cantidad de datos y modelos en los pasos previos, vamos a borrar la memoria de R antes de comenzar. Esto lo hacemos con el comando:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</code></pre></div>
+<p>Una vez hayamos hecho esto debemos volver a correr el código de la función que genera los datos que hemos creado el Capítulo <a href="function1.html#function1">6</a>.</p>
+</div>
 <div id="generando-los-datos" class="section level2">
 <h2><span class="header-section-number">7.1</span> Generando los datos</h2>
-<p>Esta vez recurriremos a un diseño tipo TEAM (<a href="http://www.teamnetwork.org" class="uri">http://www.teamnetwork.org</a>) con 60 sitios de muestreo y 30 visitas repetidas, que equivalen a los 30 días en que las camaras permenecen activas en campo. De nuevo nuestra especie es el venado de cola blanca. Para este ejemplo asumiremos que la detección es 0.6, la ocupacion 0.8 y las interacciones son mucho mas sencillas con la altitud como la unica covariable que explica la ocupación. Sin embargo para la deteccion hay una relación mas compleja, asumiendo que hay una leve interacción entre las covariables de la observación. Para la observación la altitud y temperatura interactuan entre si. Tambien observe como la altitud influye en direcciones opuestas con un signo positivo en la altitud para la detección y negativo para la ocupación.</p>
+<p>Esta vez recurriremos a un diseño tipo TEAM (<a href="http://www.teamnetwork.org" class="uri">http://www.teamnetwork.org</a>) con 60 sitios de muestreo y 30 visitas repetidas, que equivalen a los 30 días en que las camaras permanecen activas en campo. De nuevo nuestra especie es el venado de cola blanca. Para este ejemplo asumiremos que la detección es 0.6, la ocupacion 0.8 y las interacciones son mucho más sencillas con la altitud como la unica covariable que explica la ocupación. Sin embargo para la deteccion hay una relación más compleja, asumiendo que hay una leve interacción entre las covariables de la observación. Para la observación la altitud y temperatura interactuan entre si. También observe como la altitud influye en direcciones opuestas con un signo positivo en la altitud para la detección y negativo para la ocupación.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Data generation</span>
 <span class="co"># Lets build a model were elevation explain occupancy and p has interactions</span>
 datos2&lt;-<span class="kw">data.fn</span>(<span class="dt">M =</span> <span class="dv">60</span>, <span class="dt">J =</span> <span class="dv">30</span>, <span class="dt">show.plot =</span> <span class="ot">FALSE</span>,
@@ -206,19 +214,26 @@ datos2&lt;-<span class="kw">data.fn</span>(<span class="dt">M =</span> <span cla
 </div>
 <div id="poniendo-los-datos-en-unmarked" class="section level2">
 <h2><span class="header-section-number">7.2</span> Poniendo los datos en unmarked</h2>
-<p>Unmarked (<a href="http://cran.r-project.org/web/packages/unmarked/index.html" class="uri">http://cran.r-project.org/web/packages/unmarked/index.html</a>) es el paquete de R que usamos para analizar los datos de ocupacion. Para lograr esto debemos primero preparar los datos y juntarlos en un objeto de tipo unmarkedFrame. En este caso usamos la funcion unmarkedFrameOccu que es especifica para analisis de ocupacion de una sola epoca o estacion. Mas sobre unkarked en: <a href="https://sites.google.com/site/unmarkedinfo/home" class="uri">https://sites.google.com/site/unmarkedinfo/home</a></p>
+<p><a href="http://cran.r-project.org/web/packages/unmarked/index.html">Unmarked</a> es el paquete de R que usamos para analizar los datos de ocupacion <span class="citation">(Fiske and Chandler <a href="#ref-Fiske2011">2011</a>)</span>. Para lograr esto debemos primero preparar los datos y juntarlos en un objeto de tipo unmarkedFrame. En este caso usamos la funcion unmarkedFrameOccu que es especifica para analisis de ocupacion de una sola epoca o estación. Más sobre unkarked en: <a href="https://sites.google.com/site/unmarkedinfo/home" class="uri">https://sites.google.com/site/unmarkedinfo/home</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(unmarked)
-siteCovs &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(forest,elev))
-obselev&lt;-<span class="kw">matrix</span>(<span class="kw">rep</span>(elev,J),<span class="dt">ncol =</span> J) <span class="co">#make elevetion per observation</span>
-obsCovs &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">temp=</span> temp,<span class="dt">elev=</span>obselev)
+siteCovs &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(forest,elev)) <span class="co"># occupancy covariates </span>
+obselev&lt;-<span class="kw">matrix</span>(<span class="kw">rep</span>(elev,J),<span class="dt">ncol =</span> J) <span class="co"># make elevetion per observation</span>
+obsCovs &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">temp=</span> temp,<span class="dt">elev=</span>obselev) <span class="co"># detection covariates</span>
+
+<span class="co"># umf is the object joining observations (y), occupancy covariates (siteCovs)</span>
+<span class="co"># and detection covariates (obsCovs). Note that obsCovs should be a list of </span>
+<span class="co"># matrices or dataframes.</span>
+
 umf &lt;-<span class="st"> </span><span class="kw">unmarkedFrameOccu</span>(<span class="dt">y =</span> y, <span class="dt">siteCovs =</span> siteCovs, <span class="dt">obsCovs =</span> obsCovs)</code></pre></div>
 </div>
 <div id="ajustando-los-modelos" class="section level2">
 <h2><span class="header-section-number">7.3</span> Ajustando los modelos</h2>
-<p>El siguiente paso es ajustar los modelos que se requerían variando las co variables. Esto se logra con la función occu().</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fm0 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="dv">1</span> ~<span class="dv">1</span>, umf) <span class="co">#detection first, occupancy next</span>
-fm1 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>elev ~<span class="st"> </span><span class="dv">1</span>, umf)
-fm2 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>elev ~<span class="st"> </span>elev, umf)
+<p>El siguiente paso es ajustar los modelos que se requerían variando las co variables. Esto se logra con la <a href="http://www.rdocumentation.org/packages/unmarked/versions/0.11-0/topics/occu">función occu()</a>.</p>
+<p>Tenga en cuenta que en el proceso de construcción de modelos su modelo debe tener un significado biológico.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># detection first, occupancy next</span>
+fm0 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="dv">1</span> ~<span class="dv">1</span>, umf) <span class="co"># Null model</span>
+fm1 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>elev ~<span class="st"> </span><span class="dv">1</span>, umf) <span class="co"># elev explaining detection</span>
+fm2 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>elev ~<span class="st"> </span>elev, umf) <span class="co"># elev explaining detection and occupancy</span>
 fm3 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>temp ~<span class="st"> </span>elev, umf)
 fm4 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>temp ~<span class="st"> </span>forest, umf)
 fm5 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>elev +<span class="st"> </span>temp ~<span class="st"> </span><span class="dv">1</span>, umf)
@@ -226,9 +241,9 @@ fm6 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"
 fm7 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>elev +<span class="st"> </span>temp +<span class="st"> </span>elev:temp ~<span class="st"> </span>elev, umf)
 fm8 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>elev +<span class="st"> </span>temp +<span class="st"> </span>elev:temp ~<span class="st"> </span>forest, umf)</code></pre></div>
 </div>
-<div id="model-selection" class="section level2">
-<h2><span class="header-section-number">7.4</span> Model selection</h2>
-<p>Unmarked permite hacer selección de modelos basándose en el AIC de cada uno. De forma tal que el menor AIC es el modelo más parsimonioso de acuerdo a nuestros datos.</p>
+<div id="seleccion-de-modelos" class="section level2">
+<h2><span class="header-section-number">7.4</span> Selección de modelos</h2>
+<p>Unmarked permite hacer selección de modelos basándose en el AIC de cada uno. De forma tal que el menor AIC es el modelo más parsimonioso de acuerdo a nuestros datos <span class="citation">(Burnham and Anderson <a href="#ref-Burnham2004">2004</a>)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">models &lt;-<span class="st"> </span><span class="kw">fitList</span>( <span class="co"># here e put names to the models</span>
   <span class="st">&#39;p(.)psi(.)&#39;</span>                        =<span class="st"> </span>fm0,
   <span class="st">&#39;p(elev)psi(.)&#39;</span>                     =<span class="st"> </span>fm1,
@@ -252,10 +267,32 @@ fm8 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"
 ## p(temp)psi(forest)                    4 1960.57 304.04 7.8e-67     1.00
 ## p(.)psi(.)                            2 1979.67 323.14 5.6e-71     1.00</code></pre>
 </div>
-<div id="prediccion-en-graficas-y-mapas" class="section level2">
-<h2><span class="header-section-number">7.5</span> Predicción en graficas y mapas</h2>
+<div id="prediccion-en-graficas" class="section level2">
+<h2><span class="header-section-number">7.5</span> Predicción en graficas</h2>
 <p>El modelo con menor AIC puede ser usado para predecir resultados esperados de acuerdo a un nuevo set de datos. Por ejemplo, uno podría preguntar la abundancia de venados que se espera encontrar en un sitio con mayor altitud. La predicciones también son otra forma de presentar los resultados de un análisis. Aquí ilustraremos como se ve la predicción de <span class="math inline">\(\psi\)</span> y <em>p</em> sobre el rango de las covariables estudiadas. Note que estamos usando covariables estandarizadas. Si estuviéramos usando covariables en su escala real, tendríamos que tener en cuenta que hay que transformarlas usando la media y la desviación estándar.</p>
-<p>Antes de usar el modelo para predecir es buena idea verificar que el modelo ajusta bien con la función parboot, la cual hace un remuestreo del modelo y se interpreta como que el modelo tiene buen ajuste, cuando la media (linea punteada) esta entre los intervalos del histograma.</p>
+<p>Antes de usar el modelo para predecir es buena idea verificar los parámetros del modelo y sus errores, posteriormente verificar que el modelo ajusta bien con la función parboot, la cual hace un remuestreo del modelo y se interpreta como que el modelo tiene buen ajuste, cuando la media (línea punteada) está entre los intervalos del histograma.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fm7) <span class="co"># see the model parameters</span></code></pre></div>
+<pre><code>## 
+## Call:
+## occu(formula = ~elev + temp + elev:temp ~ elev, data = umf)
+## 
+## Occupancy (logit-scale):
+##             Estimate    SE     z  P(&gt;|z|)
+## (Intercept)     1.18 0.326  3.62 0.000291
+## elev           -1.41 0.624 -2.26 0.023548
+## 
+## Detection (logit-scale):
+##             Estimate     SE     z  P(&gt;|z|)
+## (Intercept)    0.407 0.0735  5.54 3.03e-08
+## elev           2.140 0.1494 14.32 1.66e-46
+## temp           0.900 0.1262  7.14 9.68e-13
+## elev:temp      1.680 0.2514  6.68 2.34e-11
+## 
+## AIC: 1656.533 
+## Number of sites: 60
+## optim convergence code: 0
+## optim iterations: 37 
+## Bootstrap iterations: 0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pb &lt;-<span class="st"> </span><span class="kw">parboot</span>(fm7, <span class="dt">nsim=</span><span class="dv">250</span>, <span class="dt">report=</span><span class="dv">10</span>) <span class="co"># goodness of fit</span></code></pre></div>
 <pre><code>## t0 = 393.9606 
 ## 385.8,378.2,386.5,354.1,394.2,368.9,381.6,370.9,395.6,370.2
@@ -294,7 +331,10 @@ pred_psi &lt;-<span class="kw">predict</span>(fm7,<span class="dt">type=</span><
 <span class="kw">lines</span>(lower~elev, pred_psi,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>))
 <span class="kw">lines</span>(upper~elev, pred_psi,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>))</code></pre></div>
 <p><img src="Simul-Machalilla-book_files/figure-html/graph_psi-1.png" width="672" /></p>
-<p>Podemos también usar el mejor modelo para predecir de forma espacialmente explicita si tenemos los mapas. Para esto vamos a construir mapas para cada una de nuestras covariables. Los mapas surgen de un patrón aleatorio de puntos con distribución Poisson. Luego estos puntos los convertimos en una superficie interpolada.</p>
+</div>
+<div id="prediccion-espacialmente-explicita" class="section level2">
+<h2><span class="header-section-number">7.6</span> Predicción espacialmente explicita</h2>
+<p>Podemos también usar el mejor modelo para predecir de forma espacialmente explicita si tenemos los mapas. Como ilustración vamos a construir mapas simulados para cada una de nuestras covariables. Los mapas surgen de un patrón aleatorio de puntos con distribución Poisson. Luego estos puntos los convertimos en una superficie interpolada.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lets make random maps for the three covariates</span>
 <span class="kw">library</span>(raster)
 <span class="kw">library</span>(spatstat)
@@ -365,6 +405,9 @@ predmaps&lt;-<span class="kw">stack</span>(predictions_psi$Predicted,predictions
 <div id="refs" class="references">
 <div id="ref-Fiske2011">
 <p>Fiske, Ian, and Richard Chandler. 2011. “unmarked : An R Package for fitting hierarchical models of wildlife occurrence and abundance.” <em>Journal of Statistical Software</em> 43 (10): 1–23. doi:<a href="https://doi.org/10.18637/jss.v043.i10">10.18637/jss.v043.i10</a>.</p>
+</div>
+<div id="ref-Burnham2004">
+<p>Burnham, Kenneth P, and David R Anderson. 2004. “Information and likelihood theory: A basis for model selection and inference.” In <em>Model Selection and Multimodel Inference: A Practical Information-Theoretic Approach</em>, edited by Kenneth P Burnham and David R Anderson, 49–97. New York: Springer New York. <a href="http://link.springer.com/chapter/10.1007%2F978-0-387-22456-5_2">http://link.springer.com/chapter/10.1007%2F978-0-387-22456-5_2</a>.</p>
 </div>
 </div>
             </section>

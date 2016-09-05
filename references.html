@@ -5,12 +5,12 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Simulación y analisis de ocupación</title>
+  <title>Simulación y análisis de ocupación</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is an R example to get occupancy data and analize it.">
   <meta name="generator" content="bookdown 0.1 and GitBook 2.6.7">
 
-  <meta property="og:title" content="Simulación y analisis de ocupación" />
+  <meta property="og:title" content="Simulación y análisis de ocupación" />
   <meta property="og:type" content="book" />
   
   
@@ -18,14 +18,14 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Simulación y analisis de ocupación" />
+  <meta name="twitter:title" content="Simulación y análisis de ocupación" />
   
   <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
   
 
-<meta name="author" content="Diego J. Lizcano">
+<meta name="author" content="Diego J. Lizcano, Ph.D.">
 
-<meta name="date" content="2016-09-01">
+<meta name="date" content="2016-09-05">
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -38,7 +38,7 @@ MathJax.Hub.Config({
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="informacion-de-la-session-de-r-y-los-paquetes-usados.html">
+<link rel="prev" href="informacion-de-la-sesion-de-r-y-los-paquetes-usados.html">
 
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -110,9 +110,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisitos</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introdución</a></li>
-<li class="chapter" data-level="3" data-path="why.html"><a href="why.html"><i class="fa fa-check"></i><b>3</b> Porque simular?</a><ul>
-<li class="chapter" data-level="3.1" data-path="why.html"><a href="why.html#por-que-son-utiles-las-simulaciones"><i class="fa fa-check"></i><b>3.1</b> Por que son útiles las simulaciones:</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introducción</a></li>
+<li class="chapter" data-level="3" data-path="why.html"><a href="why.html"><i class="fa fa-check"></i><b>3</b> por qué simular?</a><ul>
+<li class="chapter" data-level="3.1" data-path="why.html"><a href="why.html#por-que-son-utiles-las-simulaciones"><i class="fa fa-check"></i><b>3.1</b> por qué son útiles las simulaciones:</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="occu.html"><a href="occu.html"><i class="fa fa-check"></i><b>4</b> La ocupación de hábitat</a></li>
 <li class="chapter" data-level="5" data-path="example.html"><a href="example.html"><i class="fa fa-check"></i><b>5</b> Nuestro ejemplo:</a><ul>
@@ -120,25 +120,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.0.2" data-path="example.html"><a href="example.html#modelo-de-observacion"><i class="fa fa-check"></i><b>5.0.2</b> Modelo de Observación:</a></li>
 <li class="chapter" data-level="5.1" data-path="example.html"><a href="example.html#pasos-iniciales-tamano-de-la-muestra-y-valores-de-las-co-variables"><i class="fa fa-check"></i><b>5.1</b> Pasos iniciales: tamaño de la muestra y valores de las co-variables</a></li>
 <li class="chapter" data-level="5.2" data-path="example.html"><a href="example.html#simulando-el-proceso-ecologico-y-su-resultado-la-ocurrencia-del-venado"><i class="fa fa-check"></i><b>5.2</b> Simulando el proceso ecológico y su resultado: la ocurrencia del venado</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="example.html"><a href="example.html#por-que-bernoulli"><i class="fa fa-check"></i><b>5.2.1</b> Por que Bernoulli?</a></li>
+<li class="chapter" data-level="5.2.1" data-path="example.html"><a href="example.html#por-que-bernoulli"><i class="fa fa-check"></i><b>5.2.1</b> Por qué Bernoulli?</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="example.html"><a href="example.html#simulando-el-proceso-de-observacion-y-su-resultado-la-deteccion"><i class="fa fa-check"></i><b>5.3</b> Simulando el proceso de observación y su resultado: la detección</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="example.html"><a href="example.html#uniendo-los-dos-procesos-el-ecologico-y-el-de-observacion"><i class="fa fa-check"></i><b>5.3.1</b> Uniendo los dos procesos el ecologico y el de observación</a></li>
+<li class="chapter" data-level="5.3.1" data-path="example.html"><a href="example.html#uniendo-los-dos-procesos-el-ecologico-y-el-de-observacion"><i class="fa fa-check"></i><b>5.3.1</b> Uniendo los dos procesos el ecológico y el de observación</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="function1.html"><a href="function1.html"><i class="fa fa-check"></i><b>6</b> Empacando todo en una función</a></li>
 <li class="chapter" data-level="7" data-path="unmarked.html"><a href="unmarked.html"><i class="fa fa-check"></i><b>7</b> Analisis de ocupación, metodo ML</a><ul>
+<li class="chapter" data-level="7.0.1" data-path="unmarked.html"><a href="unmarked.html#limpiando-la-memoria-de-r"><i class="fa fa-check"></i><b>7.0.1</b> Limpiando la memoria de R</a></li>
 <li class="chapter" data-level="7.1" data-path="unmarked.html"><a href="unmarked.html#generando-los-datos"><i class="fa fa-check"></i><b>7.1</b> Generando los datos</a></li>
 <li class="chapter" data-level="7.2" data-path="unmarked.html"><a href="unmarked.html#poniendo-los-datos-en-unmarked"><i class="fa fa-check"></i><b>7.2</b> Poniendo los datos en unmarked</a></li>
 <li class="chapter" data-level="7.3" data-path="unmarked.html"><a href="unmarked.html#ajustando-los-modelos"><i class="fa fa-check"></i><b>7.3</b> Ajustando los modelos</a></li>
-<li class="chapter" data-level="7.4" data-path="unmarked.html"><a href="unmarked.html#model-selection"><i class="fa fa-check"></i><b>7.4</b> Model selection</a></li>
-<li class="chapter" data-level="7.5" data-path="unmarked.html"><a href="unmarked.html#prediccion-en-graficas-y-mapas"><i class="fa fa-check"></i><b>7.5</b> Predicción en graficas y mapas</a></li>
+<li class="chapter" data-level="7.4" data-path="unmarked.html"><a href="unmarked.html#seleccion-de-modelos"><i class="fa fa-check"></i><b>7.4</b> Selección de modelos</a></li>
+<li class="chapter" data-level="7.5" data-path="unmarked.html"><a href="unmarked.html#prediccion-en-graficas"><i class="fa fa-check"></i><b>7.5</b> Predicción en graficas</a></li>
+<li class="chapter" data-level="7.6" data-path="unmarked.html"><a href="unmarked.html#prediccion-espacialmente-explicita"><i class="fa fa-check"></i><b>7.6</b> Predicción espacialmente explicita</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>8</b> Análisis Bayesiano</a><ul>
 <li class="chapter" data-level="8.1" data-path="bayesian.html"><a href="bayesian.html#generando-los-datos-1"><i class="fa fa-check"></i><b>8.1</b> Generando los datos</a></li>
 <li class="chapter" data-level="8.2" data-path="bayesian.html"><a href="bayesian.html#comparando-los-valores-reales-y-los-estimados-de-ml-y-bayesiano"><i class="fa fa-check"></i><b>8.2</b> Comparando los valores reales y los estimados de ML y Bayesiano</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="informacion-de-la-session-de-r-y-los-paquetes-usados.html"><a href="informacion-de-la-session-de-r-y-los-paquetes-usados.html"><i class="fa fa-check"></i><b>9</b> Información de la sessión de R y los paquetes usados</a></li>
+<li class="chapter" data-level="9" data-path="informacion-de-la-sesion-de-r-y-los-paquetes-usados.html"><a href="informacion-de-la-sesion-de-r-y-los-paquetes-usados.html"><i class="fa fa-check"></i><b>9</b> Información de la sesión de R y los paquetes usados</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -152,7 +154,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulación y analisis de ocupación</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulación y análisis de ocupación</a>
           </h1>
         </div>
 
@@ -164,6 +166,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1>References</h1>
 
 <div id="refs" class="references">
+<div>
+<p>Burnham, Kenneth P, and David R Anderson. 2004. “Information and likelihood theory: A basis for model selection and inference.” In <em>Model Selection and Multimodel Inference: A Practical Information-Theoretic Approach</em>, edited by Kenneth P Burnham and David R Anderson, 49–97. New York: Springer New York. <a href="http://link.springer.com/chapter/10.1007%2F978-0-387-22456-5_2">http://link.springer.com/chapter/10.1007%2F978-0-387-22456-5_2</a>.</p>
+</div>
 <div>
 <p>Fiske, Ian, and Richard Chandler. 2011. “unmarked : An R Package for fitting hierarchical models of wildlife occurrence and abundance.” <em>Journal of Statistical Software</em> 43 (10): 1–23. doi:<a href="https://doi.org/10.18637/jss.v043.i10">10.18637/jss.v043.i10</a>.</p>
 </div>
@@ -195,10 +200,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Kéry, Marc, and J Andrew Royle. 2015. <em>Applied Hierarchical Modeling in Ecology: Analysis of Distribution, Abundance and Species Richness in R and Bugs: Volume 1: Prelude and Static Models</em>. Academic Press.</p>
 </div>
 <div>
-<p>Kéry, Marc, and Michael Schaub. 2011. <em>Bayesian population pnalysis using WinBUGS: A hierarchical perspective</em>. Academic Press. <a href="http://books.google.com/books?hl=en{\&amp;}lr={\&amp;}id=kd4JGs44ap4C{\&amp;}pgis=1" class="uri">http://books.google.com/books?hl=en{\&amp;}lr={\&amp;}id=kd4JGs44ap4C{\&amp;}pgis=1</a>.</p>
-</div>
-<div>
-<p>———. 2012. “Estimation of Occupancy and Species Distributions from Detection/Nondetection Data in Metapopulation Designs Using Site-Occupancy Models.” In <em>Bayesian Population Analysis Using Winbugs</em>, 413–61. Elsevier. doi:<a href="https://doi.org/10.1016/B978-0-12-387020-9.00013-4">10.1016/B978-0-12-387020-9.00013-4</a>.</p>
+<p>Kéry, Marc, and Michael Schaub. 2012. “Estimation of Occupancy and Species Distributions from Detection/Nondetection Data in Metapopulation Designs Using Site-Occupancy Models.” In <em>Bayesian Population Analysis Using Winbugs</em>, 413–61. Elsevier. doi:<a href="https://doi.org/10.1016/B978-0-12-387020-9.00013-4">10.1016/B978-0-12-387020-9.00013-4</a>.</p>
 </div>
 <div>
 <p>Kéry, Marc, Gurutzeta Guillera-Arroita, and José J. Lahoz-Monfort. 2013. “Analysing and mapping species range dynamics using occupancy models.” Edited by Michael Patten. <em>Journal of Biogeography</em> 40 (8): 1463–74. doi:<a href="https://doi.org/10.1111/jbi.12087">10.1111/jbi.12087</a>.</p>
@@ -234,7 +236,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="informacion-de-la-session-de-r-y-los-paquetes-usados.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="informacion-de-la-sesion-de-r-y-los-paquetes-usados.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
 
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
