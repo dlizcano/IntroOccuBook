@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Simulación y análisis de ocupación</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-  <meta name="description" content="This is an R example to get occupancy data and analize it.">
-  <meta name="generator" content="bookdown 0.1 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Análisis de ocupación, metodo ML | Simulación y análisis de ocupación</title>
+  <meta name="description" content="This is an R example to get occupancy data and analize it." />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Simulación y análisis de ocupación" />
+  <meta property="og:title" content="7 Análisis de ocupación, metodo ML | Simulación y análisis de ocupación" />
   <meta property="og:type" content="book" />
   
   
@@ -18,31 +16,26 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Simulación y análisis de ocupación" />
+  <meta name="twitter:title" content="7 Análisis de ocupación, metodo ML | Simulación y análisis de ocupación" />
   
   <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
   
 
-<meta name="author" content="Diego J. Lizcano, Ph.D.">
+<meta name="author" content="Diego J. Lizcano, Ph.D." />
 
-<meta name="date" content="2016-09-05">
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
+<meta name="date" content="2019-08-12" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="function1.html">
 <link rel="next" href="bayesian.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -57,47 +50,74 @@ MathJax.Hub.Config({
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -106,9 +126,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulando datos de ocupación</a></li>
-
-<li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisitos</a></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introducción</a></li>
 <li class="chapter" data-level="3" data-path="why.html"><a href="why.html"><i class="fa fa-check"></i><b>3</b> por qué simular?</a><ul>
@@ -127,14 +144,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="function1.html"><a href="function1.html"><i class="fa fa-check"></i><b>6</b> Empacando todo en una función</a></li>
-<li class="chapter" data-level="7" data-path="unmarked.html"><a href="unmarked.html"><i class="fa fa-check"></i><b>7</b> Analisis de ocupación, metodo ML</a><ul>
+<li class="chapter" data-level="7" data-path="unmarked.html"><a href="unmarked.html"><i class="fa fa-check"></i><b>7</b> Análisis de ocupación, metodo ML</a><ul>
 <li class="chapter" data-level="7.0.1" data-path="unmarked.html"><a href="unmarked.html#limpiando-la-memoria-de-r"><i class="fa fa-check"></i><b>7.0.1</b> Limpiando la memoria de R</a></li>
 <li class="chapter" data-level="7.1" data-path="unmarked.html"><a href="unmarked.html#generando-los-datos"><i class="fa fa-check"></i><b>7.1</b> Generando los datos</a></li>
 <li class="chapter" data-level="7.2" data-path="unmarked.html"><a href="unmarked.html#poniendo-los-datos-en-unmarked"><i class="fa fa-check"></i><b>7.2</b> Poniendo los datos en unmarked</a></li>
 <li class="chapter" data-level="7.3" data-path="unmarked.html"><a href="unmarked.html#ajustando-los-modelos"><i class="fa fa-check"></i><b>7.3</b> Ajustando los modelos</a></li>
 <li class="chapter" data-level="7.4" data-path="unmarked.html"><a href="unmarked.html#seleccion-de-modelos"><i class="fa fa-check"></i><b>7.4</b> Selección de modelos</a></li>
 <li class="chapter" data-level="7.5" data-path="unmarked.html"><a href="unmarked.html#prediccion-en-graficas"><i class="fa fa-check"></i><b>7.5</b> Predicción en graficas</a></li>
-<li class="chapter" data-level="7.6" data-path="unmarked.html"><a href="unmarked.html#prediccion-espacialmente-explicita"><i class="fa fa-check"></i><b>7.6</b> Predicción espacialmente explicita</a></li>
+<li class="chapter" data-level="7.6" data-path="unmarked.html"><a href="unmarked.html#prediccion-espacialmente-explicita"><i class="fa fa-check"></i><b>7.6</b> Predicción espacialmente explícita</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>8</b> Análisis Bayesiano</a><ul>
 <li class="chapter" data-level="8.1" data-path="bayesian.html"><a href="bayesian.html#generando-los-datos-1"><i class="fa fa-check"></i><b>8.1</b> Generando los datos</a></li>
@@ -142,9 +159,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="9" data-path="informacion-de-la-sesion-de-r-y-los-paquetes-usados.html"><a href="informacion-de-la-sesion-de-r-y-los-paquetes-usados.html"><i class="fa fa-check"></i><b>9</b> Información de la sesión de R y los paquetes usados</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
 </ul>
 
       </nav>
@@ -163,203 +177,179 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="unmarked" class="section level1">
-<h1><span class="header-section-number">Capítulo 7</span> Analisis de ocupación, metodo ML</h1>
-<p>Ya que hemos entendido como funcionan e interactúan los dos procesos; el ecológico y el observacional para producir los datos de ocupación. Luego de generar varios sets de datos, ahora solo nos resta analizarlos. La forma más directa e intuitiva es usar la función occu del paquete unmarked <span class="citation">(Fiske and Chandler <a href="#ref-Fiske2011">2011</a>)</span>. Posteriormente podremos usar un modelo de tipo bayesiano en el lenguaje BUGS para analizar los mismos datos y al final comparar cual de los dos estimadores, Máxima Verosimilitud o Bayesiano, se acerca más a los parametros verdaderos.</p>
+<h1><span class="header-section-number">7</span> Análisis de ocupación, metodo ML</h1>
+<p>Ya que hemos entendido como funcionan e interactúan los dos procesos; el ecológico y el observacional para producir los datos de ocupación. Luego de generar varios sets de datos, ahora solo nos resta analizarlos. La forma más directa e intuitiva es usar la función occu del paquete unmarked <span class="citation">(Fiske &amp; Chandler, <a href="#ref-Fiske2011" role="doc-biblioref">2011</a>)</span>. Posteriormente podremos usar un modelo de tipo bayesiano en el lenguaje BUGS para analizar los mismos datos y al final comparar cual de los dos estimadores, Máxima Verosimilitud o Bayesiano, se acerca más a los parametros verdaderos.</p>
 <div id="limpiando-la-memoria-de-r" class="section level3">
 <h3><span class="header-section-number">7.0.1</span> Limpiando la memoria de R</h3>
 <p>Antes de continuar, y como ya hemos generado una gran cantidad de datos y modelos en los pasos previos, vamos a borrar la memoria de R antes de comenzar. Esto lo hacemos con el comando:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="unmarked.html#cb27-1"></a><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</span></code></pre></div>
 <p>Una vez hayamos hecho esto debemos volver a correr el código de la función que genera los datos que hemos creado el Capítulo <a href="function1.html#function1">6</a>.</p>
 </div>
 <div id="generando-los-datos" class="section level2">
 <h2><span class="header-section-number">7.1</span> Generando los datos</h2>
 <p>Esta vez recurriremos a un diseño tipo TEAM (<a href="http://www.teamnetwork.org" class="uri">http://www.teamnetwork.org</a>) con 60 sitios de muestreo y 30 visitas repetidas, que equivalen a los 30 días en que las camaras permanecen activas en campo. De nuevo nuestra especie es el venado de cola blanca. Para este ejemplo asumiremos que la detección es 0.6, la ocupacion 0.8 y las interacciones son mucho más sencillas con la altitud como la unica covariable que explica la ocupación. Sin embargo para la deteccion hay una relación más compleja, asumiendo que hay una leve interacción entre las covariables de la observación. Para la observación la altitud y temperatura interactuan entre si. También observe como la altitud influye en direcciones opuestas con un signo positivo en la altitud para la detección y negativo para la ocupación.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Data generation</span>
-<span class="co"># Lets build a model were elevation explain occupancy and p has interactions</span>
-datos2&lt;-<span class="kw">data.fn</span>(<span class="dt">M =</span> <span class="dv">60</span>, <span class="dt">J =</span> <span class="dv">30</span>, <span class="dt">show.plot =</span> <span class="ot">FALSE</span>,
-                <span class="dt">mean.occupancy =</span> <span class="fl">0.8</span>, <span class="dt">beta1 =</span> -<span class="fl">1.5</span>, <span class="dt">beta2 =</span> <span class="dv">0</span>, <span class="dt">beta3 =</span> <span class="dv">0</span>,  
-                <span class="dt">mean.detection =</span> <span class="fl">0.6</span>, <span class="dt">alpha1 =</span> <span class="dv">2</span>, <span class="dt">alpha2 =</span> <span class="dv">1</span>, <span class="dt">alpha3 =</span> <span class="fl">1.5</span>
-                )
-
-<span class="co"># Function to simulate occupancy measurements replicated at M sites during J occasions.</span>
-<span class="co"># Population closure is assumed for each site.</span>
-<span class="co"># Expected occurrence may be affected by elevation (elev), </span>
-<span class="co"># forest cover (forest) and their interaction.</span>
-<span class="co"># Expected detection probability may be affected by elevation, </span>
-<span class="co"># temperature (temp) and their interaction.</span>
-<span class="co"># Function arguments:</span>
-<span class="co">#     M: Number of spatial replicates (sites)</span>
-<span class="co">#     J: Number of temporal replicates (occasions)</span>
-<span class="co">#     mean.occupancy: Mean occurrence at value 0 of occurrence covariates</span>
-<span class="co">#     beta1: Main effect of elevation on occurrence</span>
-<span class="co">#     beta2: Main effect of forest cover on occurrence</span>
-<span class="co">#     beta3: Interaction effect on occurrence of elevation and forest cover</span>
-<span class="co">#     mean.detection: Mean detection prob. at value 0 of detection covariates</span>
-<span class="co">#     alpha1: Main effect of elevation on detection probability</span>
-<span class="co">#     alpha2: Main effect of temperature on detection probability</span>
-<span class="co">#     alpha3: Interaction effect on detection of elevation and temperature</span>
-<span class="co">#     show.plot: if TRUE, plots of the data will be displayed; </span>
-<span class="co">#               set to FALSE if you are running simulations.</span>
-
-
-<span class="co">#To make the objects inside the list directly accessible to R, without having to address </span>
-<span class="co">#them as data$C for instance, you can attach datos2 to the search path.</span>
-
-<span class="kw">attach</span>(datos2)         <span class="co"># Make objects inside of &#39;datos2&#39; accessible directly</span>
-
-<span class="co">#Remember to detach the data after use, and in particular before attaching a new data </span>
-<span class="co">#object, because more than one data set attached in the search path will cause confusion.</span>
-
-<span class="co"># detach(datos2)         # Make clean up</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="unmarked.html#cb28-1"></a><span class="co"># Data generation</span></span>
+<span id="cb28-2"><a href="unmarked.html#cb28-2"></a><span class="co"># Lets build a model were elevation explain occupancy and p has interactions</span></span>
+<span id="cb28-3"><a href="unmarked.html#cb28-3"></a>datos2&lt;-<span class="kw">data.fn</span>(<span class="dt">M =</span> <span class="dv">60</span>, <span class="dt">J =</span> <span class="dv">30</span>, <span class="dt">show.plot =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb28-4"><a href="unmarked.html#cb28-4"></a>                <span class="dt">mean.occupancy =</span> <span class="fl">0.8</span>, <span class="dt">beta1 =</span> <span class="fl">-1.5</span>, <span class="dt">beta2 =</span> <span class="dv">0</span>, <span class="dt">beta3 =</span> <span class="dv">0</span>,  </span>
+<span id="cb28-5"><a href="unmarked.html#cb28-5"></a>                <span class="dt">mean.detection =</span> <span class="fl">0.6</span>, <span class="dt">alpha1 =</span> <span class="dv">2</span>, <span class="dt">alpha2 =</span> <span class="dv">1</span>, <span class="dt">alpha3 =</span> <span class="fl">1.5</span></span>
+<span id="cb28-6"><a href="unmarked.html#cb28-6"></a>                )</span>
+<span id="cb28-7"><a href="unmarked.html#cb28-7"></a></span>
+<span id="cb28-8"><a href="unmarked.html#cb28-8"></a><span class="co"># Function to simulate occupancy measurements replicated at M sites during J occasions.</span></span>
+<span id="cb28-9"><a href="unmarked.html#cb28-9"></a><span class="co"># Population closure is assumed for each site.</span></span>
+<span id="cb28-10"><a href="unmarked.html#cb28-10"></a><span class="co"># Expected occurrence may be affected by elevation (elev), </span></span>
+<span id="cb28-11"><a href="unmarked.html#cb28-11"></a><span class="co"># forest cover (forest) and their interaction.</span></span>
+<span id="cb28-12"><a href="unmarked.html#cb28-12"></a><span class="co"># Expected detection probability may be affected by elevation, </span></span>
+<span id="cb28-13"><a href="unmarked.html#cb28-13"></a><span class="co"># temperature (temp) and their interaction.</span></span>
+<span id="cb28-14"><a href="unmarked.html#cb28-14"></a><span class="co"># Function arguments:</span></span>
+<span id="cb28-15"><a href="unmarked.html#cb28-15"></a><span class="co">#     M: Number of spatial replicates (sites)</span></span>
+<span id="cb28-16"><a href="unmarked.html#cb28-16"></a><span class="co">#     J: Number of temporal replicates (occasions)</span></span>
+<span id="cb28-17"><a href="unmarked.html#cb28-17"></a><span class="co">#     mean.occupancy: Mean occurrence at value 0 of occurrence covariates</span></span>
+<span id="cb28-18"><a href="unmarked.html#cb28-18"></a><span class="co">#     beta1: Main effect of elevation on occurrence</span></span>
+<span id="cb28-19"><a href="unmarked.html#cb28-19"></a><span class="co">#     beta2: Main effect of forest cover on occurrence</span></span>
+<span id="cb28-20"><a href="unmarked.html#cb28-20"></a><span class="co">#     beta3: Interaction effect on occurrence of elevation and forest cover</span></span>
+<span id="cb28-21"><a href="unmarked.html#cb28-21"></a><span class="co">#     mean.detection: Mean detection prob. at value 0 of detection covariates</span></span>
+<span id="cb28-22"><a href="unmarked.html#cb28-22"></a><span class="co">#     alpha1: Main effect of elevation on detection probability</span></span>
+<span id="cb28-23"><a href="unmarked.html#cb28-23"></a><span class="co">#     alpha2: Main effect of temperature on detection probability</span></span>
+<span id="cb28-24"><a href="unmarked.html#cb28-24"></a><span class="co">#     alpha3: Interaction effect on detection of elevation and temperature</span></span>
+<span id="cb28-25"><a href="unmarked.html#cb28-25"></a><span class="co">#     show.plot: if TRUE, plots of the data will be displayed; </span></span>
+<span id="cb28-26"><a href="unmarked.html#cb28-26"></a><span class="co">#               set to FALSE if you are running simulations.</span></span>
+<span id="cb28-27"><a href="unmarked.html#cb28-27"></a></span>
+<span id="cb28-28"><a href="unmarked.html#cb28-28"></a></span>
+<span id="cb28-29"><a href="unmarked.html#cb28-29"></a><span class="co">#To make the objects inside the list directly accessible to R, without having to address </span></span>
+<span id="cb28-30"><a href="unmarked.html#cb28-30"></a><span class="co">#them as data$C for instance, you can attach datos2 to the search path.</span></span>
+<span id="cb28-31"><a href="unmarked.html#cb28-31"></a></span>
+<span id="cb28-32"><a href="unmarked.html#cb28-32"></a><span class="kw">attach</span>(datos2)         <span class="co"># Make objects inside of &#39;datos2&#39; accessible directly</span></span>
+<span id="cb28-33"><a href="unmarked.html#cb28-33"></a></span>
+<span id="cb28-34"><a href="unmarked.html#cb28-34"></a><span class="co">#Remember to detach the data after use, and in particular before attaching a new data </span></span>
+<span id="cb28-35"><a href="unmarked.html#cb28-35"></a><span class="co">#object, because more than one data set attached in the search path will cause confusion.</span></span>
+<span id="cb28-36"><a href="unmarked.html#cb28-36"></a></span>
+<span id="cb28-37"><a href="unmarked.html#cb28-37"></a><span class="co"># detach(datos2)         # Make clean up</span></span></code></pre></div>
 </div>
 <div id="poniendo-los-datos-en-unmarked" class="section level2">
 <h2><span class="header-section-number">7.2</span> Poniendo los datos en unmarked</h2>
-<p><a href="http://cran.r-project.org/web/packages/unmarked/index.html">Unmarked</a> es el paquete de R que usamos para analizar los datos de ocupacion <span class="citation">(Fiske and Chandler <a href="#ref-Fiske2011">2011</a>)</span>. Para lograr esto debemos primero preparar los datos y juntarlos en un objeto de tipo unmarkedFrame. En este caso usamos la funcion unmarkedFrameOccu que es especifica para analisis de ocupacion de una sola epoca o estación. Más sobre unkarked en: <a href="https://sites.google.com/site/unmarkedinfo/home" class="uri">https://sites.google.com/site/unmarkedinfo/home</a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(unmarked)
-siteCovs &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(forest,elev)) <span class="co"># occupancy covariates </span>
-obselev&lt;-<span class="kw">matrix</span>(<span class="kw">rep</span>(elev,J),<span class="dt">ncol =</span> J) <span class="co"># make elevetion per observation</span>
-obsCovs &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">temp=</span> temp,<span class="dt">elev=</span>obselev) <span class="co"># detection covariates</span>
-
-<span class="co"># umf is the object joining observations (y), occupancy covariates (siteCovs)</span>
-<span class="co"># and detection covariates (obsCovs). Note that obsCovs should be a list of </span>
-<span class="co"># matrices or dataframes.</span>
-
-umf &lt;-<span class="st"> </span><span class="kw">unmarkedFrameOccu</span>(<span class="dt">y =</span> y, <span class="dt">siteCovs =</span> siteCovs, <span class="dt">obsCovs =</span> obsCovs)</code></pre></div>
+<p><a href="http://cran.r-project.org/web/packages/unmarked/index.html">Unmarked</a> es el paquete de R que usamos para analizar los datos de ocupacion <span class="citation">(Fiske &amp; Chandler, <a href="#ref-Fiske2011" role="doc-biblioref">2011</a>)</span>. Para lograr esto debemos primero preparar los datos y juntarlos en un objeto de tipo unmarkedFrame. En este caso usamos la funcion unmarkedFrameOccu que es especifica para analisis de ocupacion de una sola epoca o estación. Más sobre unkarked en: <a href="https://sites.google.com/site/unmarkedinfo/home" class="uri">https://sites.google.com/site/unmarkedinfo/home</a></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="unmarked.html#cb29-1"></a><span class="kw">library</span>(unmarked)</span>
+<span id="cb29-2"><a href="unmarked.html#cb29-2"></a>siteCovs &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(forest,elev)) <span class="co"># occupancy covariates </span></span>
+<span id="cb29-3"><a href="unmarked.html#cb29-3"></a>obselev&lt;-<span class="kw">matrix</span>(<span class="kw">rep</span>(elev,J),<span class="dt">ncol =</span> J) <span class="co"># make elevetion per observation</span></span>
+<span id="cb29-4"><a href="unmarked.html#cb29-4"></a>obsCovs &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">temp=</span> temp,<span class="dt">elev=</span>obselev) <span class="co"># detection covariates</span></span>
+<span id="cb29-5"><a href="unmarked.html#cb29-5"></a></span>
+<span id="cb29-6"><a href="unmarked.html#cb29-6"></a><span class="co"># umf is the object joining observations (y), occupancy covariates (siteCovs)</span></span>
+<span id="cb29-7"><a href="unmarked.html#cb29-7"></a><span class="co"># and detection covariates (obsCovs). Note that obsCovs should be a list of </span></span>
+<span id="cb29-8"><a href="unmarked.html#cb29-8"></a><span class="co"># matrices or dataframes.</span></span>
+<span id="cb29-9"><a href="unmarked.html#cb29-9"></a></span>
+<span id="cb29-10"><a href="unmarked.html#cb29-10"></a>umf &lt;-<span class="st"> </span><span class="kw">unmarkedFrameOccu</span>(<span class="dt">y =</span> y, <span class="dt">siteCovs =</span> siteCovs, <span class="dt">obsCovs =</span> obsCovs)</span></code></pre></div>
 </div>
 <div id="ajustando-los-modelos" class="section level2">
 <h2><span class="header-section-number">7.3</span> Ajustando los modelos</h2>
 <p>El siguiente paso es ajustar los modelos que se requerían variando las co variables. Esto se logra con la <a href="http://www.rdocumentation.org/packages/unmarked/versions/0.11-0/topics/occu">función occu()</a>.</p>
 <p>Tenga en cuenta que en el proceso de construcción de modelos su modelo debe tener un significado biológico.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># detection first, occupancy next</span>
-fm0 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="dv">1</span> ~<span class="dv">1</span>, umf) <span class="co"># Null model</span>
-fm1 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>elev ~<span class="st"> </span><span class="dv">1</span>, umf) <span class="co"># elev explaining detection</span>
-fm2 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>elev ~<span class="st"> </span>elev, umf) <span class="co"># elev explaining detection and occupancy</span>
-fm3 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>temp ~<span class="st"> </span>elev, umf)
-fm4 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>temp ~<span class="st"> </span>forest, umf)
-fm5 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>elev +<span class="st"> </span>temp ~<span class="st"> </span><span class="dv">1</span>, umf)
-fm6 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>elev +<span class="st"> </span>temp +<span class="st"> </span>elev:temp ~<span class="st"> </span><span class="dv">1</span>, umf)
-fm7 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>elev +<span class="st"> </span>temp +<span class="st"> </span>elev:temp ~<span class="st"> </span>elev, umf)
-fm8 &lt;-<span class="st"> </span><span class="kw">occu</span>(~<span class="st"> </span>elev +<span class="st"> </span>temp +<span class="st"> </span>elev:temp ~<span class="st"> </span>forest, umf)</code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="unmarked.html#cb30-1"></a><span class="co"># detection first, occupancy next</span></span>
+<span id="cb30-2"><a href="unmarked.html#cb30-2"></a>fm0 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="dv">1</span> <span class="op">~</span><span class="dv">1</span>, umf) <span class="co"># Null model</span></span>
+<span id="cb30-3"><a href="unmarked.html#cb30-3"></a>fm1 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, umf) <span class="co"># elev explaining detection</span></span>
+<span id="cb30-4"><a href="unmarked.html#cb30-4"></a>fm2 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">~</span><span class="st"> </span>elev, umf) <span class="co"># elev explaining detection and occupancy</span></span>
+<span id="cb30-5"><a href="unmarked.html#cb30-5"></a>fm3 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>temp <span class="op">~</span><span class="st"> </span>elev, umf)</span>
+<span id="cb30-6"><a href="unmarked.html#cb30-6"></a>fm4 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>temp <span class="op">~</span><span class="st"> </span>forest, umf)</span>
+<span id="cb30-7"><a href="unmarked.html#cb30-7"></a>fm5 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>temp <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, umf)</span>
+<span id="cb30-8"><a href="unmarked.html#cb30-8"></a>fm6 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>temp <span class="op">+</span><span class="st"> </span>elev<span class="op">:</span>temp <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, umf)</span>
+<span id="cb30-9"><a href="unmarked.html#cb30-9"></a>fm7 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>temp <span class="op">+</span><span class="st"> </span>elev<span class="op">:</span>temp <span class="op">~</span><span class="st"> </span>elev, umf)</span>
+<span id="cb30-10"><a href="unmarked.html#cb30-10"></a>fm8 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>temp <span class="op">+</span><span class="st"> </span>elev<span class="op">:</span>temp <span class="op">~</span><span class="st"> </span>forest, umf)</span></code></pre></div>
 </div>
 <div id="seleccion-de-modelos" class="section level2">
 <h2><span class="header-section-number">7.4</span> Selección de modelos</h2>
-<p>Unmarked permite hacer selección de modelos basándose en el AIC de cada uno. De forma tal que el menor AIC es el modelo más parsimonioso de acuerdo a nuestros datos <span class="citation">(Burnham and Anderson <a href="#ref-Burnham2004">2004</a>)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">models &lt;-<span class="st"> </span><span class="kw">fitList</span>( <span class="co"># here e put names to the models</span>
-  <span class="st">&#39;p(.)psi(.)&#39;</span>                        =<span class="st"> </span>fm0,
-  <span class="st">&#39;p(elev)psi(.)&#39;</span>                     =<span class="st"> </span>fm1,
-  <span class="st">&#39;p(elev)psi(elev)&#39;</span>                  =<span class="st"> </span>fm2,
-  <span class="st">&#39;p(temp)psi(elev)&#39;</span>                  =<span class="st"> </span>fm3,
-  <span class="st">&#39;p(temp)psi(forest)&#39;</span>                =<span class="st"> </span>fm4,
-  <span class="st">&#39;p(temp+elev)psi(.)&#39;</span>                =<span class="st"> </span>fm5,
-  <span class="st">&#39;p(temp+elev+elev:temp)psi(.)&#39;</span>      =<span class="st"> </span>fm6,
-  <span class="st">&#39;p(temp+elev+elev:temp)psi(elev)&#39;</span>   =<span class="st"> </span>fm7,
-  <span class="st">&#39;p(temp+elev+elev:temp)psi(forest)&#39;</span> =<span class="st"> </span>fm8)
-
-<span class="kw">modSel</span>(models) <span class="co"># model selection procedure</span></code></pre></div>
+<p>Unmarked permite hacer selección de modelos basándose en el AIC de cada uno. De forma tal que el menor AIC es el modelo más parsimonioso de acuerdo a nuestros datos <span class="citation">(Burnham &amp; Anderson, <a href="#ref-Burnham2004" role="doc-biblioref">2004</a>)</span>.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="unmarked.html#cb31-1"></a>models &lt;-<span class="st"> </span><span class="kw">fitList</span>( <span class="co"># here e put names to the models</span></span>
+<span id="cb31-2"><a href="unmarked.html#cb31-2"></a>  <span class="st">&#39;p(.)psi(.)&#39;</span>                        =<span class="st"> </span>fm0,</span>
+<span id="cb31-3"><a href="unmarked.html#cb31-3"></a>  <span class="st">&#39;p(elev)psi(.)&#39;</span>                     =<span class="st"> </span>fm1,</span>
+<span id="cb31-4"><a href="unmarked.html#cb31-4"></a>  <span class="st">&#39;p(elev)psi(elev)&#39;</span>                  =<span class="st"> </span>fm2,</span>
+<span id="cb31-5"><a href="unmarked.html#cb31-5"></a>  <span class="st">&#39;p(temp)psi(elev)&#39;</span>                  =<span class="st"> </span>fm3,</span>
+<span id="cb31-6"><a href="unmarked.html#cb31-6"></a>  <span class="st">&#39;p(temp)psi(forest)&#39;</span>                =<span class="st"> </span>fm4,</span>
+<span id="cb31-7"><a href="unmarked.html#cb31-7"></a>  <span class="st">&#39;p(temp+elev)psi(.)&#39;</span>                =<span class="st"> </span>fm5,</span>
+<span id="cb31-8"><a href="unmarked.html#cb31-8"></a>  <span class="st">&#39;p(temp+elev+elev:temp)psi(.)&#39;</span>      =<span class="st"> </span>fm6,</span>
+<span id="cb31-9"><a href="unmarked.html#cb31-9"></a>  <span class="st">&#39;p(temp+elev+elev:temp)psi(elev)&#39;</span>   =<span class="st"> </span>fm7,</span>
+<span id="cb31-10"><a href="unmarked.html#cb31-10"></a>  <span class="st">&#39;p(temp+elev+elev:temp)psi(forest)&#39;</span> =<span class="st"> </span>fm8)</span>
+<span id="cb31-11"><a href="unmarked.html#cb31-11"></a></span>
+<span id="cb31-12"><a href="unmarked.html#cb31-12"></a><span class="kw">modSel</span>(models) <span class="co"># model selection procedure</span></span></code></pre></div>
 <pre><code>##                                   nPars     AIC  delta   AICwt cumltvWt
-## p(temp+elev+elev:temp)psi(elev)       6 1656.53   0.00 8.2e-01     0.82
-## p(temp+elev+elev:temp)psi(.)          5 1660.22   3.69 1.3e-01     0.95
-## p(temp+elev+elev:temp)psi(forest)     6 1662.16   5.63 4.9e-02     1.00
-## p(temp+elev)psi(.)                    4 1706.82  50.29 9.9e-12     1.00
-## p(elev)psi(elev)                      4 1723.88  67.35 2.0e-15     1.00
-## p(elev)psi(.)                         3 1727.56  71.03 3.1e-16     1.00
-## p(temp)psi(elev)                      4 1954.97 298.43 1.3e-65     1.00
-## p(temp)psi(forest)                    4 1960.57 304.04 7.8e-67     1.00
-## p(.)psi(.)                            2 1979.67 323.14 5.6e-71     1.00</code></pre>
+## p(temp+elev+elev:temp)psi(elev)       6 1630.77   0.00 9.2e-01     0.92
+## p(temp+elev+elev:temp)psi(.)          5 1636.27   5.49 5.9e-02     0.98
+## p(temp+elev+elev:temp)psi(forest)     6 1638.24   7.47 2.2e-02     1.00
+## p(temp+elev)psi(.)                    4 1672.55  41.78 7.8e-10     1.00
+## p(elev)psi(elev)                      4 1741.34 110.57 9.0e-25     1.00
+## p(elev)psi(.)                         3 1746.83 116.06 5.8e-26     1.00
+## p(temp)psi(elev)                      4 1898.56 267.79 6.5e-59     1.00
+## p(temp)psi(forest)                    4 1906.03 275.26 1.6e-60     1.00
+## p(.)psi(.)                            2 1969.25 338.48 2.9e-74     1.00</code></pre>
 </div>
 <div id="prediccion-en-graficas" class="section level2">
 <h2><span class="header-section-number">7.5</span> Predicción en graficas</h2>
 <p>El modelo con menor AIC puede ser usado para predecir resultados esperados de acuerdo a un nuevo set de datos. Por ejemplo, uno podría preguntar la abundancia de venados que se espera encontrar en un sitio con mayor altitud. La predicciones también son otra forma de presentar los resultados de un análisis. Aquí ilustraremos como se ve la predicción de <span class="math inline">\(\psi\)</span> y <em>p</em> sobre el rango de las covariables estudiadas. Note que estamos usando covariables estandarizadas. Si estuviéramos usando covariables en su escala real, tendríamos que tener en cuenta que hay que transformarlas usando la media y la desviación estándar.</p>
 <p>Antes de usar el modelo para predecir es buena idea verificar los parámetros del modelo y sus errores, posteriormente verificar que el modelo ajusta bien con la función parboot, la cual hace un remuestreo del modelo y se interpreta como que el modelo tiene buen ajuste, cuando la media (línea punteada) está entre los intervalos del histograma.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fm7) <span class="co"># see the model parameters</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="unmarked.html#cb33-1"></a><span class="kw">summary</span>(fm7) <span class="co"># see the model parameters</span></span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## occu(formula = ~elev + temp + elev:temp ~ elev, data = umf)
 ## 
 ## Occupancy (logit-scale):
 ##             Estimate    SE     z  P(&gt;|z|)
-## (Intercept)     1.18 0.326  3.62 0.000291
-## elev           -1.41 0.624 -2.26 0.023548
+## (Intercept)     1.41 0.366  3.85 0.000117
+## elev           -1.63 0.656 -2.48 0.013082
 ## 
 ## Detection (logit-scale):
 ##             Estimate     SE     z  P(&gt;|z|)
-## (Intercept)    0.407 0.0735  5.54 3.03e-08
-## elev           2.140 0.1494 14.32 1.66e-46
-## temp           0.900 0.1262  7.14 9.68e-13
-## elev:temp      1.680 0.2514  6.68 2.34e-11
+## (Intercept)     0.53 0.0698  7.60 3.04e-14
+## elev            1.80 0.1277 14.10 3.56e-45
+## temp            1.16 0.1209  9.57 1.08e-21
+## elev:temp       1.33 0.2211  6.00 1.96e-09
 ## 
-## AIC: 1656.533 
+## AIC: 1630.771 
 ## Number of sites: 60
 ## optim convergence code: 0
-## optim iterations: 37 
+## optim iterations: 31 
 ## Bootstrap iterations: 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pb &lt;-<span class="st"> </span><span class="kw">parboot</span>(fm7, <span class="dt">nsim=</span><span class="dv">250</span>, <span class="dt">report=</span><span class="dv">10</span>) <span class="co"># goodness of fit</span></code></pre></div>
-<pre><code>## t0 = 393.9606 
-## 385.8,378.2,386.5,354.1,394.2,368.9,381.6,370.9,395.6,370.2
-## 399.6,378.9,376.5,382.1,383.8,403.7,377.1,369.9,378.9,371
-## 367.3,384.7,383,367.9,357.8,367.2,384.5,387,393.3,372.8
-## 374.2,389.6,402.1,393.1,400.4,388.6,393.5,382.3,399.3,367.7
-## 394.3,369.2,384.2,394.5,393.1,403.7,395.8,366.2,382.6,392
-## 392.2,388.5,394.1,386.2,387.4,397.6,406.5,392.8,388.2,396.6
-## 377.1,381,376.9,368.5,369.8,394.9,379.1,388.4,364.6,384.9
-## 379.6,379.1,399.3,388.2,395.7,385.8,407.1,355.2,370.7,391.5
-## 376.2,398.4,383.4,393.9,382.7,368.3,402.2,389.2,395.1,393.8
-## 366.7,372.4,387.1,379.7,404,377.9,392.8,400.7,394.6,388.2
-## 395.6,383.4,372.3,363.1,331.1,377.2,376,384.8,397.5,379.2
-## 357.2,383.1,394.5,375.7,386.3,388.6,383.2,364.4,384.6,380.9
-## 379,384.1,367.1,354.1,376.2,379.6,403.3,385.5,376,382.9
-## 382.6,384.1,393.5,394.9,383.7,366.2,386.3,385.4,379,360.1
-## 379.4,391.8,387.3,385.6,387.2,390.5,387.5,388.2,382.7,382.6
-## 386.3,389.3,371.2,369.6,374.7,380.7,392.7,395.8,374.9,395.6
-## 382.7,369.3,376.9,386.8,359.4,384.5,380.9,357.3,390.8,394.1
-## 407.8,374.9,386,402.4,379.1,373.2,398.7,380.4,386.7,381.6
-## 377.1,364.6,382.7,389.7,381.6,392.5,379.6,395.8,389.6,389.5
-## 375.4,390.1,363.6,392.5,353.4,389.9,387.9,380.8,388.7,381.5
-## 391.9,389.3,381,371.5,362.8,361.8,405.6,384.5,386.4,390.7
-## 390,380.7,391.6,379.1,397.6,384.7,369.4,376.7,391.1,386.9
-## 389.8,375.4,360.5,390.2,388.9,366.3,393.4,358.4,377.8,382.1
-## 392.1,382,387.1,400.9,406.7,372.6,392.4,371.4,374.7,378.2
-## 365.8,383.4,375.3,376.5,384.8,388.9,395.4,400.9,376.7,383.2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span> (pb) <span class="co"># plot goodness of fit</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="unmarked.html#cb35-1"></a>pb &lt;-<span class="st"> </span><span class="kw">parboot</span>(fm7, <span class="dt">nsim=</span><span class="dv">250</span>, <span class="dt">report=</span><span class="dv">10</span>) <span class="co"># goodness of fit</span></span></code></pre></div>
+<pre><code>## t0 = 409.3793 
+## Running in parallel.  Bootstrapped statistics not reported.</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="unmarked.html#cb37-1"></a><span class="kw">plot</span> (pb) <span class="co"># plot goodness of fit</span></span></code></pre></div>
 <p><img src="Simul-Machalilla-book_files/figure-html/fit-1.png" width="672" /></p>
 <p>Ahora que sabemos que nuestro mejor modelo tiene buen ajuste, podemos usarlo para predecir la ocupación en el rango de la altitud para ver su comportamiento en una gráfica.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">elevrange&lt;-<span class="kw">data.frame</span>(<span class="dt">elev=</span><span class="kw">seq</span>(<span class="kw">min</span>(datos2$elev),<span class="kw">max</span>(datos2$elev),<span class="dt">length=</span><span class="dv">100</span>)) <span class="co"># newdata</span>
-pred_psi &lt;-<span class="kw">predict</span>(fm7,<span class="dt">type=</span><span class="st">&quot;state&quot;</span>,<span class="dt">newdata=</span>elevrange,<span class="dt">appendData=</span><span class="ot">TRUE</span>) 
-<span class="kw">plot</span>(Predicted~elev, pred_psi,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,
-       <span class="dt">xlab=</span><span class="st">&quot;elev&quot;</span>,
-       <span class="dt">ylab=</span><span class="st">&quot;psi&quot;</span>)
-<span class="kw">lines</span>(lower~elev, pred_psi,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>))
-<span class="kw">lines</span>(upper~elev, pred_psi,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>))</code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="unmarked.html#cb38-1"></a>elevrange&lt;-<span class="kw">data.frame</span>(<span class="dt">elev=</span><span class="kw">seq</span>(<span class="kw">min</span>(datos2<span class="op">$</span>elev),<span class="kw">max</span>(datos2<span class="op">$</span>elev),<span class="dt">length=</span><span class="dv">100</span>)) <span class="co"># newdata</span></span>
+<span id="cb38-2"><a href="unmarked.html#cb38-2"></a>pred_psi &lt;-<span class="kw">predict</span>(fm7,<span class="dt">type=</span><span class="st">&quot;state&quot;</span>,<span class="dt">newdata=</span>elevrange,<span class="dt">appendData=</span><span class="ot">TRUE</span>) </span>
+<span id="cb38-3"><a href="unmarked.html#cb38-3"></a><span class="kw">plot</span>(Predicted<span class="op">~</span>elev, pred_psi,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb38-4"><a href="unmarked.html#cb38-4"></a>       <span class="dt">xlab=</span><span class="st">&quot;elev&quot;</span>,</span>
+<span id="cb38-5"><a href="unmarked.html#cb38-5"></a>       <span class="dt">ylab=</span><span class="st">&quot;psi&quot;</span>)</span>
+<span id="cb38-6"><a href="unmarked.html#cb38-6"></a><span class="kw">lines</span>(lower<span class="op">~</span>elev, pred_psi,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>))</span>
+<span id="cb38-7"><a href="unmarked.html#cb38-7"></a><span class="kw">lines</span>(upper<span class="op">~</span>elev, pred_psi,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>))</span></code></pre></div>
 <p><img src="Simul-Machalilla-book_files/figure-html/graph_psi-1.png" width="672" /></p>
 </div>
 <div id="prediccion-espacialmente-explicita" class="section level2">
-<h2><span class="header-section-number">7.6</span> Predicción espacialmente explicita</h2>
-<p>Podemos también usar el mejor modelo para predecir de forma espacialmente explicita si tenemos los mapas. Como ilustración vamos a construir mapas simulados para cada una de nuestras covariables. Los mapas surgen de un patrón aleatorio de puntos con distribución Poisson. Luego estos puntos los convertimos en una superficie interpolada.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lets make random maps for the three covariates</span>
-<span class="kw">library</span>(raster)
-<span class="kw">library</span>(spatstat)
-<span class="kw">set.seed</span>(<span class="dv">24</span>) <span class="co"># Remove for random simulations</span>
-
-<span class="co"># CONSTRUCT ANALYSIS WINDOW USING THE FOLLOWING:</span>
-xrange=<span class="kw">c</span>(-<span class="fl">2.5</span>, <span class="fl">1002.5</span>)
-yrange=<span class="kw">c</span>(-<span class="fl">2.5</span>, <span class="fl">502.5</span>)
-window&lt;-<span class="kw">owin</span>(xrange, yrange)
-
-<span class="co"># Build maps from random points and interpole in same line</span>
-elev   &lt;-<span class="st"> </span><span class="kw">density</span>(<span class="kw">rpoispp</span>(<span class="dt">lambda=</span><span class="fl">0.6</span>, <span class="dt">win=</span>window)) <span class="co"># </span>
-forest &lt;-<span class="st"> </span><span class="kw">density</span>(<span class="kw">rpoispp</span>(<span class="dt">lambda=</span><span class="fl">0.2</span>, <span class="dt">win=</span>window)) <span class="co"># </span>
-temp   &lt;-<span class="st"> </span><span class="kw">density</span>(<span class="kw">rpoispp</span>(<span class="dt">lambda=</span><span class="fl">0.5</span>, <span class="dt">win=</span>window)) <span class="co"># </span>
-
-<span class="co"># Convert covs to raster and Put in the same stack </span>
-mapdata.m&lt;-<span class="kw">stack</span>(<span class="kw">raster</span>(elev),<span class="kw">raster</span>(forest), <span class="kw">raster</span>(temp)) 
-<span class="kw">names</span>(mapdata.m)&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;elev&quot;</span>, <span class="st">&quot;forest&quot;</span>, <span class="st">&quot;temp&quot;</span>) <span class="co"># put names to raster</span>
-
-<span class="co"># lets plot the covs maps</span>
-<span class="kw">plot</span>(mapdata.m)</code></pre></div>
+<h2><span class="header-section-number">7.6</span> Predicción espacialmente explícita</h2>
+<p>Podemos también usar el mejor modelo para predecir de forma espacialmente explicita sí tenemos los mapas. Como ilustración vamos a construir mapas simulados para cada una de nuestras covariables. Los mapas surgen de un patrón aleatorio de puntos con distribución Poisson. Luego estos puntos los convertimos en una superficie interpolada.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="unmarked.html#cb39-1"></a><span class="co"># lets make random maps for the three covariates</span></span>
+<span id="cb39-2"><a href="unmarked.html#cb39-2"></a><span class="kw">library</span>(raster)</span>
+<span id="cb39-3"><a href="unmarked.html#cb39-3"></a><span class="kw">library</span>(spatstat)</span>
+<span id="cb39-4"><a href="unmarked.html#cb39-4"></a><span class="kw">set.seed</span>(<span class="dv">24</span>) <span class="co"># Remove for random simulations</span></span>
+<span id="cb39-5"><a href="unmarked.html#cb39-5"></a></span>
+<span id="cb39-6"><a href="unmarked.html#cb39-6"></a><span class="co"># CONSTRUCT ANALYSIS WINDOW USING THE FOLLOWING:</span></span>
+<span id="cb39-7"><a href="unmarked.html#cb39-7"></a>xrange=<span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">1002.5</span>)</span>
+<span id="cb39-8"><a href="unmarked.html#cb39-8"></a>yrange=<span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">502.5</span>)</span>
+<span id="cb39-9"><a href="unmarked.html#cb39-9"></a>window&lt;-<span class="kw">owin</span>(xrange, yrange)</span>
+<span id="cb39-10"><a href="unmarked.html#cb39-10"></a></span>
+<span id="cb39-11"><a href="unmarked.html#cb39-11"></a><span class="co"># Build maps from random points and interpole in same line</span></span>
+<span id="cb39-12"><a href="unmarked.html#cb39-12"></a>elev   &lt;-<span class="st"> </span><span class="kw">density</span>(<span class="kw">rpoispp</span>(<span class="dt">lambda=</span><span class="fl">0.6</span>, <span class="dt">win=</span>window)) <span class="co"># </span></span>
+<span id="cb39-13"><a href="unmarked.html#cb39-13"></a>forest &lt;-<span class="st"> </span><span class="kw">density</span>(<span class="kw">rpoispp</span>(<span class="dt">lambda=</span><span class="fl">0.2</span>, <span class="dt">win=</span>window)) <span class="co"># </span></span>
+<span id="cb39-14"><a href="unmarked.html#cb39-14"></a>temp   &lt;-<span class="st"> </span><span class="kw">density</span>(<span class="kw">rpoispp</span>(<span class="dt">lambda=</span><span class="fl">0.5</span>, <span class="dt">win=</span>window)) <span class="co"># </span></span>
+<span id="cb39-15"><a href="unmarked.html#cb39-15"></a></span>
+<span id="cb39-16"><a href="unmarked.html#cb39-16"></a><span class="co"># Convert covs to raster and Put in the same stack </span></span>
+<span id="cb39-17"><a href="unmarked.html#cb39-17"></a>mapdata.m&lt;-<span class="kw">stack</span>(<span class="kw">raster</span>(elev),<span class="kw">raster</span>(forest), <span class="kw">raster</span>(temp)) </span>
+<span id="cb39-18"><a href="unmarked.html#cb39-18"></a><span class="kw">names</span>(mapdata.m)&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;elev&quot;</span>, <span class="st">&quot;forest&quot;</span>, <span class="st">&quot;temp&quot;</span>) <span class="co"># put names to raster</span></span>
+<span id="cb39-19"><a href="unmarked.html#cb39-19"></a></span>
+<span id="cb39-20"><a href="unmarked.html#cb39-20"></a><span class="co"># lets plot the covs maps</span></span>
+<span id="cb39-21"><a href="unmarked.html#cb39-21"></a><span class="kw">plot</span>(mapdata.m)</span></code></pre></div>
 <p><img src="Simul-Machalilla-book_files/figure-html/spatial1-1.png" width="672" /></p>
 <p>Una vez tenemos nuestros mapas de covariables, los usamos para predecir con el mejor modelo. De esta forma podemos tener un mapa con predicciones de la ocupación y la probabilidad de detección.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make the predictions </span>
-predictions_psi &lt;-<span class="st"> </span><span class="kw">predict</span>(fm7, <span class="dt">type=</span><span class="st">&quot;state&quot;</span>, <span class="dt">newdata=</span>mapdata.m) <span class="co"># predict psi</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="unmarked.html#cb40-1"></a><span class="co"># make the predictions </span></span>
+<span id="cb40-2"><a href="unmarked.html#cb40-2"></a>predictions_psi &lt;-<span class="st"> </span><span class="kw">predict</span>(fm7, <span class="dt">type=</span><span class="st">&quot;state&quot;</span>, <span class="dt">newdata=</span>mapdata.m) <span class="co"># predict psi</span></span></code></pre></div>
 <pre><code>##   doing row 1000 of 16384 
 ##   doing row 2000 of 16384 
 ##   doing row 3000 of 16384 
@@ -376,7 +366,7 @@ predictions_psi &lt;-<span class="st"> </span><span class="kw">predict</span>(fm
 ##   doing row 14000 of 16384 
 ##   doing row 15000 of 16384 
 ##   doing row 16000 of 16384</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predictions_p   &lt;-<span class="st"> </span><span class="kw">predict</span>(fm7, <span class="dt">type=</span><span class="st">&quot;det&quot;</span>,   <span class="dt">newdata=</span>mapdata.m) <span class="co"># predict p</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="unmarked.html#cb42-1"></a>predictions_p   &lt;-<span class="st"> </span><span class="kw">predict</span>(fm7, <span class="dt">type=</span><span class="st">&quot;det&quot;</span>,   <span class="dt">newdata=</span>mapdata.m) <span class="co"># predict p</span></span></code></pre></div>
 <pre><code>##   doing row 1000 of 16384 
 ##   doing row 2000 of 16384 
 ##   doing row 3000 of 16384 
@@ -393,21 +383,21 @@ predictions_psi &lt;-<span class="st"> </span><span class="kw">predict</span>(fm
 ##   doing row 14000 of 16384 
 ##   doing row 15000 of 16384 
 ##   doing row 16000 of 16384</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># put in the same stack</span>
-predmaps&lt;-<span class="kw">stack</span>(predictions_psi$Predicted,predictions_p$Predicted) 
-<span class="kw">names</span>(predmaps)&lt;-<span class="kw">c</span>(<span class="st">&quot;psi_predicted&quot;</span>, <span class="st">&quot;p_predicted&quot;</span>) <span class="co"># put names</span>
-<span class="kw">plot</span>(predmaps)</code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="unmarked.html#cb44-1"></a><span class="co"># put in the same stack</span></span>
+<span id="cb44-2"><a href="unmarked.html#cb44-2"></a>predmaps&lt;-<span class="kw">stack</span>(predictions_psi<span class="op">$</span>Predicted,predictions_p<span class="op">$</span>Predicted) </span>
+<span id="cb44-3"><a href="unmarked.html#cb44-3"></a><span class="kw">names</span>(predmaps)&lt;-<span class="kw">c</span>(<span class="st">&quot;psi_predicted&quot;</span>, <span class="st">&quot;p_predicted&quot;</span>) <span class="co"># put names</span></span>
+<span id="cb44-4"><a href="unmarked.html#cb44-4"></a><span class="kw">plot</span>(predmaps)</span></code></pre></div>
 <p><img src="Simul-Machalilla-book_files/figure-html/spatial2-1.png" width="672" /></p>
 
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-Fiske2011">
-<p>Fiske, Ian, and Richard Chandler. 2011. “unmarked : An R Package for fitting hierarchical models of wildlife occurrence and abundance.” <em>Journal of Statistical Software</em> 43 (10): 1–23. doi:<a href="https://doi.org/10.18637/jss.v043.i10">10.18637/jss.v043.i10</a>.</p>
-</div>
 <div id="ref-Burnham2004">
-<p>Burnham, Kenneth P, and David R Anderson. 2004. “Information and likelihood theory: A basis for model selection and inference.” In <em>Model Selection and Multimodel Inference: A Practical Information-Theoretic Approach</em>, edited by Kenneth P Burnham and David R Anderson, 49–97. New York: Springer New York. <a href="http://link.springer.com/chapter/10.1007%2F978-0-387-22456-5_2">http://link.springer.com/chapter/10.1007%2F978-0-387-22456-5_2</a>.</p>
+<p>Burnham, K. P., &amp; Anderson, D. R. (2004). Information and likelihood theory: A basis for model selection and inference. In K. P. Burnham &amp; D. R. Anderson (Eds.), <em>Model selection and multimodel inference: A practical information-theoretic approach</em> (pp. 49–97). Retrieved from <a href="http://link.springer.com/chapter/10.1007%2F978-0-387-22456-5_2">http://link.springer.com/chapter/10.1007%2F978-0-387-22456-5_2</a></p>
+</div>
+<div id="ref-Fiske2011">
+<p>Fiske, I., &amp; Chandler, R. (2011). unmarked : An R Package for fitting hierarchical models of wildlife occurrence and abundance. <em>Journal of Statistical Software</em>, <em>43</em>(10), 1–23. doi: <a href="https://doi.org/10.18637/jss.v043.i10">10.18637/jss.v043.i10</a></p>
 </div>
 </div>
             </section>
@@ -416,8 +406,9 @@ predmaps&lt;-<span class="kw">stack</span>(predictions_psi$Predicted,predictions
         </div>
       </div>
 <a href="function1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bayesian.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="bayesian.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -426,16 +417,18 @@ predmaps&lt;-<span class="kw">stack</span>(predictions_psi$Predicted,predictions
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": false,
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -443,13 +436,18 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dlizcano/occu_book/edit/master/06-unmarked.Rmd",
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
 "text": null
 },
 "download": null,
 "toc": {
 "collapse": "subsection"
-}
+},
+"search": false
 });
 });
 </script>
@@ -459,9 +457,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
