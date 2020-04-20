@@ -186,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="unmarked" class="section level1">
 <h1><span class="header-section-number">Capítulo 7</span> Análisis de ocupación, metodo ML</h1>
-<p>Ya que hemos entendido como funcionan e interactúan los dos procesos; el ecológico y el observacional para producir los datos de ocupación. Luego de generar varios sets de datos, ahora solo nos resta analizarlos. La forma más directa e intuitiva es usar la función occu del paquete unmarked <span class="citation">(Fiske &amp; Chandler, <a href="#ref-Fiske2011" role="doc-biblioref">2011</a>)</span>. Posteriormente podremos usar un modelo de tipo bayesiano en el lenguaje BUGS para analizar los mismos datos y al final comparar cual de los dos estimadores, Máxima Verosimilitud o Bayesiano, se acerca más a los parametros verdaderos.</p>
+<p>Ya que hemos entendido como funcionan e interactúan los dos procesos; el ecológico y el observacional para producir los datos de ocupación. Luego de generar varios sets de datos, ahora solo nos resta analizarlos. La forma más directa e intuitiva es usar la función occu del paquete unmarked <span class="citation">(Fiske &amp; Chandler, <a href="#ref-Fiske2011" role="doc-biblioref">2011</a>)</span>. Posteriormente podremos usar un modelo de tipo bayesiano en el lenguaje BUGS para analizar los mismos datos y al final comparar cuál de los dos estimadores, Máxima Verosimilitud o Bayesiano, se acerca más a los parámetros verdaderos.</p>
 <div id="limpiando-la-memoria-de-r" class="section level3">
 <h3><span class="header-section-number">7.0.1</span> Limpiando la memoria de R</h3>
 <p>Antes de continuar, y como ya hemos generado una gran cantidad de datos y modelos en los pasos previos, vamos a borrar la memoria de R antes de comenzar. Esto lo hacemos con el comando:</p>
@@ -195,323 +195,89 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="generando-los-datos" class="section level2">
 <h2><span class="header-section-number">7.1</span> Generando los datos</h2>
-<p>Esta vez recurriremos a un diseño tipo TEAM (<a href="http://www.teamnetwork.org" class="uri">http://www.teamnetwork.org</a>) con 60 sitios de muestreo y 30 visitas repetidas, que equivalen a los 30 días en que las camaras permanecen activas en campo. De nuevo nuestra especie es el venado de cola blanca. Para este ejemplo asumiremos que la detección es 0.6, la ocupacion 0.8 y las interacciones son mucho más sencillas con la altitud como la unica covariable que explica la ocupación. Sin embargo para la deteccion hay una relación más compleja, asumiendo que hay una leve interacción entre las covariables de la observación. Para la observación la altitud y temperatura interactuan entre si. También observe como la altitud influye en direcciones opuestas con un signo positivo en la altitud para la detección y negativo para la ocupación.</p>
-<pre><code>## The following objects are masked from datos2 (pos = 3):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 4):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 5):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 6):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 7):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 8):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 9):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 10):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 11):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 12):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 13):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 14):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 15):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 16):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 17):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 18):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 19):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 20):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 21):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 22):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 23):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 24):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 25):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 26):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 27):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 28):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 29):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 30):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 31):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 32):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 33):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 34):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 35):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 42):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 43):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 45):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 56):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 57):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<pre><code>## The following objects are masked from datos2 (pos = 58):
-## 
-##     alpha0, alpha1, alpha2, alpha3, beta0, beta1, beta2,
-##     beta3, elev, forest, J, M, mean.detection,
-##     mean.occupancy, p, psi, psi.fs.obs, psi.fs.true,
-##     sumZ, sumZ.obs, temp, y, z</code></pre>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="co"># Data generation</span></a>
-<a class="sourceLine" id="cb67-2" title="2"><span class="co"># Lets build a model were elevation explain occupancy and p has interactions</span></a>
-<a class="sourceLine" id="cb67-3" title="3">datos2&lt;-<span class="kw">data.fn</span>(<span class="dt">M =</span> <span class="dv">60</span>, <span class="dt">J =</span> <span class="dv">30</span>, <span class="dt">show.plot =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb67-4" title="4">                <span class="dt">mean.occupancy =</span> <span class="fl">0.8</span>, <span class="dt">beta1 =</span> <span class="fl">-1.5</span>, <span class="dt">beta2 =</span> <span class="dv">0</span>, <span class="dt">beta3 =</span> <span class="dv">0</span>,  </a>
-<a class="sourceLine" id="cb67-5" title="5">                <span class="dt">mean.detection =</span> <span class="fl">0.6</span>, <span class="dt">alpha1 =</span> <span class="dv">2</span>, <span class="dt">alpha2 =</span> <span class="dv">1</span>, <span class="dt">alpha3 =</span> <span class="fl">1.5</span></a>
-<a class="sourceLine" id="cb67-6" title="6">                )</a>
-<a class="sourceLine" id="cb67-7" title="7"></a>
-<a class="sourceLine" id="cb67-8" title="8"><span class="co"># Function to simulate occupancy measurements replicated at M sites during J occasions.</span></a>
-<a class="sourceLine" id="cb67-9" title="9"><span class="co"># Population closure is assumed for each site.</span></a>
-<a class="sourceLine" id="cb67-10" title="10"><span class="co"># Expected occurrence may be affected by elevation (elev), </span></a>
-<a class="sourceLine" id="cb67-11" title="11"><span class="co"># forest cover (forest) and their interaction.</span></a>
-<a class="sourceLine" id="cb67-12" title="12"><span class="co"># Expected detection probability may be affected by elevation, </span></a>
-<a class="sourceLine" id="cb67-13" title="13"><span class="co"># temperature (temp) and their interaction.</span></a>
-<a class="sourceLine" id="cb67-14" title="14"><span class="co"># Function arguments:</span></a>
-<a class="sourceLine" id="cb67-15" title="15"><span class="co">#     M: Number of spatial replicates (sites)</span></a>
-<a class="sourceLine" id="cb67-16" title="16"><span class="co">#     J: Number of temporal replicates (occasions)</span></a>
-<a class="sourceLine" id="cb67-17" title="17"><span class="co">#     mean.occupancy: Mean occurrence at value 0 of occurrence covariates</span></a>
-<a class="sourceLine" id="cb67-18" title="18"><span class="co">#     beta1: Main effect of elevation on occurrence</span></a>
-<a class="sourceLine" id="cb67-19" title="19"><span class="co">#     beta2: Main effect of forest cover on occurrence</span></a>
-<a class="sourceLine" id="cb67-20" title="20"><span class="co">#     beta3: Interaction effect on occurrence of elevation and forest cover</span></a>
-<a class="sourceLine" id="cb67-21" title="21"><span class="co">#     mean.detection: Mean detection prob. at value 0 of detection covariates</span></a>
-<a class="sourceLine" id="cb67-22" title="22"><span class="co">#     alpha1: Main effect of elevation on detection probability</span></a>
-<a class="sourceLine" id="cb67-23" title="23"><span class="co">#     alpha2: Main effect of temperature on detection probability</span></a>
-<a class="sourceLine" id="cb67-24" title="24"><span class="co">#     alpha3: Interaction effect on detection of elevation and temperature</span></a>
-<a class="sourceLine" id="cb67-25" title="25"><span class="co">#     show.plot: if TRUE, plots of the data will be displayed; </span></a>
-<a class="sourceLine" id="cb67-26" title="26"><span class="co">#               set to FALSE if you are running simulations.</span></a>
-<a class="sourceLine" id="cb67-27" title="27"></a>
-<a class="sourceLine" id="cb67-28" title="28"></a>
-<a class="sourceLine" id="cb67-29" title="29"><span class="co">#To make the objects inside the list directly accessible to R, without having to address </span></a>
-<a class="sourceLine" id="cb67-30" title="30"><span class="co">#them as data$C for instance, you can attach datos2 to the search path.</span></a>
-<a class="sourceLine" id="cb67-31" title="31"></a>
-<a class="sourceLine" id="cb67-32" title="32"><span class="kw">attach</span>(datos2)         <span class="co"># Make objects inside of &#39;datos2&#39; accessible directly</span></a>
-<a class="sourceLine" id="cb67-33" title="33"></a>
-<a class="sourceLine" id="cb67-34" title="34"><span class="co">#Remember to detach the data after use, and in particular before attaching a new data </span></a>
-<a class="sourceLine" id="cb67-35" title="35"><span class="co">#object, because more than one data set attached in the search path will cause confusion.</span></a>
-<a class="sourceLine" id="cb67-36" title="36"></a>
-<a class="sourceLine" id="cb67-37" title="37"><span class="co"># detach(datos2)         # Make clean up</span></a></code></pre></div>
+<p>Esta vez recurriremos a un diseño tipo TEAM (<a href="http://www.teamnetwork.org" class="uri">http://www.teamnetwork.org</a>) con 60 sitios de muestreo y 30 visitas repetidas, que equivalen a los 30 días en que las cámaras permanecen activas en campo. De nuevo nuestra especie es el venado de cola blanca. Para este ejemplo asumiremos que la detección es 0.6, la ocupación 0.8 y las interacciones son mucho más sencillas con la altitud como la única covariable que explica la ocupación. Sin embargo para la detección hay una relación más compleja, asumiendo que hay una leve interacción entre las covariables de la observación. Para la observación la altitud y temperatura interactúan entre sí. También observe como la altitud influye en direcciones opuestas con un signo positivo en la altitud para la detección y negativo para la ocupación.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="co"># Data generation</span></a>
+<a class="sourceLine" id="cb28-2" title="2"><span class="co"># Lets build a model were elevation explain occupancy and p has interactions</span></a>
+<a class="sourceLine" id="cb28-3" title="3">datos2&lt;-<span class="kw">data.fn</span>(<span class="dt">M =</span> <span class="dv">60</span>, <span class="dt">J =</span> <span class="dv">30</span>, <span class="dt">show.plot =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb28-4" title="4">                <span class="dt">mean.occupancy =</span> <span class="fl">0.8</span>, <span class="dt">beta1 =</span> <span class="fl">-1.5</span>, <span class="dt">beta2 =</span> <span class="dv">0</span>, <span class="dt">beta3 =</span> <span class="dv">0</span>,  </a>
+<a class="sourceLine" id="cb28-5" title="5">                <span class="dt">mean.detection =</span> <span class="fl">0.6</span>, <span class="dt">alpha1 =</span> <span class="dv">2</span>, <span class="dt">alpha2 =</span> <span class="dv">1</span>, <span class="dt">alpha3 =</span> <span class="fl">1.5</span></a>
+<a class="sourceLine" id="cb28-6" title="6">                )</a>
+<a class="sourceLine" id="cb28-7" title="7"></a>
+<a class="sourceLine" id="cb28-8" title="8"><span class="co"># Function to simulate occupancy measurements replicated at M sites during J occasions.</span></a>
+<a class="sourceLine" id="cb28-9" title="9"><span class="co"># Population closure is assumed for each site.</span></a>
+<a class="sourceLine" id="cb28-10" title="10"><span class="co"># Expected occurrence may be affected by elevation (elev), </span></a>
+<a class="sourceLine" id="cb28-11" title="11"><span class="co"># forest cover (forest) and their interaction.</span></a>
+<a class="sourceLine" id="cb28-12" title="12"><span class="co"># Expected detection probability may be affected by elevation, </span></a>
+<a class="sourceLine" id="cb28-13" title="13"><span class="co"># temperature (temp) and their interaction.</span></a>
+<a class="sourceLine" id="cb28-14" title="14"><span class="co"># Function arguments:</span></a>
+<a class="sourceLine" id="cb28-15" title="15"><span class="co">#     M: Number of spatial replicates (sites)</span></a>
+<a class="sourceLine" id="cb28-16" title="16"><span class="co">#     J: Number of temporal replicates (occasions)</span></a>
+<a class="sourceLine" id="cb28-17" title="17"><span class="co">#     mean.occupancy: Mean occurrence at value 0 of occurrence covariates</span></a>
+<a class="sourceLine" id="cb28-18" title="18"><span class="co">#     beta1: Main effect of elevation on occurrence</span></a>
+<a class="sourceLine" id="cb28-19" title="19"><span class="co">#     beta2: Main effect of forest cover on occurrence</span></a>
+<a class="sourceLine" id="cb28-20" title="20"><span class="co">#     beta3: Interaction effect on occurrence of elevation and forest cover</span></a>
+<a class="sourceLine" id="cb28-21" title="21"><span class="co">#     mean.detection: Mean detection prob. at value 0 of detection covariates</span></a>
+<a class="sourceLine" id="cb28-22" title="22"><span class="co">#     alpha1: Main effect of elevation on detection probability</span></a>
+<a class="sourceLine" id="cb28-23" title="23"><span class="co">#     alpha2: Main effect of temperature on detection probability</span></a>
+<a class="sourceLine" id="cb28-24" title="24"><span class="co">#     alpha3: Interaction effect on detection of elevation and temperature</span></a>
+<a class="sourceLine" id="cb28-25" title="25"><span class="co">#     show.plot: if TRUE, plots of the data will be displayed; </span></a>
+<a class="sourceLine" id="cb28-26" title="26"><span class="co">#               set to FALSE if you are running simulations.</span></a>
+<a class="sourceLine" id="cb28-27" title="27"></a>
+<a class="sourceLine" id="cb28-28" title="28"></a>
+<a class="sourceLine" id="cb28-29" title="29"><span class="co">#To make the objects inside the list directly accessible to R, without having to address </span></a>
+<a class="sourceLine" id="cb28-30" title="30"><span class="co">#them as data$C for instance, you can attach datos2 to the search path.</span></a>
+<a class="sourceLine" id="cb28-31" title="31"></a>
+<a class="sourceLine" id="cb28-32" title="32"><span class="kw">attach</span>(datos2)         <span class="co"># Make objects inside of &#39;datos2&#39; accessible directly</span></a>
+<a class="sourceLine" id="cb28-33" title="33"></a>
+<a class="sourceLine" id="cb28-34" title="34"><span class="co">#Remember to detach the data after use, and in particular before attaching a new data </span></a>
+<a class="sourceLine" id="cb28-35" title="35"><span class="co">#object, because more than one data set attached in the search path will cause confusion.</span></a>
+<a class="sourceLine" id="cb28-36" title="36"></a>
+<a class="sourceLine" id="cb28-37" title="37"><span class="co"># detach(datos2)         # Make clean up</span></a></code></pre></div>
 </div>
 <div id="poniendo-los-datos-en-unmarked" class="section level2">
 <h2><span class="header-section-number">7.2</span> Poniendo los datos en unmarked</h2>
-<p><a href="http://cran.r-project.org/web/packages/unmarked/index.html">Unmarked</a> es el paquete de R que usamos para analizar los datos de ocupacion <span class="citation">(Fiske &amp; Chandler, <a href="#ref-Fiske2011" role="doc-biblioref">2011</a>)</span>. Para lograr esto debemos primero preparar los datos y juntarlos en un objeto de tipo unmarkedFrame. En este caso usamos la funcion unmarkedFrameOccu que es especifica para analisis de ocupacion de una sola epoca o estación. Más sobre unkarked en: <a href="https://sites.google.com/site/unmarkedinfo/home" class="uri">https://sites.google.com/site/unmarkedinfo/home</a></p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1"><span class="kw">library</span>(unmarked)</a>
-<a class="sourceLine" id="cb68-2" title="2">siteCovs &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(forest,elev)) <span class="co"># occupancy covariates </span></a>
-<a class="sourceLine" id="cb68-3" title="3">obselev&lt;-<span class="kw">matrix</span>(<span class="kw">rep</span>(elev,J),<span class="dt">ncol =</span> J) <span class="co"># make elevetion per observation</span></a>
-<a class="sourceLine" id="cb68-4" title="4">obsCovs &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">temp=</span> temp,<span class="dt">elev=</span>obselev) <span class="co"># detection covariates</span></a>
-<a class="sourceLine" id="cb68-5" title="5"></a>
-<a class="sourceLine" id="cb68-6" title="6"><span class="co"># umf is the object joining observations (y), occupancy covariates (siteCovs)</span></a>
-<a class="sourceLine" id="cb68-7" title="7"><span class="co"># and detection covariates (obsCovs). Note that obsCovs should be a list of </span></a>
-<a class="sourceLine" id="cb68-8" title="8"><span class="co"># matrices or dataframes.</span></a>
-<a class="sourceLine" id="cb68-9" title="9"></a>
-<a class="sourceLine" id="cb68-10" title="10">umf &lt;-<span class="st"> </span><span class="kw">unmarkedFrameOccu</span>(<span class="dt">y =</span> y, <span class="dt">siteCovs =</span> siteCovs, <span class="dt">obsCovs =</span> obsCovs)</a></code></pre></div>
+<p><a href="http://cran.r-project.org/web/packages/unmarked/index.html">Unmarked</a> es el paquete de R que usamos para analizar los datos de ocupación <span class="citation">(Fiske &amp; Chandler, <a href="#ref-Fiske2011" role="doc-biblioref">2011</a>)</span>. Para lograr esto debemos primero preparar los datos y juntarlos en un objeto de tipo unmarkedFrame. En este caso usamos la función unmarkedFrameOccu que es específica para análisis de ocupación de una sola época o estación. Más sobre unkarked en: <a href="https://sites.google.com/site/unmarkedinfo/home" class="uri">https://sites.google.com/site/unmarkedinfo/home</a></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">library</span>(unmarked)</a>
+<a class="sourceLine" id="cb29-2" title="2">siteCovs &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(forest,elev)) <span class="co"># occupancy covariates </span></a>
+<a class="sourceLine" id="cb29-3" title="3">obselev&lt;-<span class="kw">matrix</span>(<span class="kw">rep</span>(elev,J),<span class="dt">ncol =</span> J) <span class="co"># make elevetion per observation</span></a>
+<a class="sourceLine" id="cb29-4" title="4">obsCovs &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">temp=</span> temp,<span class="dt">elev=</span>obselev) <span class="co"># detection covariates</span></a>
+<a class="sourceLine" id="cb29-5" title="5"></a>
+<a class="sourceLine" id="cb29-6" title="6"><span class="co"># umf is the object joining observations (y), occupancy covariates (siteCovs)</span></a>
+<a class="sourceLine" id="cb29-7" title="7"><span class="co"># and detection covariates (obsCovs). Note that obsCovs should be a list of </span></a>
+<a class="sourceLine" id="cb29-8" title="8"><span class="co"># matrices or dataframes.</span></a>
+<a class="sourceLine" id="cb29-9" title="9"></a>
+<a class="sourceLine" id="cb29-10" title="10">umf &lt;-<span class="st"> </span><span class="kw">unmarkedFrameOccu</span>(<span class="dt">y =</span> y, <span class="dt">siteCovs =</span> siteCovs, <span class="dt">obsCovs =</span> obsCovs)</a></code></pre></div>
 </div>
 <div id="ajustando-los-modelos" class="section level2">
 <h2><span class="header-section-number">7.3</span> Ajustando los modelos</h2>
-<p>El siguiente paso es ajustar los modelos que se requerían variando las co variables. Esto se logra con la <a href="http://www.rdocumentation.org/packages/unmarked/versions/0.11-0/topics/occu">función occu()</a>.</p>
+<p>El siguiente paso es ajustar los modelos que se requerían variando las co-variables. Esto se logra con la <a href="http://www.rdocumentation.org/packages/unmarked/versions/0.11-0/topics/occu">función occu()</a>.</p>
 <p>Tenga en cuenta que en el proceso de construcción de modelos su modelo debe tener un significado biológico.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="co"># detection first, occupancy next</span></a>
-<a class="sourceLine" id="cb69-2" title="2">fm0 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="dv">1</span> <span class="op">~</span><span class="dv">1</span>, umf) <span class="co"># Null model</span></a>
-<a class="sourceLine" id="cb69-3" title="3">fm1 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, umf) <span class="co"># elev explaining detection</span></a>
-<a class="sourceLine" id="cb69-4" title="4">fm2 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">~</span><span class="st"> </span>elev, umf) <span class="co"># elev explaining detection and occupancy</span></a>
-<a class="sourceLine" id="cb69-5" title="5">fm3 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>temp <span class="op">~</span><span class="st"> </span>elev, umf)</a>
-<a class="sourceLine" id="cb69-6" title="6">fm4 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>temp <span class="op">~</span><span class="st"> </span>forest, umf)</a>
-<a class="sourceLine" id="cb69-7" title="7">fm5 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>temp <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, umf)</a>
-<a class="sourceLine" id="cb69-8" title="8">fm6 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>temp <span class="op">+</span><span class="st"> </span>elev<span class="op">:</span>temp <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, umf)</a>
-<a class="sourceLine" id="cb69-9" title="9">fm7 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>temp <span class="op">+</span><span class="st"> </span>elev<span class="op">:</span>temp <span class="op">~</span><span class="st"> </span>elev, umf)</a>
-<a class="sourceLine" id="cb69-10" title="10">fm8 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>temp <span class="op">+</span><span class="st"> </span>elev<span class="op">:</span>temp <span class="op">~</span><span class="st"> </span>forest, umf)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="co"># detection first, occupancy next</span></a>
+<a class="sourceLine" id="cb30-2" title="2">fm0 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="dv">1</span> <span class="op">~</span><span class="dv">1</span>, umf) <span class="co"># Null model</span></a>
+<a class="sourceLine" id="cb30-3" title="3">fm1 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, umf) <span class="co"># elev explaining detection</span></a>
+<a class="sourceLine" id="cb30-4" title="4">fm2 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">~</span><span class="st"> </span>elev, umf) <span class="co"># elev explaining detection and occupancy</span></a>
+<a class="sourceLine" id="cb30-5" title="5">fm3 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>temp <span class="op">~</span><span class="st"> </span>elev, umf)</a>
+<a class="sourceLine" id="cb30-6" title="6">fm4 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>temp <span class="op">~</span><span class="st"> </span>forest, umf)</a>
+<a class="sourceLine" id="cb30-7" title="7">fm5 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>temp <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, umf)</a>
+<a class="sourceLine" id="cb30-8" title="8">fm6 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>temp <span class="op">+</span><span class="st"> </span>elev<span class="op">:</span>temp <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, umf)</a>
+<a class="sourceLine" id="cb30-9" title="9">fm7 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>temp <span class="op">+</span><span class="st"> </span>elev<span class="op">:</span>temp <span class="op">~</span><span class="st"> </span>elev, umf)</a>
+<a class="sourceLine" id="cb30-10" title="10">fm8 &lt;-<span class="st"> </span><span class="kw">occu</span>(<span class="op">~</span><span class="st"> </span>elev <span class="op">+</span><span class="st"> </span>temp <span class="op">+</span><span class="st"> </span>elev<span class="op">:</span>temp <span class="op">~</span><span class="st"> </span>forest, umf)</a></code></pre></div>
 </div>
 <div id="selección-de-modelos" class="section level2">
 <h2><span class="header-section-number">7.4</span> Selección de modelos</h2>
 <p>Unmarked permite hacer selección de modelos basándose en el AIC de cada uno. De forma tal que el menor AIC es el modelo más parsimonioso de acuerdo a nuestros datos <span class="citation">(Burnham &amp; Anderson, <a href="#ref-Burnham2004" role="doc-biblioref">2004</a>)</span>.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" title="1">models &lt;-<span class="st"> </span><span class="kw">fitList</span>( <span class="co"># here e put names to the models</span></a>
-<a class="sourceLine" id="cb70-2" title="2">  <span class="st">&#39;p(.)psi(.)&#39;</span>                        =<span class="st"> </span>fm0,</a>
-<a class="sourceLine" id="cb70-3" title="3">  <span class="st">&#39;p(elev)psi(.)&#39;</span>                     =<span class="st"> </span>fm1,</a>
-<a class="sourceLine" id="cb70-4" title="4">  <span class="st">&#39;p(elev)psi(elev)&#39;</span>                  =<span class="st"> </span>fm2,</a>
-<a class="sourceLine" id="cb70-5" title="5">  <span class="st">&#39;p(temp)psi(elev)&#39;</span>                  =<span class="st"> </span>fm3,</a>
-<a class="sourceLine" id="cb70-6" title="6">  <span class="st">&#39;p(temp)psi(forest)&#39;</span>                =<span class="st"> </span>fm4,</a>
-<a class="sourceLine" id="cb70-7" title="7">  <span class="st">&#39;p(temp+elev)psi(.)&#39;</span>                =<span class="st"> </span>fm5,</a>
-<a class="sourceLine" id="cb70-8" title="8">  <span class="st">&#39;p(temp+elev+elev:temp)psi(.)&#39;</span>      =<span class="st"> </span>fm6,</a>
-<a class="sourceLine" id="cb70-9" title="9">  <span class="st">&#39;p(temp+elev+elev:temp)psi(elev)&#39;</span>   =<span class="st"> </span>fm7,</a>
-<a class="sourceLine" id="cb70-10" title="10">  <span class="st">&#39;p(temp+elev+elev:temp)psi(forest)&#39;</span> =<span class="st"> </span>fm8)</a>
-<a class="sourceLine" id="cb70-11" title="11"></a>
-<a class="sourceLine" id="cb70-12" title="12"><span class="kw">modSel</span>(models) <span class="co"># model selection procedure</span></a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">models &lt;-<span class="st"> </span><span class="kw">fitList</span>( <span class="co"># here e put names to the models</span></a>
+<a class="sourceLine" id="cb31-2" title="2">  <span class="st">&#39;p(.)psi(.)&#39;</span>                        =<span class="st"> </span>fm0,</a>
+<a class="sourceLine" id="cb31-3" title="3">  <span class="st">&#39;p(elev)psi(.)&#39;</span>                     =<span class="st"> </span>fm1,</a>
+<a class="sourceLine" id="cb31-4" title="4">  <span class="st">&#39;p(elev)psi(elev)&#39;</span>                  =<span class="st"> </span>fm2,</a>
+<a class="sourceLine" id="cb31-5" title="5">  <span class="st">&#39;p(temp)psi(elev)&#39;</span>                  =<span class="st"> </span>fm3,</a>
+<a class="sourceLine" id="cb31-6" title="6">  <span class="st">&#39;p(temp)psi(forest)&#39;</span>                =<span class="st"> </span>fm4,</a>
+<a class="sourceLine" id="cb31-7" title="7">  <span class="st">&#39;p(temp+elev)psi(.)&#39;</span>                =<span class="st"> </span>fm5,</a>
+<a class="sourceLine" id="cb31-8" title="8">  <span class="st">&#39;p(temp+elev+elev:temp)psi(.)&#39;</span>      =<span class="st"> </span>fm6,</a>
+<a class="sourceLine" id="cb31-9" title="9">  <span class="st">&#39;p(temp+elev+elev:temp)psi(elev)&#39;</span>   =<span class="st"> </span>fm7,</a>
+<a class="sourceLine" id="cb31-10" title="10">  <span class="st">&#39;p(temp+elev+elev:temp)psi(forest)&#39;</span> =<span class="st"> </span>fm8)</a>
+<a class="sourceLine" id="cb31-11" title="11"></a>
+<a class="sourceLine" id="cb31-12" title="12"><span class="kw">modSel</span>(models) <span class="co"># model selection procedure</span></a></code></pre></div>
 <pre><code>##                                   nPars     AIC  delta   AICwt
 ## p(temp+elev+elev:temp)psi(elev)       6 1630.77   0.00 9.2e-01
 ## p(temp+elev+elev:temp)psi(.)          5 1636.27   5.49 5.9e-02
@@ -535,9 +301,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="predicción-en-graficas" class="section level2">
 <h2><span class="header-section-number">7.5</span> Predicción en graficas</h2>
-<p>El modelo con menor AIC puede ser usado para predecir resultados esperados de acuerdo a un nuevo set de datos. Por ejemplo, uno podría preguntar la abundancia de venados que se espera encontrar en un sitio con mayor altitud. La predicciones también son otra forma de presentar los resultados de un análisis. Aquí ilustraremos como se ve la predicción de <span class="math inline">\(\psi\)</span> y <em>p</em> sobre el rango de las covariables estudiadas. Note que estamos usando covariables estandarizadas. Si estuviéramos usando covariables en su escala real, tendríamos que tener en cuenta que hay que transformarlas usando la media y la desviación estándar.</p>
+<p>El modelo con menor AIC puede ser usado para predecir resultados esperados de acuerdo a un nuevo set de datos. Por ejemplo, uno podría preguntar la abundancia de venados que se espera encontrar en un sitio con mayor altitud. Las predicciones también son otra forma de presentar los resultados de un análisis. Aquí ilustraremos como se ve la predicción de <span class="math inline">\(\psi\)</span> y <em>p</em> sobre el rango de las covariables estudiadas. Note que estamos usando covariables estandarizadas. Si estuviéramos usando covariables en su escala real, tendríamos que tener en cuenta que hay que transformarlas usando la media y la desviación estándar.</p>
 <p>Antes de usar el modelo para predecir es buena idea verificar los parámetros del modelo y sus errores, posteriormente verificar que el modelo ajusta bien con la función parboot, la cual hace un remuestreo del modelo y se interpreta como que el modelo tiene buen ajuste, cuando la media (línea punteada) está entre los intervalos del histograma.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1"><span class="kw">summary</span>(fm7) <span class="co"># see the model parameters</span></a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="kw">summary</span>(fm7) <span class="co"># see the model parameters</span></a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## occu(formula = ~elev + temp + elev:temp ~ elev, data = umf)
@@ -559,48 +325,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## optim convergence code: 0
 ## optim iterations: 31 
 ## Bootstrap iterations: 0</code></pre>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1">pb &lt;-<span class="st"> </span><span class="kw">parboot</span>(fm7, <span class="dt">nsim=</span><span class="dv">250</span>, <span class="dt">report=</span><span class="dv">10</span>) <span class="co"># goodness of fit</span></a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1">pb &lt;-<span class="st"> </span><span class="kw">parboot</span>(fm7, <span class="dt">nsim=</span><span class="dv">250</span>, <span class="dt">report=</span><span class="dv">10</span>) <span class="co"># goodness of fit</span></a></code></pre></div>
 <pre><code>## t0 = 409.3793</code></pre>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" title="1"><span class="kw">plot</span> (pb) <span class="co"># plot goodness of fit</span></a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="kw">plot</span> (pb) <span class="co"># plot goodness of fit</span></a></code></pre></div>
 <p><img src="IntroOccuBook_files/figure-html/fit1-1.png" width="672" /></p>
 <p>Ahora que sabemos que nuestro mejor modelo tiene buen ajuste, podemos usarlo para predecir la ocupación en el rango de la altitud para ver su comportamiento en una gráfica.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1">elevrange&lt;-<span class="kw">data.frame</span>(<span class="dt">elev=</span><span class="kw">seq</span>(<span class="kw">min</span>(datos2<span class="op">$</span>elev),<span class="kw">max</span>(datos2<span class="op">$</span>elev),<span class="dt">length=</span><span class="dv">100</span>)) <span class="co"># newdata</span></a>
-<a class="sourceLine" id="cb77-2" title="2">pred_psi &lt;-<span class="kw">predict</span>(fm7,<span class="dt">type=</span><span class="st">&quot;state&quot;</span>,<span class="dt">newdata=</span>elevrange,<span class="dt">appendData=</span><span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb77-3" title="3"><span class="kw">plot</span>(Predicted<span class="op">~</span>elev, pred_psi,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,</a>
-<a class="sourceLine" id="cb77-4" title="4">       <span class="dt">xlab=</span><span class="st">&quot;elev&quot;</span>,</a>
-<a class="sourceLine" id="cb77-5" title="5">       <span class="dt">ylab=</span><span class="st">&quot;psi&quot;</span>)</a>
-<a class="sourceLine" id="cb77-6" title="6"><span class="kw">lines</span>(lower<span class="op">~</span>elev, pred_psi,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>))</a>
-<a class="sourceLine" id="cb77-7" title="7"><span class="kw">lines</span>(upper<span class="op">~</span>elev, pred_psi,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1">elevrange&lt;-<span class="kw">data.frame</span>(<span class="dt">elev=</span><span class="kw">seq</span>(<span class="kw">min</span>(datos2<span class="op">$</span>elev),<span class="kw">max</span>(datos2<span class="op">$</span>elev),<span class="dt">length=</span><span class="dv">100</span>)) <span class="co"># newdata</span></a>
+<a class="sourceLine" id="cb38-2" title="2">pred_psi &lt;-<span class="kw">predict</span>(fm7,<span class="dt">type=</span><span class="st">&quot;state&quot;</span>,<span class="dt">newdata=</span>elevrange,<span class="dt">appendData=</span><span class="ot">TRUE</span>) </a>
+<a class="sourceLine" id="cb38-3" title="3"><span class="kw">plot</span>(Predicted<span class="op">~</span>elev, pred_psi,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,</a>
+<a class="sourceLine" id="cb38-4" title="4">       <span class="dt">xlab=</span><span class="st">&quot;elev&quot;</span>,</a>
+<a class="sourceLine" id="cb38-5" title="5">       <span class="dt">ylab=</span><span class="st">&quot;psi&quot;</span>)</a>
+<a class="sourceLine" id="cb38-6" title="6"><span class="kw">lines</span>(lower<span class="op">~</span>elev, pred_psi,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb38-7" title="7"><span class="kw">lines</span>(upper<span class="op">~</span>elev, pred_psi,<span class="dt">type=</span><span class="st">&quot;l&quot;</span>,<span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.5</span>))</a></code></pre></div>
 <p><img src="IntroOccuBook_files/figure-html/graph_psi1-1.png" width="672" /></p>
 </div>
 <div id="predicción-espacialmente-explicita" class="section level2">
 <h2><span class="header-section-number">7.6</span> Predicción espacialmente explicita</h2>
 <p>Podemos también usar el mejor modelo para predecir de forma espacialmente explicita sí tenemos los mapas. Como ilustración vamos a construir mapas simulados para cada una de nuestras covariables. Los mapas surgen de un patrón aleatorio de puntos con distribución Poisson. Luego estos puntos los convertimos en una superficie interpolada.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1"><span class="co"># lets make random maps for the three covariates</span></a>
-<a class="sourceLine" id="cb78-2" title="2"><span class="kw">library</span>(raster)</a>
-<a class="sourceLine" id="cb78-3" title="3"><span class="kw">library</span>(spatstat)</a>
-<a class="sourceLine" id="cb78-4" title="4"><span class="kw">set.seed</span>(<span class="dv">24</span>) <span class="co"># Remove for random simulations</span></a>
-<a class="sourceLine" id="cb78-5" title="5"></a>
-<a class="sourceLine" id="cb78-6" title="6"><span class="co"># CONSTRUCT ANALYSIS WINDOW USING THE FOLLOWING:</span></a>
-<a class="sourceLine" id="cb78-7" title="7">xrange=<span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">1002.5</span>)</a>
-<a class="sourceLine" id="cb78-8" title="8">yrange=<span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">502.5</span>)</a>
-<a class="sourceLine" id="cb78-9" title="9">window&lt;-<span class="kw">owin</span>(xrange, yrange)</a>
-<a class="sourceLine" id="cb78-10" title="10"></a>
-<a class="sourceLine" id="cb78-11" title="11"><span class="co"># Build maps from random points and interpole in same line</span></a>
-<a class="sourceLine" id="cb78-12" title="12">elev   &lt;-<span class="st"> </span><span class="kw">density</span>(<span class="kw">rpoispp</span>(<span class="dt">lambda=</span><span class="fl">0.6</span>, <span class="dt">win=</span>window)) <span class="co"># </span></a>
-<a class="sourceLine" id="cb78-13" title="13">forest &lt;-<span class="st"> </span><span class="kw">density</span>(<span class="kw">rpoispp</span>(<span class="dt">lambda=</span><span class="fl">0.2</span>, <span class="dt">win=</span>window)) <span class="co"># </span></a>
-<a class="sourceLine" id="cb78-14" title="14">temp   &lt;-<span class="st"> </span><span class="kw">density</span>(<span class="kw">rpoispp</span>(<span class="dt">lambda=</span><span class="fl">0.5</span>, <span class="dt">win=</span>window)) <span class="co"># </span></a>
-<a class="sourceLine" id="cb78-15" title="15"></a>
-<a class="sourceLine" id="cb78-16" title="16"><span class="co"># Convert covs to raster and Put in the same stack </span></a>
-<a class="sourceLine" id="cb78-17" title="17">mapdata.m&lt;-<span class="kw">stack</span>(<span class="kw">raster</span>(elev),<span class="kw">raster</span>(forest), <span class="kw">raster</span>(temp)) </a>
-<a class="sourceLine" id="cb78-18" title="18"><span class="kw">names</span>(mapdata.m)&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;elev&quot;</span>, <span class="st">&quot;forest&quot;</span>, <span class="st">&quot;temp&quot;</span>) <span class="co"># put names to raster</span></a>
-<a class="sourceLine" id="cb78-19" title="19"></a>
-<a class="sourceLine" id="cb78-20" title="20"><span class="co"># lets plot the covs maps</span></a>
-<a class="sourceLine" id="cb78-21" title="21"><span class="kw">plot</span>(mapdata.m)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="co"># lets make random maps for the three covariates</span></a>
+<a class="sourceLine" id="cb39-2" title="2"><span class="kw">library</span>(raster)</a>
+<a class="sourceLine" id="cb39-3" title="3"><span class="kw">library</span>(spatstat)</a>
+<a class="sourceLine" id="cb39-4" title="4"><span class="kw">set.seed</span>(<span class="dv">24</span>) <span class="co"># Remove for random simulations</span></a>
+<a class="sourceLine" id="cb39-5" title="5"></a>
+<a class="sourceLine" id="cb39-6" title="6"><span class="co"># CONSTRUCT ANALYSIS WINDOW USING THE FOLLOWING:</span></a>
+<a class="sourceLine" id="cb39-7" title="7">xrange=<span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">1002.5</span>)</a>
+<a class="sourceLine" id="cb39-8" title="8">yrange=<span class="kw">c</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">502.5</span>)</a>
+<a class="sourceLine" id="cb39-9" title="9">window&lt;-<span class="kw">owin</span>(xrange, yrange)</a>
+<a class="sourceLine" id="cb39-10" title="10"></a>
+<a class="sourceLine" id="cb39-11" title="11"><span class="co"># Build maps from random points and interpole in same line</span></a>
+<a class="sourceLine" id="cb39-12" title="12">elev   &lt;-<span class="st"> </span><span class="kw">density</span>(<span class="kw">rpoispp</span>(<span class="dt">lambda=</span><span class="fl">0.6</span>, <span class="dt">win=</span>window)) <span class="co"># </span></a>
+<a class="sourceLine" id="cb39-13" title="13">forest &lt;-<span class="st"> </span><span class="kw">density</span>(<span class="kw">rpoispp</span>(<span class="dt">lambda=</span><span class="fl">0.2</span>, <span class="dt">win=</span>window)) <span class="co"># </span></a>
+<a class="sourceLine" id="cb39-14" title="14">temp   &lt;-<span class="st"> </span><span class="kw">density</span>(<span class="kw">rpoispp</span>(<span class="dt">lambda=</span><span class="fl">0.5</span>, <span class="dt">win=</span>window)) <span class="co"># </span></a>
+<a class="sourceLine" id="cb39-15" title="15"></a>
+<a class="sourceLine" id="cb39-16" title="16"><span class="co"># Convert covs to raster and Put in the same stack </span></a>
+<a class="sourceLine" id="cb39-17" title="17">mapdata.m&lt;-<span class="kw">stack</span>(<span class="kw">raster</span>(elev),<span class="kw">raster</span>(forest), <span class="kw">raster</span>(temp)) </a>
+<a class="sourceLine" id="cb39-18" title="18"><span class="kw">names</span>(mapdata.m)&lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;elev&quot;</span>, <span class="st">&quot;forest&quot;</span>, <span class="st">&quot;temp&quot;</span>) <span class="co"># put names to raster</span></a>
+<a class="sourceLine" id="cb39-19" title="19"></a>
+<a class="sourceLine" id="cb39-20" title="20"><span class="co"># lets plot the covs maps</span></a>
+<a class="sourceLine" id="cb39-21" title="21"><span class="kw">plot</span>(mapdata.m)</a></code></pre></div>
 <p><img src="IntroOccuBook_files/figure-html/spatial_1-1.png" width="672" /></p>
 <p>Una vez tenemos nuestros mapas de covariables, los usamos para predecir con el mejor modelo. De esta forma podemos tener un mapa con predicciones de la ocupación y la probabilidad de detección.</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" title="1"><span class="co"># make the predictions </span></a>
-<a class="sourceLine" id="cb79-2" title="2">predictions_psi &lt;-<span class="st"> </span><span class="kw">predict</span>(fm7, <span class="dt">type=</span><span class="st">&quot;state&quot;</span>, <span class="dt">newdata=</span>mapdata.m) <span class="co"># predict psi</span></a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1"><span class="co"># make the predictions </span></a>
+<a class="sourceLine" id="cb40-2" title="2">predictions_psi &lt;-<span class="st"> </span><span class="kw">predict</span>(fm7, <span class="dt">type=</span><span class="st">&quot;state&quot;</span>, <span class="dt">newdata=</span>mapdata.m) <span class="co"># predict psi</span></a></code></pre></div>
 <pre><code>##   doing row 1000 of 16384 
 ##   doing row 2000 of 16384 
 ##   doing row 3000 of 16384 
@@ -617,7 +383,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   doing row 14000 of 16384 
 ##   doing row 15000 of 16384 
 ##   doing row 16000 of 16384</code></pre>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1">predictions_p   &lt;-<span class="st"> </span><span class="kw">predict</span>(fm7, <span class="dt">type=</span><span class="st">&quot;det&quot;</span>,   <span class="dt">newdata=</span>mapdata.m) <span class="co"># predict p</span></a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1">predictions_p   &lt;-<span class="st"> </span><span class="kw">predict</span>(fm7, <span class="dt">type=</span><span class="st">&quot;det&quot;</span>,   <span class="dt">newdata=</span>mapdata.m) <span class="co"># predict p</span></a></code></pre></div>
 <pre><code>##   doing row 1000 of 16384 
 ##   doing row 2000 of 16384 
 ##   doing row 3000 of 16384 
@@ -634,10 +400,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   doing row 14000 of 16384 
 ##   doing row 15000 of 16384 
 ##   doing row 16000 of 16384</code></pre>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1"><span class="co"># put in the same stack</span></a>
-<a class="sourceLine" id="cb83-2" title="2">predmaps&lt;-<span class="kw">stack</span>(predictions_psi<span class="op">$</span>Predicted,predictions_p<span class="op">$</span>Predicted) </a>
-<a class="sourceLine" id="cb83-3" title="3"><span class="kw">names</span>(predmaps)&lt;-<span class="kw">c</span>(<span class="st">&quot;psi_predicted&quot;</span>, <span class="st">&quot;p_predicted&quot;</span>) <span class="co"># put names</span></a>
-<a class="sourceLine" id="cb83-4" title="4"><span class="kw">plot</span>(predmaps)</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="co"># put in the same stack</span></a>
+<a class="sourceLine" id="cb44-2" title="2">predmaps&lt;-<span class="kw">stack</span>(predictions_psi<span class="op">$</span>Predicted,predictions_p<span class="op">$</span>Predicted) </a>
+<a class="sourceLine" id="cb44-3" title="3"><span class="kw">names</span>(predmaps)&lt;-<span class="kw">c</span>(<span class="st">&quot;psi_predicted&quot;</span>, <span class="st">&quot;p_predicted&quot;</span>) <span class="co"># put names</span></a>
+<a class="sourceLine" id="cb44-4" title="4"><span class="kw">plot</span>(predmaps)</a></code></pre></div>
 <p><img src="IntroOccuBook_files/figure-html/spatial_2-1.png" width="672" /></p>
 
 </div>
