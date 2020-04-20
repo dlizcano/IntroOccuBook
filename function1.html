@@ -11,7 +11,7 @@
   <meta property="og:title" content="Capítulo 6 Empacando todo en una función | Simulación y análisis de ocupación" />
   <meta property="og:type" content="book" />
   
-  
+  <meta property="og:image" content="images/venado_large.png" />
   <meta property="og:description" content="This is an R example to get occupancy data and analize it." />
   <meta name="github-repo" content="dlizcano/IntroOccuBook" />
 
@@ -19,18 +19,18 @@
   <meta name="twitter:title" content="Capítulo 6 Empacando todo en una función | Simulación y análisis de ocupación" />
   
   <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
-  
+  <meta name="twitter:image" content="images/venado_large.png" />
 
 <meta name="author" content="Diego J. Lizcano, Ph.D." />
 
 
-<meta name="date" content="2020-04-19" />
+<meta name="date" content="2020-04-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="prev" href="example.html"/>
 <link rel="next" href="unmarked.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -319,10 +319,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">plot</span>(<span class="kw">sort</span>(trueSumZ), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="kw">min</span>(obsSumZ), <span class="kw">max</span>(trueSumZ)), <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Simulation&quot;</span>,</a>
 <a class="sourceLine" id="cb25-2" title="2">     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;True (red) and observed (blue) number of occupied sites&quot;</span>)</a>
 <a class="sourceLine" id="cb25-3" title="3"><span class="kw">points</span>(obsSumZ[<span class="kw">order</span>(trueSumZ)], <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
-<div class="figure">
-<img src="IntroOccuBook_files/figure-html/fun_call2-1.png" alt="fig6" width="672" />
+<div class="figure"><span id="fig:fig7"></span>
+<img src="IntroOccuBook_files/figure-html/fig7-1.png" alt="Variabilidad natural (error de muestreo) del verdadero número de sitios ocupados (ordenados por tamaño) en color rojo y el número observado de sitios ocupados (en azul). El número de sitios observados/total también se conoce como la ocupación ingenua o (naïve) de la ocurrencia de los venados en 60 sitios en la simulación. El ancho del área azul representa el error inducido por la detección imperfecta. Note la importancia de tener en cuenta este error para tener una mejor idea de la ocupación." width="672" />
 <p class="caption">
-(#fig:fun_call2)fig6
+Figure 6.1: Variabilidad natural (error de muestreo) del verdadero número de sitios ocupados (ordenados por tamaño) en color rojo y el número observado de sitios ocupados (en azul). El número de sitios observados/total también se conoce como la ocupación ingenua o (naïve) de la ocurrencia de los venados en 60 sitios en la simulación. El ancho del área azul representa el error inducido por la detección imperfecta. Note la importancia de tener en cuenta este error para tener una mejor idea de la ocupación.
 </p>
 </div>
 <p>Como ejercicio, cambie el código para generar otras vez las 10.000 simulaciones con una detección media (mean.detection =0.5), alta (mean.detection =0.8), y perfecta (mean.detection =1). Compare las gráficas resultantes.</p>
@@ -402,7 +402,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dlizcano/IntroOccuBook//edit/master/05-all-in-function.Rmd",
+"link": "https://github.com/dlizcano/IntroOccuBook/edit/master/05-all-in-function.Rmd",
 "text": "Edit"
 },
 "history": {

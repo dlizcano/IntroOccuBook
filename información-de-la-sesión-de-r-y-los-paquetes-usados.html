@@ -11,7 +11,7 @@
   <meta property="og:title" content="Capítulo 9 Información de la sesión de R y los paquetes usados | Simulación y análisis de ocupación" />
   <meta property="og:type" content="book" />
   
-  
+  <meta property="og:image" content="images/venado_large.png" />
   <meta property="og:description" content="This is an R example to get occupancy data and analize it." />
   <meta name="github-repo" content="dlizcano/IntroOccuBook" />
 
@@ -19,18 +19,18 @@
   <meta name="twitter:title" content="Capítulo 9 Información de la sesión de R y los paquetes usados | Simulación y análisis de ocupación" />
   
   <meta name="twitter:description" content="This is an R example to get occupancy data and analize it." />
-  
+  <meta name="twitter:image" content="images/venado_large.png" />
 
 <meta name="author" content="Diego J. Lizcano, Ph.D." />
 
 
-<meta name="date" content="2020-04-19" />
+<meta name="date" content="2020-04-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
-  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="prev" href="bayesian.html"/>
 <link rel="next" href="references.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -186,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="información-de-la-sesión-de-r-y-los-paquetes-usados" class="section level1">
 <h1><span class="header-section-number">Capítulo 9</span> Información de la sesión de R y los paquetes usados</h1>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 3.6.1 (2019-07-05)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
 ## Running under: Windows 10 x64 (build 14393)
@@ -194,61 +194,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Matrix products: default
 ## 
 ## locale:
-## [1] LC_COLLATE=Spanish_Colombia.1252 
-## [2] LC_CTYPE=Spanish_Colombia.1252   
-## [3] LC_MONETARY=Spanish_Colombia.1252
-## [4] LC_NUMERIC=C                     
+## [1] LC_COLLATE=Spanish_Colombia.1252  LC_CTYPE=Spanish_Colombia.1252   
+## [3] LC_MONETARY=Spanish_Colombia.1252 LC_NUMERIC=C                     
 ## [5] LC_TIME=Spanish_Colombia.1252    
 ## 
 ## attached base packages:
-## [1] parallel  stats     graphics  grDevices utils     datasets 
-## [7] methods   base     
-## 
-## other attached packages:
-##  [1] ggmcmc_1.4.1        ggplot2_3.2.1       tidyr_1.0.2        
-##  [4] dplyr_0.8.5         mcmcplots_0.4.3     coda_0.19-3        
-##  [7] jagsUI_1.5.1        spatstat_1.63-3     rpart_4.1-15       
-## [10] nlme_3.1-144        spatstat.data_1.4-3 raster_3.0-12      
-## [13] sp_1.4-0            unmarked_0.13-2     Rcpp_1.0.3         
-## [16] lattice_0.20-38     knitr_1.28          bookdown_0.18      
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] sfsmisc_1.1-5         splines_3.6.1        
-##  [3] StanHeaders_2.21.0-1  assertthat_0.2.1     
-##  [5] highr_0.8             stats4_3.6.1         
-##  [7] yaml_2.2.1            pillar_1.4.3         
-##  [9] glue_1.3.1            digest_0.6.24        
-## [11] RColorBrewer_1.1-2    polyclip_1.10-0      
-## [13] colorspace_1.4-1      htmltools_0.4.0      
-## [15] Matrix_1.2-18         plyr_1.8.5           
-## [17] pkgconfig_2.0.3       rstan_2.19.3         
-## [19] purrr_0.3.3           scales_1.1.0         
-## [21] processx_3.4.2        rjags_4-10           
-## [23] tensor_1.5            spatstat.utils_1.17-0
-## [25] tibble_2.1.3          mgcv_1.8-31          
-## [27] farver_2.0.3          ellipsis_0.3.0       
-## [29] withr_2.1.2           lazyeval_0.2.2       
-## [31] cli_2.0.1             magrittr_1.5         
-## [33] crayon_1.3.4          deldir_0.1-25        
-## [35] evaluate_0.14         ps_1.3.2             
-## [37] GGally_1.5.0          fansi_0.4.1          
-## [39] MASS_7.3-51.5         pkgbuild_1.0.6       
-## [41] tools_3.6.1           loo_2.2.0            
-## [43] prettyunits_1.1.1     lifecycle_0.1.0      
-## [45] matrixStats_0.55.0    stringr_1.4.0        
-## [47] munsell_0.5.0         callr_3.4.2          
-## [49] packrat_0.5.0         compiler_3.6.1       
-## [51] tinytex_0.19          rlang_0.4.4          
-## [53] grid_3.6.1            rstudioapi_0.11      
-## [55] goftest_1.2-2         labeling_0.3         
-## [57] rmarkdown_2.1         gtable_0.3.0         
-## [59] codetools_0.2-16      reshape_0.8.8        
-## [61] inline_0.3.15         abind_1.4-5          
-## [63] reshape2_1.4.3        R6_2.4.1             
-## [65] gridExtra_2.3         denstrip_1.5.4       
-## [67] rgdal_1.4-8           stringi_1.4.6        
-## [69] vctrs_0.2.2           png_0.1-7            
-## [71] tidyselect_1.0.0      xfun_0.12</code></pre>
+##  [1] compiler_3.6.1  magrittr_1.5    bookdown_0.18   tools_3.6.1    
+##  [5] htmltools_0.4.0 rstudioapi_0.11 yaml_2.2.1      Rcpp_1.0.3     
+##  [9] stringi_1.4.6   rmarkdown_2.1   knitr_1.28      stringr_1.4.0  
+## [13] xfun_0.12       digest_0.6.24   rlang_0.4.4     evaluate_0.14</code></pre>
 
 </div>
             </section>
@@ -288,7 +245,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dlizcano/IntroOccuBook//edit/master/08-sesion.Rmd",
+"link": "https://github.com/dlizcano/IntroOccuBook/edit/master/08-sesion.Rmd",
 "text": "Edit"
 },
 "history": {
